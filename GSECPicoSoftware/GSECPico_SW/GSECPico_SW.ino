@@ -1,11 +1,16 @@
 #include <Servo.h>
-Servo myservo; //Initialize servo object
+Servo N2OFillServo; //Initialize servo object
+
+const int MAIN_PWM_PIN = 7; //Attach servo to GPIO 7 (pin 10)
+const int MAIN_CMD_PIN = 2; //Specify the servo logic command pin as GPIO 2 (pin 4)
+const int OPEN_ANGLE = 15; //Define the angle that means "open"
+const int CLOSE_ANGLE = 165; //Define the angle that means "close"
 
 void setup() {
   Serial.begin(115200); // Initialize serial communication
   randomSeed(analogRead(0));
-  myservo.attach(6); //Attach servo to GPIO 6 (pin 9)
-  pinMode(0, INPUT); //Specify the servo logic control data pin as GPIO 0 (pin 1)
+  N2OFillServo.attach(MAIN_PWM_PIN);
+  pinMode(MAIN_CMD_PIN, INPUT);
 }
 
 void loop() {
@@ -23,11 +28,11 @@ void loop() {
   Serial.println();  //Newline to indicate end of data
 
   //Detect if the logic control data pin's state, and adjust the position of the servo accordingly
-  if (digitalRead(0) == HIGH) {
-    myservo.write(90);
+  if (digitalRead(MAIN_CMD_PIN) == HIGH) {
+    N2OFillServo.write(OPEN_ANGLE);
   }
-  if (digitalRead(0) == LOW) {
-    myservo.write(0);
+  if (digitalRead(MAIN_CMD_PIN) == LOW) {
+    N2OFillServo.write(CLOSE_ANGLE);
   }
 }
 
