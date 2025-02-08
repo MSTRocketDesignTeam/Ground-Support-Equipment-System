@@ -71,7 +71,7 @@ class Custom_Panel():
 class Custom_Toggle():
     def __init__(self, parent, label_text, handle_toggle,  **kwargs):
         frame = tk.LabelFrame(parent, relief='solid',
-                              text=label_text, bg='black', labelanchor='n', font=get_font('h14'))
+                              text=label_text, bg='black', fg='white', labelanchor='n', font=get_font('h14'))
         frame.pack()
 
         self.on = Custom_Button(

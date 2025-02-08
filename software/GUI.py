@@ -145,6 +145,7 @@ class GUI_Window():
 
         Custom_Button(mp.panel, 'Emergency Stop', self.run('estop'), 'red')
         Custom_Button(mp.panel, 'Exit Program', self.prg_exit, 'white')
+        Custom_Button(mp.panel, 'Dump Oxidizer', self.run('dump'), 'white')
 
         self.set_control_mode = None
         self.set_interlocks = None
@@ -169,7 +170,7 @@ class GUI_Window():
         mp = Custom_Panel(self.root, row_, column_, 'Manual Controls')
 
         Custom_Button(mp.panel, 'Igniter', self.run('ignite'), 'white')
-        Custom_Button(mp.panel, 'Dump Oxidizer', self.run('dump'), 'white')
+        
         Custom_Button(mp.panel, 'Open Mains', self.run('open_mains'), 'white')
 
 
