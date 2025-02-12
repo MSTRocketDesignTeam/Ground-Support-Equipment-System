@@ -13,20 +13,24 @@ servoLine.set_value(1)
 autoLaunchPin = 21
 autoLaunchLine = chip.get_line(autoLaunchPin)
 autoLaunchLine.request(consumer="LED", type=gpiod.LINE_REQ_DIR_OUT)
+autoLaunchLine.set_value(0)
 
 
 manualIgniterPin = 20
 manualIgniterLine = chip.get_line(manualIgniterPin)
 manualIgniterLine.request(consumer="LED", type=gpiod.LINE_REQ_DIR_OUT)
+manualIgniterLine.set_value(0)
 
 manualDumpPin = 16
 manualDumpLine = chip.get_line(manualDumpPin)
 manualDumpLine.request(consumer="LED", type=gpiod.LINE_REQ_DIR_OUT)
+manualDumpLine.set_value(0)
 
 
 manualOpenMainsPin = 13
 manualOpenMainsLine = chip.get_line(manualOpenMainsPin)
 manualOpenMainsLine.request(consumer="LED", type=gpiod.LINE_REQ_DIR_OUT)
+manualOpenMainsLine.set_value(0)
 
 
 
@@ -36,7 +40,7 @@ manualOpenMainsLine.request(consumer="LED", type=gpiod.LINE_REQ_DIR_OUT)
 class Controller():
     '''
     This class handles the bulk of work for the system by packaging low 
-    level micropython functions into events that can be triggered by the GUI.
+    level gpiod functions into events that can be triggered by the GUI.
     '''
 
     def __init__(self, timestamp):
@@ -90,7 +94,11 @@ class Controller():
 
         self.state['estop'] = 1
 
-        # Insert hardware function calls 
+        autoLaunchLine.set_value(0)
+        manualIgniterLine.set_value(0)
+        manualDumpLine.set_value(0)
+        manualOpenMainsLine.set_value(0)
+        
 
         message = 'E-Stop Button Pressed'
         status = 2

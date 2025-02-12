@@ -57,7 +57,7 @@ class GUI_Window():
         self.root.mainloop()
 
     def setup_modes_panel(self, row_, column_):
-        '''Sets up a pannel with buttons for toggling auto launch interlock modes.'''
+        '''Sets up a panel with buttons for toggling auto launch interlock modes.'''
 
         mp = Custom_Panel(self.root, row_, column_, 'Modes')
 
