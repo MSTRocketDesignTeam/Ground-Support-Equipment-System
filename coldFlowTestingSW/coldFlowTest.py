@@ -4,24 +4,40 @@ import tkinter as tk
 from tkinter import ttk
 from PIL import Image, ImageTk
 import sv_ttk
-
-#Initialize the servo line on GPIO 2 of the Pi. 
+ 
 chip = gpiod.Chip('gpiochip4')
-servoPin = 2
-servoLine = chip.get_line(servoPin)
-servoLine.request(consumer="LED", type=gpiod.LINE_REQ_DIR_OUT)
-servoLine.set_value(1) #"Initialize" the pin at high, to account for the fact that some raspberry pi GPIO pins (like pin 2) are set to high upon bootup by the kernel. Adjust logic accordingly, if GPIO pin selections are changed.
 
-pwd = ""
-while (pwd != "12345"):
-	pwd = input("Enter password: ")
+#servo line initialization
+fuelServoPin = 2
+fuelServoLine = chip.get_line(fuelServoPin)
+fuelServoLine.request(consumer="LED", type=gpiod.LINE_REQ_DIR_OUT)
+fuelServoLine.set_value(1) #"Initialize" the pin at high, to account for the fact that some raspberry pi GPIO pins (like pin 2) are set to high upon bootup by the kernel. Adjust logic accordingly, if GPIO pin selections are changed.
 
-def openValve():
-	servoLine.set_value(0)
+oxServoPin = 3
+oxServoLine = chip.get_line(oxServoPin)
+oxServoLine.request(consumer="LED", type=gpiod.LINE_REQ_DIR_OUT)
+oxServoLine.set_value(1)
+
+
+def runFuel():
+	openTime = int(runTime.get(1.0, "end-1c"))
+	fuelServoLine.set_value(0)
+	time.sleep(openTime)
+	fuelServoLine.set_value(1)
 	
-def closeValve():
-	servoLine.set_value(1)
+def runOx():
+	openTime = int(runTime.get(1.0, "end-1c"))
+	oxServoLine.set_value(0)
+	time.sleep(openTime)
+	oxServoLine.set_value(1)
 
+def runBoth():
+	openTime = int(runTime.get(1.0, "end-1c"))
+	fuelServoLine.set_value(0)
+	oxServoLine.set_value(0)
+	time.sleep(openTime)
+	fuelServoLine.set_value(1)
+	oxServoLine.set_value(1)
 
 
 root = tk.Tk()
@@ -35,15 +51,28 @@ resizedImage = rdtLogo.resize((500, 150))
 rdtImagePhoto = ImageTk.PhotoImage(resizedImage)
 rdtLogoLabel = ttk.Label(root, image=rdtImagePhoto)
 
-openValveButton = ttk.Button(root, text = 'Open Valve', command=lambda: openValve())
-closeValveButton = ttk.Button(root, text = 'Close Valve', command=lambda: closeValve())
+#Run Time widgets initialization
+runTimeFrame = ttk.Frame(root, borderwidth=5, relief="solid")
+runTime = tk.Text(runTimeFrame, height = 1, width = 5)
+runTimeLabel = ttk.Label(runTimeFrame, width=20, text="Test Flow Time (seconds): ")
+runTimeLabel.pack()
+runTime.pack()
 
+#Control buttons initialization
+runFuelButton = ttk.Button(root, text = "Run Fuel Line Cold Flow", command=lambda: runFuel())
+runOxButton = ttk.Button(root, text = "Run Ox Line Cold Flow", command=lambda: runOx())
+runBothLinesButton = ttk.Button(root, text = "Run Both Lines Cold Flow", command=lambda: runBoth())
 
-openValveButton.pack(ipadx=5, ipady=5, expand=True)
-closeValveButton.pack(ipadx=5, ipady=5, expand=True)
-rdtLogoLabel.pack(ipadx=5, ipady=5, expand=True)
+#Arrange all widgets in grid
+runTimeFrame.grid(row=3, column=1, padx=10, pady=10)
+runFuelButton.grid(row=0, column=0, padx=10, pady=10)
+runOxButton.grid(row=0, column=1, padx=10, pady=10)
+runBothLinesButton.grid(row=0, column=2, padx=10, pady=10)
+rdtLogoLabel.grid(row=5, column=1, padx=10, pady=10)
 
 sv_ttk.set_theme("dark")
 root.mainloop()
 
-servoLine.release() #Clean up
+#Clean up
+fuelServoLine.release()
+oxServoLine.release()
