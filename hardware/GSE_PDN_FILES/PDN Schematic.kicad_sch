@@ -5,128 +5,6 @@
 	(uuid "659706a1-35a7-4427-a143-52ebb1d5f327")
 	(paper "A4")
 	(lib_symbols
-		(symbol "Connector:Conn_01x01_Pin"
-			(pin_names
-				(offset 1.016)
-				(hide yes)
-			)
-			(exclude_from_sim no)
-			(in_bom yes)
-			(on_board yes)
-			(property "Reference" "J"
-				(at 0 2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Value" "Conn_01x01_Pin"
-				(at 0 -2.54 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "Footprint" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Datasheet" "~"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Description" "Generic connector, single row, 01x01, script generated"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_locked" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-				)
-			)
-			(property "ki_keywords" "connector"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "Connector*:*_1x??_*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "Conn_01x01_Pin_1_1"
-				(rectangle
-					(start 0.8636 0.127)
-					(end 0 -0.127)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type outline)
-					)
-				)
-				(polyline
-					(pts
-						(xy 1.27 0) (xy 0.8636 0)
-					)
-					(stroke
-						(width 0.1524)
-						(type default)
-					)
-					(fill
-						(type none)
-					)
-				)
-				(pin passive line
-					(at 5.08 0 180)
-					(length 3.81)
-					(name "Pin_1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "1"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
-			)
-			(embedded_fonts no)
-		)
 		(symbol "Connector:Conn_01x02_Pin"
 			(pin_names
 				(offset 1.016)
@@ -673,7 +551,7 @@
 			)
 			(embedded_fonts no)
 		)
-		(symbol "RocketDesignControlSys:INA238 Current Sensor"
+		(symbol "GSE_PDN_SYM_LIB:INA238 Current Sensor"
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
@@ -1162,6 +1040,131 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "power:VCC"
+			(power)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "#PWR"
+				(at 0 -3.81 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Value" "VCC"
+				(at 0 3.556 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "Power symbol creates a global label with name \"VCC\""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "VCC_0_1"
+				(polyline
+					(pts
+						(xy -0.762 1.27) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.54) (xy 0.762 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "VCC_1_1"
+				(pin power_in line
+					(at 0 0 90)
+					(length 0)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 	)
 	(text "Relay(Ignite)"
 		(exclude_from_sim no)
@@ -1246,6 +1249,12 @@
 		(uuid "29f80e54-93d5-4506-895f-6152ff19c9f6")
 	)
 	(junction
+		(at 105.41 55.88)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "5d2777e4-64a2-4b15-93de-412dac3b3365")
+	)
+	(junction
 		(at 137.16 53.34)
 		(diameter 0)
 		(color 0 0 0 0)
@@ -1268,18 +1277,6 @@
 		(diameter 0)
 		(color 0 0 0 0)
 		(uuid "b895a5f1-fbf2-4f8b-b286-abcb6be0c1be")
-	)
-	(junction
-		(at 109.22 85.09)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "d2c8c07b-56be-4e89-bd82-f8ff0dfa0a77")
-	)
-	(junction
-		(at 104.14 85.09)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "e33ea25e-64d8-4b6c-9ded-bf1f5da2234e")
 	)
 	(no_connect
 		(at 101.6 52.07)
@@ -1353,13 +1350,13 @@
 	)
 	(wire
 		(pts
-			(xy 109.22 85.09) (xy 113.03 85.09)
+			(xy 105.41 55.88) (xy 113.03 55.88)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "37e80354-6854-4dc3-8687-8d8d1d67a462")
+		(uuid "3a005d8b-3817-4f48-b753-60909853b6c8")
 	)
 	(wire
 		(pts
@@ -1373,23 +1370,13 @@
 	)
 	(wire
 		(pts
-			(xy 113.03 85.09) (xy 113.03 53.34)
+			(xy 113.03 55.88) (xy 113.03 53.34)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
 		(uuid "41369698-6f63-4a64-9827-b4ffd81913c5")
-	)
-	(wire
-		(pts
-			(xy 109.22 55.88) (xy 109.22 85.09)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4420ee68-8305-4d81-b62a-da7e1667043f")
 	)
 	(wire
 		(pts
@@ -1413,7 +1400,7 @@
 	)
 	(wire
 		(pts
-			(xy 101.6 55.88) (xy 109.22 55.88)
+			(xy 101.6 55.88) (xy 105.41 55.88)
 		)
 		(stroke
 			(width 0)
@@ -1470,16 +1457,6 @@
 			(type default)
 		)
 		(uuid "7efa133f-c9bc-4024-b2ae-e084c6475f67")
-	)
-	(wire
-		(pts
-			(xy 104.14 85.09) (xy 104.14 86.36)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "8a8424ca-11a7-4d2c-bd59-ecf48cb98128")
 	)
 	(wire
 		(pts
@@ -1593,16 +1570,6 @@
 	)
 	(wire
 		(pts
-			(xy 109.22 85.09) (xy 109.22 86.36)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "f821077a-af6e-409f-b3f5-d0deae45bbba")
-	)
-	(wire
-		(pts
 			(xy 142.24 76.2) (xy 142.24 53.34)
 		)
 		(stroke
@@ -1620,6 +1587,71 @@
 			(type default)
 		)
 		(uuid "fcd71f2b-be62-4172-a80d-fb718596e064")
+	)
+	(symbol
+		(lib_id "power:VCC")
+		(at 105.41 55.88 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "0f48366b-c8ab-48b2-a1c2-7972b19c2c10")
+		(property "Reference" "#PWR010"
+			(at 105.41 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "VOUT"
+			(at 108.204 52.832 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 105.41 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 105.41 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol creates a global label with name \"VCC\""
+			(at 105.41 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "b34fe08a-6d18-4c3a-a35f-d325b7ac9498")
+		)
+		(instances
+			(project ""
+				(path "/659706a1-35a7-4427-a143-52ebb1d5f327"
+					(reference "#PWR010")
+					(unit 1)
+				)
+			)
+		)
 	)
 	(symbol
 		(lib_id "power:GND")
@@ -1715,7 +1747,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
+		(property "Footprint" "Connector_AMASS:AMASS_XT30U-M_1x02_P5.0mm_Vertical"
 			(at 165.1 85.09 0)
 			(effects
 				(font
@@ -1786,7 +1818,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
+		(property "Footprint" "Connector_AMASS:AMASS_XT30U-M_1x02_P5.0mm_Vertical"
 			(at 165.1 97.79 0)
 			(effects
 				(font
@@ -1854,7 +1886,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
+		(property "Footprint" "Connector_AMASS:AMASS_XT30U-M_1x02_P5.0mm_Vertical"
 			(at 78.74 68.58 0)
 			(effects
 				(font
@@ -1925,7 +1957,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
+		(property "Footprint" "Connector_AMASS:AMASS_XT30U-M_1x02_P5.0mm_Vertical"
 			(at 165.1 104.14 0)
 			(effects
 				(font
@@ -1968,73 +2000,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Connector:Conn_01x01_Pin")
-		(at 109.22 91.44 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "5aa0f1f3-230e-46df-9677-031a7be6bc7b")
-		(property "Reference" "J5"
-			(at 107.95 90.8051 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "Conn_01x01_Pin"
-			(at 106.68 90.805 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical"
-			(at 109.22 91.44 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 109.22 91.44 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generic connector, single row, 01x01, script generated"
-			(at 109.22 91.44 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "c30e1684-02ac-49a3-9f85-e6a8b7270c4b")
-		)
-		(instances
-			(project "PDN Schematic"
-				(path "/659706a1-35a7-4427-a143-52ebb1d5f327"
-					(reference "J5")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "Connector:Conn_01x02_Pin")
 		(at 165.1 72.39 180)
 		(unit 1)
@@ -2063,7 +2028,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
+		(property "Footprint" "Connector_AMASS:AMASS_XT30U-M_1x02_P5.0mm_Vertical"
 			(at 165.1 72.39 0)
 			(effects
 				(font
@@ -2133,7 +2098,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
+		(property "Footprint" "Connector_AMASS:AMASS_XT60-M_1x02_P7.20mm_Vertical"
 			(at 81.28 85.09 0)
 			(effects
 				(font
@@ -2334,7 +2299,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
+		(property "Footprint" "Connector_AMASS:AMASS_XT30U-M_1x02_P5.0mm_Vertical"
 			(at 165.1 91.44 0)
 			(effects
 				(font
@@ -2442,7 +2407,7 @@
 		)
 	)
 	(symbol
-		(lib_id "RocketDesignControlSys:INA238 Current Sensor")
+		(lib_id "GSE_PDN_SYM_LIB:INA238 Current Sensor")
 		(at 91.44 52.07 270)
 		(unit 1)
 		(exclude_from_sim no)
@@ -2467,7 +2432,7 @@
 				)
 			)
 		)
-		(property "Footprint" "RocketDesignCustomFootprints:INA238_MODULE"
+		(property "Footprint" "GSE_PDN_LIB:INA238_MODULE"
 			(at 91.44 52.07 0)
 			(effects
 				(font
@@ -2565,7 +2530,7 @@
 				(hide yes)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x02_P2.54mm_Vertical"
+		(property "Footprint" "Connector_AMASS:AMASS_XT30U-M_1x02_P5.0mm_Vertical"
 			(at 165.1 78.74 0)
 			(effects
 				(font
@@ -3075,73 +3040,6 @@
 			(project "PDN Schematic"
 				(path "/659706a1-35a7-4427-a143-52ebb1d5f327"
 					(reference "#PWR09")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "Connector:Conn_01x01_Pin")
-		(at 104.14 91.44 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(fields_autoplaced yes)
-		(uuid "f6a90296-be92-4544-a357-46820829a75a")
-		(property "Reference" "J6"
-			(at 102.87 90.8051 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "Conn_01x01_Pin"
-			(at 101.6 90.805 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Footprint" "Connector_PinHeader_2.54mm:PinHeader_1x01_P2.54mm_Vertical"
-			(at 104.14 91.44 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 104.14 91.44 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Generic connector, single row, 01x01, script generated"
-			(at 104.14 91.44 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "d66119b0-a910-4c1e-8429-b62361e35a7f")
-		)
-		(instances
-			(project "PDN Schematic"
-				(path "/659706a1-35a7-4427-a143-52ebb1d5f327"
-					(reference "J6")
 					(unit 1)
 				)
 			)
