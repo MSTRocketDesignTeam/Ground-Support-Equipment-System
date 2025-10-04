@@ -1,0 +1,5 @@
+(sym_lib_table
+  (version 7)
+  (lib (name "BA90BC0FP-E2")(type "KiCad")(uri "C:/Users/amrxn/OneDrive/Desktop/Rocket Design Team/Schematic Imports/BA90BC0FP_E2/KiCADv6/2025-10-03_22-13-31.kicad_sym")(options "")(descr "LDO"))
+  (lib (name "LMR33640ADDAR")(type "KiCad")(uri "C:/Users/amrxn/OneDrive/Desktop/Rocket Design Team/Schematic Imports/LMR33640ADDAR/LMR33640ADDAR.kicad_sym")(options "")(descr ""))
+)
