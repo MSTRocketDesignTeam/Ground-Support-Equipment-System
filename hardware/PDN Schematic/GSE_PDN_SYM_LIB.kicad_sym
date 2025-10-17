@@ -64,10 +64,10 @@
 			)
 		)
 		(symbol "INA238 Current Sensor_1_1"
-			(pin input line
+			(pin power_in line
 				(at -8.89 -7.62 90)
 				(length 2.54)
-				(name "ALRT"
+				(name "Vin"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -82,10 +82,10 @@
 					)
 				)
 			)
-			(pin power_in line
+			(pin power_out line
 				(at -6.35 -7.62 90)
 				(length 2.54)
-				(name "Vin+"
+				(name "GND"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -100,28 +100,10 @@
 					)
 				)
 			)
-			(pin power_in line
-				(at -3.81 10.16 270)
-				(length 2.54)
-				(name "Vin+"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "1"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin power_in line
+			(pin bidirectional line
 				(at -3.81 -7.62 90)
 				(length 2.54)
-				(name "Vin-"
+				(name "SCL"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -136,10 +118,28 @@
 					)
 				)
 			)
-			(pin input line
+			(pin power_in line
+				(at -2.54 10.16 270)
+				(length 2.54)
+				(name "Vin-"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "3"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin bidirectional line
 				(at -1.27 -7.62 90)
 				(length 2.54)
-				(name "VBUS"
+				(name "SDA"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -172,10 +172,10 @@
 					)
 				)
 			)
-			(pin bidirectional line
+			(pin input line
 				(at 1.27 -7.62 90)
 				(length 2.54)
-				(name "SDA"
+				(name "VBUS"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -191,16 +191,16 @@
 				)
 			)
 			(pin power_in line
-				(at 3.81 10.16 270)
+				(at 2.54 10.16 270)
 				(length 2.54)
-				(name "Vin-"
+				(name "Vin+"
 					(effects
 						(font
 							(size 1.27 1.27)
 						)
 					)
 				)
-				(number "3"
+				(number "1"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -208,10 +208,10 @@
 					)
 				)
 			)
-			(pin bidirectional line
+			(pin power_in line
 				(at 3.81 -7.62 90)
 				(length 2.54)
-				(name "SCL"
+				(name "Vin-"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -226,10 +226,10 @@
 					)
 				)
 			)
-			(pin power_out line
+			(pin power_in line
 				(at 6.35 -7.62 90)
 				(length 2.54)
-				(name "GND"
+				(name "Vin+"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -244,10 +244,10 @@
 					)
 				)
 			)
-			(pin power_in line
+			(pin input line
 				(at 8.89 -7.62 90)
 				(length 2.54)
-				(name "Vin"
+				(name "ALRT"
 					(effects
 						(font
 							(size 1.27 1.27)
