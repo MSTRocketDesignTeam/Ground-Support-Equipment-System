@@ -3000,7 +3000,7 @@
 				)
 			)
 		)
-		(property "Footprint" "RocketDesignCustomFootprints:INA238_MODULE"
+		(property "Footprint" "GSE_PDN_LIB:INA238_MODULE"
 			(at 91.44 52.07 0)
 			(effects
 				(font

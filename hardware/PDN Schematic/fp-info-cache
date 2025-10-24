@@ -1,4 +1,4 @@
-26641648252556170
+26643409152563805
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -93498,6 +93498,13 @@ Potentiometer vertical vishay
 0
 3
 3
+RDT_Logo
+RDT_Logo
+
+
+0
+0
+0
 RF
 Skyworks_SKY13575_639LF
 http://www.skyworksinc.com/uploads/documents/SKY13575_639LF_203270D.pdf
@@ -96961,8 +96968,8 @@ INA238_MODULE
 Through hole straight pin header, 1x08, 2.54mm pitch, single row
 Through hole pin header THT 1x08 2.54mm single row
 0
-73
-17
+13
+12
 RocketDesignCustomFootprints
 Untitled
 

@@ -475,7 +475,8 @@
   },
   "libraries": {
     "pinned_footprint_libs": [
-      "RocketDesignCustomFootprints"
+      "RocketDesignCustomFootprints",
+      "GSE_PDN_LIB"
     ],
     "pinned_symbol_libs": []
   },
