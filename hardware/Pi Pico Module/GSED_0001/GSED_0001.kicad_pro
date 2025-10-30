@@ -37,9 +37,9 @@
         "other_text_thickness": 0.15,
         "other_text_upright": false,
         "pads": {
-          "drill": 0.8,
-          "height": 1.27,
-          "width": 2.54
+          "drill": 0.85,
+          "height": 1.2,
+          "width": 1.2
         },
         "silk_line_width": 0.1,
         "silk_text_italic": false,
@@ -625,18 +625,6 @@
     [
       "264b8d8f-c165-4609-b867-e24f99960723",
       "Root"
-    ],
-    [
-      "5c0efaca-d3e8-47ec-a1a7-ffd4aef372a7",
-      "Divider+LowPass1"
-    ],
-    [
-      "5f558593-5fe5-4cff-914e-e924f20c02d4",
-      "Divider+LowPass2"
-    ],
-    [
-      "128b5e89-f998-4c27-9f65-a16663b6be60",
-      "Divider+LowPass3"
     ],
     [
       "221c21bc-c9d9-4ebe-8506-48c1d255907f",
