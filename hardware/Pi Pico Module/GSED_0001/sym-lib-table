@@ -9,4 +9,5 @@
   (lib (name "CSBX0650-6R8M")(type "KiCad")(uri "${KIPRJMOD}/libraries/CSBX0650_6R8M.kicad_sym")(options "")(descr "6.8uH IND"))
   (lib (name "TAJA334K050RNJ")(type "KiCad")(uri "${KIPRJMOD}/libraries/TAJA334K050RNJ.kicad_sym")(options "")(descr "0.33uF CAP"))
   (lib (name "595D226X0050R2T")(type "KiCad")(uri "${KIPRJMOD}/libraries/595D226X0050R2T.kicad_sym")(options "")(descr "22uF CAP"))
+  (lib (name "DAQ_Module")(type "KiCad")(uri "${KIPRJMOD}/libraries/DAQ_module.kicad_sym")(options "")(descr "DAQ Connector"))
 )

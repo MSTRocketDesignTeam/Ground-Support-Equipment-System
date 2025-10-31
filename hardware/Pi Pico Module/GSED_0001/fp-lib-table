@@ -11,4 +11,5 @@
   (lib (name "TNPW0603100RBEEA")(type "KiCad")(uri "${KIPRJMOD}/footprints/TNPW0603100RBEEA.pretty")(options "")(descr ""))
   (lib (name "AM-K-PCB")(type "KiCad")(uri "${KIPRJMOD}/footprints/AM-K-PCB.pretty")(options "")(descr ""))
   (lib (name "EEUFC1H151B")(type "KiCad")(uri "${KIPRJMOD}/footprints/EEUFC1H151B.pretty")(options "")(descr "150uF Polarized CAP"))
+  (lib (name "DAQ_Module")(type "KiCad")(uri "${KIPRJMOD}/footprints/DAQ_module.pretty")(options "")(descr "DAQ Connector"))
 )

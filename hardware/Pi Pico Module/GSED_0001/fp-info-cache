@@ -1,4 +1,4 @@
-26657494414083643
+26659256281210647
 595D226X0050R2T
 595D226X0050R2T
 
@@ -59380,6 +59380,13 @@ ceramic
 0
 3
 3
+DAQ_Module
+DAQ_Module
+
+
+0
+30
+30
 Diode_SMD
 D_0201_0603Metric
 Diode SMD 0201 (0603 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: https://www.vishay.com/docs/20052/crcw0201e3.pdf), generated with kicad-footprint-generator
