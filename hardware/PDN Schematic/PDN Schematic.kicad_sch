@@ -3384,7 +3384,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.vishay.com/docs/20065/rcse3.pdf"
 			(at 96.52 80.01 0)
 			(effects
 				(font
@@ -3394,6 +3394,15 @@
 			)
 		)
 		(property "Description" "Resistor, small US symbol"
+			(at 96.52 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/vishay-dale/RCS12061K00FKEA/10059648"
 			(at 96.52 80.01 0)
 			(effects
 				(font
