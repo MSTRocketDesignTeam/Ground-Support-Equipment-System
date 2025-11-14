@@ -12,4 +12,8 @@
   (lib (name "AM-K-PCB")(type "KiCad")(uri "${KIPRJMOD}/footprints/AM-K-PCB.pretty")(options "")(descr ""))
   (lib (name "EEUFC1H151B")(type "KiCad")(uri "${KIPRJMOD}/footprints/EEUFC1H151B.pretty")(options "")(descr "150uF Polarized CAP"))
   (lib (name "DAQ_Module")(type "KiCad")(uri "${KIPRJMOD}/footprints/DAQ_module.pretty")(options "")(descr "DAQ Connector"))
+  (lib (name "BAV199_215")(type "KiCad")(uri "${KIPRJMOD}/footprints/BAV199_215.pretty")(options "")(descr ""))
+  (lib (name "Relay_Module")(type "KiCad")(uri "${KIPRJMOD}/footprints/Relay_Module.pretty")(options "")(descr ""))
+  (lib (name "BUK6Y33-60PX")(type "KiCad")(uri "${KIPRJMOD}/footprints/BUK6Y33-60PX.pretty")(options "")(descr ""))
+  (lib (name "RDT_Logo")(type "KiCad")(uri "${KIPRJMOD}/footprints/RDT_Logo.pretty")(options "")(descr ""))
 )

@@ -57,8 +57,8 @@
 		)
 		(symbol "LMR33640ADDAR_0_0"
 			(rectangle
-				(start -12.7 22.86)
-				(end 12.7 -22.86)
+				(start -12.7 -22.86)
+				(end 12.7 22.86)
 				(stroke
 					(width 0.41)
 					(type default)
@@ -167,7 +167,7 @@
 						)
 					)
 				)
-				(number "9"
+				(number "1"
 					(effects
 						(font
 							(size 1.016 1.016)

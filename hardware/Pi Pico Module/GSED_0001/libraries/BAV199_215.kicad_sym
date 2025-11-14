@@ -1,0 +1,152 @@
+(kicad_symbol_lib (version 20211014) (generator kicad_symbol_editor)
+  (symbol "BAV199_215" (pin_names (offset 0.254)) (in_bom yes) (on_board yes)
+    (property "Reference" "U" (id 0) (at 7.62 5.08 0)
+      (effects (font (size 1.524 1.524)))
+    )
+    (property "Value" "BAV199_215" (id 1) (at 7.62 -7.62 0)
+      (effects (font (size 1.524 1.524)))
+    )
+    (property "Footprint" "TO-236AB_NEX" (id 2) (at 0 0 0)
+      (effects (font (size 1.27 1.27) italic) hide)
+    )
+    (property "Datasheet" "BAV199_215" (id 3) (at 0 0 0)
+      (effects (font (size 1.27 1.27) italic) hide)
+    )
+    (property "ki_keywords" "BAV199,215" (id 4) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "ki_locked" "" (id 5) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (property "ki_fp_filters" "TO-236AB_NEX TO-236AB_NEX-M TO-236AB_NEX-L" (id 6) (at 0 0 0)
+      (effects (font (size 1.27 1.27)) hide)
+    )
+    (symbol "BAV199_215_0_1"
+      (polyline
+        (pts
+          (xy 2.54 0)
+          (xy 3.4798 0)
+        )
+        (stroke (width 0.2032) (type default) (color 0 0 0 0))
+        (fill (type none))
+      )
+      (polyline
+        (pts
+          (xy 11.43 1.905)
+          (xy 11.43 -1.905)
+        )
+        (stroke (width 0.2032) (type default) (color 0 0 0 0))
+        (fill (type none))
+      )
+      (polyline
+        (pts
+          (xy 3.175 0)
+          (xy 3.81 0)
+        )
+        (stroke (width 0.2032) (type default) (color 0 0 0 0))
+        (fill (type none))
+      )
+      (polyline
+        (pts
+          (xy 8.89 -1.905)
+          (xy 8.89 1.905)
+        )
+        (stroke (width 0.2032) (type default) (color 0 0 0 0))
+        (fill (type none))
+      )
+      (polyline
+        (pts
+          (xy 8.89 0)
+          (xy 6.35616 -0.006197)
+        )
+        (stroke (width 0.2032) (type default) (color 0 0 0 0))
+        (fill (type none))
+      )
+      (polyline
+        (pts
+          (xy 8.89 0)
+          (xy 11.43 1.905)
+        )
+        (stroke (width 0.2032) (type default) (color 0 0 0 0))
+        (fill (type none))
+      )
+      (polyline
+        (pts
+          (xy 11.43 -1.905)
+          (xy 8.89 0)
+        )
+        (stroke (width 0.2032) (type default) (color 0 0 0 0))
+        (fill (type none))
+      )
+      (polyline
+        (pts
+          (xy 6.35 1.905)
+          (xy 6.35 -1.905)
+        )
+        (stroke (width 0.2032) (type default) (color 0 0 0 0))
+        (fill (type none))
+      )
+      (polyline
+        (pts
+          (xy 3.81 -1.905)
+          (xy 3.81 1.905)
+        )
+        (stroke (width 0.2032) (type default) (color 0 0 0 0))
+        (fill (type none))
+      )
+      (polyline
+        (pts
+          (xy 3.81 0)
+          (xy 6.35 1.905)
+        )
+        (stroke (width 0.2032) (type default) (color 0 0 0 0))
+        (fill (type none))
+      )
+      (polyline
+        (pts
+          (xy 6.35 -1.905)
+          (xy 3.81 0)
+        )
+        (stroke (width 0.2032) (type default) (color 0 0 0 0))
+        (fill (type none))
+      )
+      (polyline
+        (pts
+          (xy 12.7 0)
+          (xy 11.467306 -0.006197)
+        )
+        (stroke (width 0.2032) (type default) (color 0 0 0 0))
+        (fill (type none))
+      )
+      (polyline
+        (pts
+          (xy 7.62 -5.08)
+          (xy 7.62 0)
+        )
+        (stroke (width 0.2032) (type default) (color 0 0 0 0))
+        (fill (type none))
+      )
+      (polyline
+        (pts
+          (xy 7.62 -5.08)
+          (xy 2.54 -5.08)
+        )
+        (stroke (width 0.2032) (type default) (color 0 0 0 0))
+        (fill (type none))
+      )
+      (pin unspecified line (at 15.24 0 180) (length 2.54)
+        (name "1" (effects (font (size 1.27 1.27))))
+        (number "1" (effects (font (size 1.27 1.27))))
+      )
+      (pin unspecified line (at 0 0 0) (length 2.54)
+        (name "2" (effects (font (size 1.27 1.27))))
+        (number "2" (effects (font (size 1.27 1.27))))
+      )
+      (pin unspecified line (at 0 -5.08 0) (length 2.54)
+        (name "3" (effects (font (size 1.27 1.27))))
+        (number "3" (effects (font (size 1.27 1.27))))
+      )
+    )
+  )
+)
+
