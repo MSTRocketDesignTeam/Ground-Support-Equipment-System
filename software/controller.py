@@ -5,32 +5,37 @@ import struct
 #Initializing servo line. Connect GPIO 2 on the Pi to GPIO 0 on the Pico, with a pulldown resistor on GPIO 0 of the Pico
 chip = gpiod.Chip('gpiochip4')
 
-servoPin = 2
+servoPin = 17
 servoLine = chip.get_line(servoPin)
 servoLine.request(consumer="LED", type=gpiod.LINE_REQ_DIR_OUT)
-servoLine.set_value(1)
+servoLine.set_value(0)
 
-autoLaunchPin = 21
+autoLaunchPin = 27
 autoLaunchLine = chip.get_line(autoLaunchPin)
 autoLaunchLine.request(consumer="LED", type=gpiod.LINE_REQ_DIR_OUT)
 autoLaunchLine.set_value(0)
 
-
-manualIgniterPin = 20
+manualIgniterPin = 22
 manualIgniterLine = chip.get_line(manualIgniterPin)
 manualIgniterLine.request(consumer="LED", type=gpiod.LINE_REQ_DIR_OUT)
 manualIgniterLine.set_value(0)
 
-manualDumpPin = 16
+controlModePin = 13
+controlModeLine = chip.get_line(controlModePin)
+controlModeLine.request(consumer="LED", type=gpiod.LINE_REQ_DIR_OUT)
+controlModeLine.set_value(0)
+
+manualDumpPin = 19
 manualDumpLine = chip.get_line(manualDumpPin)
 manualDumpLine.request(consumer="LED", type=gpiod.LINE_REQ_DIR_OUT)
 manualDumpLine.set_value(0)
 
-
-manualOpenMainsPin = 13
+manualOpenMainsPin = 26
 manualOpenMainsLine = chip.get_line(manualOpenMainsPin)
 manualOpenMainsLine.request(consumer="LED", type=gpiod.LINE_REQ_DIR_OUT)
 manualOpenMainsLine.set_value(0)
+
+
 
 
 
@@ -98,6 +103,8 @@ class Controller():
         manualIgniterLine.set_value(0)
         manualDumpLine.set_value(0)
         manualOpenMainsLine.set_value(0)
+        servoLine.set_value(0)
+        controlModeLine.set_value(0)
         
 
         message = 'E-Stop Button Pressed'
@@ -109,7 +116,7 @@ class Controller():
         Attempts to open the fill valve and handles
         the corresponding error code from micropython.
         '''
-        servoLine.set_value(0) #Adjust accordingly, if GPIO logic is changed
+        servoLine.set_value(1) #Adjust accordingly, if GPIO logic is changed
         message = 'Fill valve opened'
         status = 2
 
@@ -120,7 +127,7 @@ class Controller():
         Attempts to close the oxidizer valves and handles the
         corresponding error code from micropython.
         '''
-        servoLine.set_value(1) #Adjust accordingly, if GPIO logic is changed
+        servoLine.set_value(0) #Adjust accordingly, if GPIO logic is changed
         message = 'Fill valve closed'
         status = 2
         return (message, status)
@@ -172,6 +179,10 @@ class Controller():
         self.state['auto_mode'] = state
 
         message = 'Auto mode set to ' + ('off', 'on')[state]
+        if (message == 'Auto mode set to on'):
+            controlModeLine.set_value(0)
+        elif (message == 'Auto mode set to off'):
+            controlModeLine.set_value(1)
         status = 2
 
         return (message, status)
