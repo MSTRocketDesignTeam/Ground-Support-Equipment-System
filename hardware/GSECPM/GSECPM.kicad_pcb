@@ -3242,7 +3242,7 @@
 			(net 44 "/GPIO0 (Radio_UART_TX)")
 			(pinfunction "GPIO0")
 			(pintype "bidirectional")
-			(uuid "94165a31-c702-45c2-a448-2763e2704280")
+			(uuid "84f728e5-dad6-4e8c-a47e-badd5ebbe217")
 		)
 		(pad "2" smd roundrect
 			(at -9.69 -21.59)
@@ -3263,7 +3263,7 @@
 			(net 46 "/GPIO1 (Radio_UART_RX)")
 			(pinfunction "GPIO1")
 			(pintype "bidirectional")
-			(uuid "4625a788-5574-4ff0-bc2c-9fb6e003c05b")
+			(uuid "1b19c9c4-c526-4d6f-a68d-0686f778a621")
 		)
 		(pad "3" smd custom
 			(at -9.69 -19.05)
@@ -3339,7 +3339,7 @@
 					(fill yes)
 				)
 			)
-			(uuid "fa2e513b-41e2-405d-b3d2-e4904873b43b")
+			(uuid "f89416bb-feea-4932-991c-7a64b1cf2e21")
 		)
 		(pad "4" smd roundrect
 			(at -9.69 -16.51)
@@ -3360,7 +3360,7 @@
 			(net 48 "/GPIO2_INA237 SDA")
 			(pinfunction "GPIO2")
 			(pintype "bidirectional")
-			(uuid "685049c8-a8ce-4846-9ba3-3dbfda555f10")
+			(uuid "11f637e8-4617-4b6b-b50a-6133db5207a8")
 		)
 		(pad "5" smd roundrect
 			(at -9.69 -13.97)
@@ -3381,7 +3381,7 @@
 			(net 50 "/GPIO3_INA237 SCL")
 			(pinfunction "GPIO3")
 			(pintype "bidirectional")
-			(uuid "a1cb797d-66a6-41c2-828a-f2ccdcbcf847")
+			(uuid "2f6d3e62-e4cd-42d1-95d6-e46d62a5bcbf")
 		)
 		(pad "6" smd roundrect
 			(at -9.69 -11.43)
@@ -3402,7 +3402,7 @@
 			(net 17 "/GPIO4 (MISO_ADC)")
 			(pinfunction "GPIO4")
 			(pintype "bidirectional")
-			(uuid "2b812009-38aa-4d83-b987-2489ae836157")
+			(uuid "452f02b8-37a0-4132-b7c2-f30b2154acc0")
 		)
 		(pad "7" smd roundrect
 			(at -9.69 -8.89)
@@ -3423,7 +3423,7 @@
 			(net 4 "/GPIO5 (CS_ADC)")
 			(pinfunction "GPIO5")
 			(pintype "bidirectional")
-			(uuid "ddf80086-8456-4fa5-b2e2-1732ec3ba29a")
+			(uuid "7fba4a16-7b05-46f6-a2bf-188c5b10a9dd")
 		)
 		(pad "8" smd custom
 			(at -9.69 -6.35)
@@ -3499,7 +3499,7 @@
 					(fill yes)
 				)
 			)
-			(uuid "681175bb-9777-4daf-b7e0-5efc785e88ae")
+			(uuid "4460890f-a593-4aaf-96b9-535a488399bb")
 		)
 		(pad "9" smd roundrect
 			(at -9.69 -3.81)
@@ -3520,7 +3520,7 @@
 			(net 7 "/GPIO6 (SCK_ADC)")
 			(pinfunction "GPIO6")
 			(pintype "bidirectional")
-			(uuid "0739dcb3-f045-4821-adda-c70f7b9ceb7d")
+			(uuid "87c0f83f-0781-4baa-be00-da8cc23efa26")
 		)
 		(pad "10" smd roundrect
 			(at -9.69 -1.27)
@@ -3541,7 +3541,7 @@
 			(net 5 "/GPIO7 (MOSI_ADC)")
 			(pinfunction "GPIO7")
 			(pintype "bidirectional")
-			(uuid "2cbf0227-8b10-4c1f-b502-d8274cf876a5")
+			(uuid "49b33826-a1aa-417d-8a94-62bd19e21224")
 		)
 		(pad "11" smd roundrect
 			(at -9.69 1.27)
@@ -3562,7 +3562,7 @@
 			(net 10 "/GPIO8 (MISO_TCIC)")
 			(pinfunction "GPIO8")
 			(pintype "bidirectional")
-			(uuid "81e3ea29-9871-4b61-97fa-6730c778607f")
+			(uuid "fdfbfab0-1def-4ccb-ac5e-4025373ea5b0")
 		)
 		(pad "12" smd roundrect
 			(at -9.69 3.81)
@@ -3583,7 +3583,7 @@
 			(net 22 "/GPIO9 (CS_N2)")
 			(pinfunction "GPIO9")
 			(pintype "bidirectional")
-			(uuid "38abf4fb-c07a-4278-88b1-ca496282b093")
+			(uuid "31ee967b-60ad-4c7c-9d13-b68e3580234a")
 		)
 		(pad "13" smd custom
 			(at -9.69 6.35)
@@ -3659,7 +3659,7 @@
 					(fill yes)
 				)
 			)
-			(uuid "dcd6b04b-ad06-4307-a655-d39825ca40a8")
+			(uuid "3a19626e-1d1a-44a9-8b17-3181091277e5")
 		)
 		(pad "14" smd roundrect
 			(at -9.69 8.89)
@@ -3680,7 +3680,7 @@
 			(net 14 "/GPIO10 (SCK_TCIC)")
 			(pinfunction "GPIO10")
 			(pintype "bidirectional")
-			(uuid "ccddf874-7cab-4d9a-8cdf-ae932613c83b")
+			(uuid "3dcf2015-19ff-49d5-908d-6a224fd7ae2a")
 		)
 		(pad "15" smd roundrect
 			(at -9.69 11.43)
@@ -3701,7 +3701,7 @@
 			(net 16 "unconnected-(A1-GPIO11-Pad15)_1")
 			(pinfunction "GPIO11")
 			(pintype "bidirectional+no_connect")
-			(uuid "d56ae7ea-a6cf-4a7e-ae27-9dae3cb7f17b")
+			(uuid "b2fd6cae-fe71-4405-a552-d6eb335d4a0f")
 		)
 		(pad "16" smd roundrect
 			(at -9.69 13.97)
@@ -3722,7 +3722,7 @@
 			(net 18 "/GPIO12 (CS_N2O)")
 			(pinfunction "GPIO12")
 			(pintype "bidirectional")
-			(uuid "68d29dba-7470-47a9-bf50-c3478e5abe96")
+			(uuid "2a07d9cd-507a-4b12-85c1-eced3d040f86")
 		)
 		(pad "17" smd roundrect
 			(at -9.69 16.51)
@@ -3743,7 +3743,7 @@
 			(net 6 "/GPIO13 (CS_Internal)")
 			(pinfunction "GPIO13")
 			(pintype "bidirectional")
-			(uuid "14e65a77-d634-40b4-b674-31773f129970")
+			(uuid "b1704c87-f9fa-4fad-87ee-fc15baea992c")
 		)
 		(pad "18" smd custom
 			(at -9.69 19.05)
@@ -3819,7 +3819,7 @@
 					(fill yes)
 				)
 			)
-			(uuid "be84d7aa-7b08-4845-afe2-d1a37fd79451")
+			(uuid "084887d1-b40b-435f-a31e-92b0717d22fc")
 		)
 		(pad "19" smd roundrect
 			(at -9.69 21.59)
@@ -3840,7 +3840,7 @@
 			(net 49 "unconnected-(A1-GPIO14-Pad19)_1")
 			(pinfunction "GPIO14")
 			(pintype "bidirectional+no_connect")
-			(uuid "3b6a9a62-145e-4a43-b047-864ee5237857")
+			(uuid "3e3f6f08-afd4-4e04-b688-e5632d14956f")
 		)
 		(pad "20" smd roundrect
 			(at -9.69 24.13)
@@ -3861,7 +3861,7 @@
 			(net 52 "unconnected-(A1-GPIO15-Pad20)_1")
 			(pinfunction "GPIO15")
 			(pintype "bidirectional+no_connect")
-			(uuid "efcf2fdd-bd16-4df7-b98d-3ca0a00d52cc")
+			(uuid "f8ea62fd-d940-4903-9e22-228f3386c13c")
 		)
 		(pad "21" thru_hole circle
 			(at 8.89 24.13)
@@ -3882,7 +3882,7 @@
 			(net 9 "/GPIO16 (Nitrous_Cooling)")
 			(pinfunction "GPIO16")
 			(pintype "bidirectional")
-			(uuid "96031496-fe77-49a3-886f-0fae1098e405")
+			(uuid "170e8107-d4ce-4445-addc-ccd9f308c76d")
 		)
 		(pad "22" thru_hole circle
 			(at 8.89 21.59)
@@ -3903,7 +3903,7 @@
 			(net 67 "unconnected-(A1-GPIO17-Pad22)_1")
 			(pinfunction "GPIO17")
 			(pintype "bidirectional+no_connect")
-			(uuid "8f7b65cc-7f24-4dcf-9c45-1654cf2e7b16")
+			(uuid "8a49b732-ce2d-42c8-a383-c89e60129f73")
 		)
 		(pad "23" thru_hole custom
 			(at 8.89 19.05)
@@ -3979,7 +3979,7 @@
 					(fill yes)
 				)
 			)
-			(uuid "c0f0baff-173a-4f9c-a7fa-b294e628f0db")
+			(uuid "c471f9d9-d9fc-49bb-b012-001234c7f613")
 		)
 		(pad "24" thru_hole circle
 			(at 8.89 16.51)
@@ -4000,7 +4000,7 @@
 			(net 68 "/GPIO18 (Internal_Cooling)")
 			(pinfunction "GPIO18")
 			(pintype "bidirectional")
-			(uuid "b8d2ad60-62be-4a1f-b0c9-6fcfc856d2f4")
+			(uuid "9b577ae9-9e60-41ff-804a-978ab0428a66")
 		)
 		(pad "25" thru_hole circle
 			(at 8.89 13.97)
@@ -4021,7 +4021,7 @@
 			(net 57 "unconnected-(A1-GPIO19-Pad25)_1")
 			(pinfunction "GPIO19")
 			(pintype "bidirectional+no_connect")
-			(uuid "646aedee-a538-4a26-b900-6012cf3ece6f")
+			(uuid "972a82b9-4874-46e9-825d-d0bb99955b74")
 		)
 		(pad "26" thru_hole circle
 			(at 8.89 11.43)
@@ -4042,7 +4042,7 @@
 			(net 64 "/GPIO20 (QD_E-Match)")
 			(pinfunction "GPIO20")
 			(pintype "bidirectional")
-			(uuid "7317d1ef-4472-4cb4-a71b-6724f9c51e5b")
+			(uuid "1632a254-7425-4839-8e07-631b7a13c7b9")
 		)
 		(pad "27" thru_hole circle
 			(at 8.89 8.89)
@@ -4063,7 +4063,7 @@
 			(net 65 "unconnected-(A1-GPIO21-Pad27)")
 			(pinfunction "GPIO21")
 			(pintype "bidirectional+no_connect")
-			(uuid "7a0aed62-54de-4328-8dc8-d98c300e2fea")
+			(uuid "d345af99-4572-42b9-8b28-70e59afc79c9")
 		)
 		(pad "28" thru_hole custom
 			(at 8.89 6.35)
@@ -4139,7 +4139,7 @@
 					(fill yes)
 				)
 			)
-			(uuid "768a9658-bd6b-4a45-bf01-d4dccad29690")
+			(uuid "a90586f9-0a5a-49bc-ac99-496d9ceca412")
 		)
 		(pad "29" thru_hole circle
 			(at 8.89 3.81)
@@ -4160,7 +4160,7 @@
 			(net 33 "/GPIO22 (Ignition_E-Match)")
 			(pinfunction "GPIO22")
 			(pintype "bidirectional")
-			(uuid "1cd7cc96-4b6e-40ce-b4bc-6913ab6ffbad")
+			(uuid "04471ab6-b945-4338-82cc-edae64b9814a")
 		)
 		(pad "30" thru_hole circle
 			(at 8.89 1.27)
@@ -4181,7 +4181,7 @@
 			(net 3 "unconnected-(A1-RUN-Pad30)")
 			(pinfunction "RUN")
 			(pintype "passive")
-			(uuid "887abee5-7644-45b7-b32a-fa1ec5e08f7d")
+			(uuid "6b3d862f-a9bb-4e45-99cf-b6692ecbf909")
 		)
 		(pad "31" thru_hole circle
 			(at 8.89 -1.27)
@@ -4202,7 +4202,7 @@
 			(net 71 "Net-(A1-GPIO26_ADC0)")
 			(pinfunction "GPIO26_ADC0")
 			(pintype "bidirectional")
-			(uuid "a488c306-b56d-451c-be34-f60dcacb18e3")
+			(uuid "bad3c57f-83a1-4deb-8f3e-4d26b2c96d71")
 		)
 		(pad "32" thru_hole circle
 			(at 8.89 -3.81)
@@ -4223,7 +4223,7 @@
 			(net 58 "Net-(A1-GPIO27_ADC1)")
 			(pinfunction "GPIO27_ADC1")
 			(pintype "bidirectional")
-			(uuid "dcfd7c2c-eba3-4622-8ba3-73c781cb41f3")
+			(uuid "221a1aaa-8a91-40c7-a42e-5b5b9404ae0a")
 		)
 		(pad "33" thru_hole custom
 			(at 8.89 -6.35)
@@ -4299,7 +4299,7 @@
 					(fill yes)
 				)
 			)
-			(uuid "577a9296-00ea-4e94-a436-7c1db311395a")
+			(uuid "98536678-d65c-4539-a78f-ebd875efc2fd")
 		)
 		(pad "34" thru_hole circle
 			(at 8.89 -8.89)
@@ -4320,7 +4320,7 @@
 			(net 70 "/GPIO28 (ServoPWR_Switch)")
 			(pinfunction "GPIO28_ADC2")
 			(pintype "bidirectional")
-			(uuid "85c6c9b5-613d-485a-8f46-d87cf30bab59")
+			(uuid "8c6269eb-11e7-45b8-a6e6-6f1f175deb37")
 		)
 		(pad "35" thru_hole circle
 			(at 8.89 -11.43)
@@ -4341,7 +4341,7 @@
 			(net 15 "unconnected-(A1-ADC_VREF-Pad35)")
 			(pinfunction "ADC_VREF")
 			(pintype "power_in+no_connect")
-			(uuid "4ae0784f-32d7-4287-8a18-3dd201ca1c24")
+			(uuid "5a46852d-8a89-4fd4-a89f-0226a3b4eb7d")
 		)
 		(pad "36" thru_hole circle
 			(at 8.89 -13.97)
@@ -4362,7 +4362,7 @@
 			(net 12 "+3.3V")
 			(pinfunction "3V3")
 			(pintype "power_out")
-			(uuid "0aefda9b-fde7-4549-87e9-4e2f9bb8afe9")
+			(uuid "a94a22e4-9903-43b3-84db-06449f8dd0e8")
 		)
 		(pad "37" thru_hole circle
 			(at 8.89 -16.51)
@@ -4383,7 +4383,7 @@
 			(net 37 "Net-(A1-3V3_EN)")
 			(pinfunction "3V3_EN")
 			(pintype "passive")
-			(uuid "44f56b35-918e-460b-bed5-68dd43e8c3f2")
+			(uuid "86054bf2-0a47-44a2-8dce-7178d451b9d5")
 		)
 		(pad "38" thru_hole custom
 			(at 8.89 -19.05)
@@ -4459,7 +4459,7 @@
 					(fill yes)
 				)
 			)
-			(uuid "a2a3c1f3-17b1-4a70-a3c2-44bdd1b10755")
+			(uuid "3b2a90c1-fe99-474d-b6ac-f5fccdf52a7d")
 		)
 		(pad "39" thru_hole circle
 			(at 8.89 -21.59)
@@ -4480,7 +4480,7 @@
 			(net 2 "Net-(A1-VSYS)")
 			(pinfunction "VSYS")
 			(pintype "power_in")
-			(uuid "7abd215a-feb6-46af-93d2-a3223882c3d5")
+			(uuid "d78ac443-8b27-4a34-828c-96f7c08972e4")
 		)
 		(pad "40" thru_hole circle
 			(at 8.89 -24.13)
@@ -4501,7 +4501,7 @@
 			(net 38 "unconnected-(A1-VBUS-Pad40)_1")
 			(pinfunction "VBUS")
 			(pintype "power_out+no_connect")
-			(uuid "d990ebcd-35d5-41e9-a353-59650d160343")
+			(uuid "793962c4-3e33-4025-a181-5350e9fa8aa8")
 		)
 		(zone
 			(net 0)
@@ -5377,34 +5377,6 @@
 			)
 		)
 		(group ""
-			(uuid "231f6cf7-37e5-4b31-91a1-00dff2e91887")
-			(members "0739dcb3-f045-4821-adda-c70f7b9ceb7d" "0aefda9b-fde7-4549-87e9-4e2f9bb8afe9"
-				"14e65a77-d634-40b4-b674-31773f129970" "1cd7cc96-4b6e-40ce-b4bc-6913ab6ffbad"
-				"2b812009-38aa-4d83-b987-2489ae836157" "2cbf0227-8b10-4c1f-b502-d8274cf876a5"
-				"2e879203-b7c0-4282-ba41-a194982ec05f" "38abf4fb-c07a-4278-88b1-ca496282b093"
-				"3b6a9a62-145e-4a43-b047-864ee5237857" "44f56b35-918e-460b-bed5-68dd43e8c3f2"
-				"4625a788-5574-4ff0-bc2c-9fb6e003c05b" "47ed7330-dcff-44ff-9d00-cf0e703a1bbc"
-				"4ae0784f-32d7-4287-8a18-3dd201ca1c24" "50e3b7a7-8640-4f99-b5e8-93063f84cfb0"
-				"5318ce8a-4308-46df-b6a2-b00f49be22e3" "577a9296-00ea-4e94-a436-7c1db311395a"
-				"646aedee-a538-4a26-b900-6012cf3ece6f" "681175bb-9777-4daf-b7e0-5efc785e88ae"
-				"685049c8-a8ce-4846-9ba3-3dbfda555f10" "68d29dba-7470-47a9-bf50-c3478e5abe96"
-				"7317d1ef-4472-4cb4-a71b-6724f9c51e5b" "768a9658-bd6b-4a45-bf01-d4dccad29690"
-				"7a0aed62-54de-4328-8dc8-d98c300e2fea" "7abd215a-feb6-46af-93d2-a3223882c3d5"
-				"81e3ea29-9871-4b61-97fa-6730c778607f" "85c6c9b5-613d-485a-8f46-d87cf30bab59"
-				"887abee5-7644-45b7-b32a-fa1ec5e08f7d" "8a17d8c0-77fc-4f7e-aad7-eef52b0e9ed4"
-				"8f7b65cc-7f24-4dcf-9c45-1654cf2e7b16" "94165a31-c702-45c2-a448-2763e2704280"
-				"96031496-fe77-49a3-886f-0fae1098e405" "a1a2533a-9528-4f21-8896-8ae740dced2c"
-				"a1cb797d-66a6-41c2-828a-f2ccdcbcf847" "a2a3c1f3-17b1-4a70-a3c2-44bdd1b10755"
-				"a488c306-b56d-451c-be34-f60dcacb18e3" "b8d2ad60-62be-4a1f-b0c9-6fcfc856d2f4"
-				"be84d7aa-7b08-4845-afe2-d1a37fd79451" "c0f0baff-173a-4f9c-a7fa-b294e628f0db"
-				"ccddf874-7cab-4d9a-8cdf-ae932613c83b" "d56ae7ea-a6cf-4a7e-ae27-9dae3cb7f17b"
-				"d990ebcd-35d5-41e9-a353-59650d160343" "dcd6b04b-ad06-4307-a655-d39825ca40a8"
-				"dcfd7c2c-eba3-4622-8ba3-73c781cb41f3" "ddf80086-8456-4fa5-b2e2-1732ec3ba29a"
-				"e0984a34-4c12-408e-b69a-05c79e2b4ba9" "e4bc5484-bb78-48dc-bba6-11050685cd6d"
-				"efcf2fdd-bd16-4df7-b98d-3ca0a00d52cc" "fa2e513b-41e2-405d-b3d2-e4904873b43b"
-			)
-		)
-		(group ""
 			(uuid "657a89eb-03fe-4a70-a240-6150ab255b60")
 			(members "03baf605-8a2d-44e9-9d76-f86d9587767c" "0739dcb3-f045-4821-adda-c70f7b9ceb7d"
 				"0aefda9b-fde7-4549-87e9-4e2f9bb8afe9" "14e65a77-d634-40b4-b674-31773f129970"
@@ -5461,6 +5433,14 @@
 				"acf4c5cb-0ac4-42a7-8372-0b93f2a313d1" "cbfe2fb3-181f-4829-86d7-e87e678d3793"
 				"d5a65c83-6260-490c-be52-7b6d682a042f" "e3898b08-2030-4e7a-90ca-693864e03002"
 				"eba3f6b5-2107-40d1-9d9c-b229c4d15b09" "ececfc44-89ad-4244-a7f1-fe9360c37308"
+			)
+		)
+		(group ""
+			(uuid "231f6cf7-37e5-4b31-91a1-00dff2e91887")
+			(members "2e879203-b7c0-4282-ba41-a194982ec05f" "47ed7330-dcff-44ff-9d00-cf0e703a1bbc"
+				"50e3b7a7-8640-4f99-b5e8-93063f84cfb0" "5318ce8a-4308-46df-b6a2-b00f49be22e3"
+				"8a17d8c0-77fc-4f7e-aad7-eef52b0e9ed4" "a1a2533a-9528-4f21-8896-8ae740dced2c"
+				"e0984a34-4c12-408e-b69a-05c79e2b4ba9" "e4bc5484-bb78-48dc-bba6-11050685cd6d"
 			)
 		)
 		(group ""
@@ -16162,7 +16142,7 @@
 		(descr "Terminal Block Xinya XY308-2.54-3P, 3 pins, pitch 2.54mm, size 8.12x6.5mm, drill diameter 1.2mm, pad diameter 2mm, http://www.xinyaelectronic.com/product/xy308-254, script-generated using https://gitlab.com/kicad/libraries/kicad-footprint-generator/-/tree/master/scripts/TerminalBlock_Xinya")
 		(tags "THT Terminal Block Xinya XY308-2.54-3P pitch 2.54mm size 8.12x6.5mm drill 1.2mm pad 2mm")
 		(property "Reference" "J9"
-			(at -2.57 4.945 90)
+			(at -1.66 -4.745 90)
 			(layer "F.SilkS")
 			(uuid "9e14095e-96f0-4b52-932f-77b6443d0169")
 			(effects
