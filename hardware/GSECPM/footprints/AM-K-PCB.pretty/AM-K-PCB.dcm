@@ -1,0 +1,9 @@
+EESchema-DOCLIB  Version 2.0
+#
+$CMP AM-K-PCB
+D SOCKET, K, ANSI, MINI, PCB; Gender:Socket; Thermocouple Type:K; Product Range:-; SVHC:No SVHC (15-Jan-2019); For Use With:K Type Thermocouples RoHS Compliant: Yes
+K
+F https://www.labfacility.com/pcb-mounting-thermocouple-socket-type-k-ansi.html
+$ENDCMP
+#
+#End Doc Library
