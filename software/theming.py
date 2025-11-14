@@ -1,52 +1,79 @@
 import tkinter as tk
 import tkinter.font as font
+from tkinter import ttk
+from tkinter import BooleanVar
+
+class Custom_CheckButton:
 
 
-class Custom_Button():
-    def __init__(self, parent, text_, action, **kwargs):
-        self.normal_color = 'white'
-        self.text_color = 'black'
-        self.hover_color = '#b0b0b0'
-        self.active_color = '#94ff21'
-        self.toggle_color = '#f4ea80'
-        self._helv20 = font.Font(family='Helvetica', size=20)
+    def __init__(self, parent, text_, action,default=False, **kwargs):
+        self.action = action
+        self.state = tk.BooleanVar(value=default)
+        self.basetext = text_
+        self.button = ttk.Checkbutton(parent, text=text_, variable=self.state)
+        self.button.bind('<Button-1>', self.block_click, add='+')
+        self.button.bind('<Double-Button-1>', self.on_click)
+        if kwargs.get('toggle', False):
+            self.button.pack(side='left')
+        else:
+            self.button.pack(pady=5)
 
-        button = tk.Label(parent, text=text_, fg=self.text_color,
-                          bg=self.normal_color, font=self._helv20, padx=15, pady=15, relief='raised')
-        button.bind(
-            '<Enter>', self.enter_action)
-        button.bind(
-            '<Leave>', self.leave_action)
-        button.bind(
-            '<Double-Button>', self.double_action)
+    def on_click(self, event):
+        self.action()
+        return "break"  
 
+    def set_text(self, text_):
+        self.button.config(text=text_)
+
+    def set_toggle(self, state):
+        self.toggled = bool(state)
+        try:
+            self.state.set(bool(state))
+        except Exception:
+            pass
+
+    def block_click(self, event):
+        return "break"
+
+
+
+class Custom_Button:
+
+
+
+    def __init__(self, parent, text_, action, default=False, **kwargs):
+        self.action = action
+        self.toggled = bool(default)
+        self.basetext = text_
+        self.button = ttk.Button(parent, text=text_)
+        self.button.bind('<Double-Button-1>', self.on_click)
         toggle = kwargs.get('toggle', False)
         if toggle:
-            button.pack(side=tk.LEFT)
+            self.button.pack(side='left')
         else:
-            button.pack(pady=5)
+            self.button.pack(pady=5)
 
-        self.button = button
-        self.enter_flag = False
-        self.action = action
+    def on_click(self, event):
+        self.action()
 
-        self.toggled = False
+    def set_text(self, text_):
+        self.button.config(text=text_)
+
+    def set_toggle(self, state):
+        self.toggled = state
+
+
 
     def enter_action(self, event):
         self.enter_flag = True
-        if not self.toggled:
-            self.button.config(bg=self.hover_color)
 
     def leave_action(self, event):
         if not self.toggled:
             self.enter_flag = False
-            self.button.config(bg=self.normal_color)
 
     def double_action(self, event):
         if self.enter_flag:
-            self.button.config(bg=self.active_color)
             self.action()
-
         self.enter_flag = False
 
     def set_text(self, text_):
@@ -55,41 +82,35 @@ class Custom_Button():
     def set_toggle(self, state):
         self.toggled = state
         if state:
-            self.button.config(bg=self.toggle_color)
-        else:
-            self.button.config(bg=self.normal_color)
-
+            self.button.config()
 
 class Custom_Panel():
     def __init__(self, root, row_, column_, text_):
-        self.panel = tk.LabelFrame(root, text=text_, bg='black',
-                                   fg='white', padx=15, pady=15, relief='groove')
+        self.panel = ttk.LabelFrame(root, text=text_, relief='groove')
         self.panel.grid(row=row_, column=column_,
-                        sticky='nsew', padx=5, pady=5)
+                        sticky='nsew')
 
 
 class Custom_Toggle():
-    def __init__(self, parent, label_text, handle_toggle,  **kwargs):
-        frame = tk.LabelFrame(parent, relief='solid',
-                              text=label_text, bg='black', labelanchor='n', font=get_font('h14'))
+    def __init__(self, parent, label_text, handle_toggle, default='off', **kwargs):
+        frame = ttk.LabelFrame(parent, relief='solid',
+                              text=label_text, labelanchor='n')
         frame.pack()
+        # normalize incoming default (accept 'on'/'off' or boolean)
+        if isinstance(default, str):
+            is_on = (default == 'on')
+        else:
+            is_on = bool(default)
 
-        self.on = Custom_Button(
-            frame, 'On', self.toggle_on, toggle=True)
-        self.off = Custom_Button(
-            frame, 'Off', self.toggle_off, toggle=True)
-
-        # Default toggle:
-        default_state = kwargs.get('default', 'off')
-
-        self.on.set_toggle(default_state == 'on')
-        self.off.set_toggle(default_state == 'off')
+        # create checkbuttons with initial states
+        self.on = Custom_CheckButton(frame, 'On', self.toggle_on, default=is_on, toggle=True)
+        self.off = Custom_CheckButton(frame, 'Off', self.toggle_off, default=not is_on, toggle=True)
 
         self.handle_toggle = handle_toggle
 
     def toggle_on(self):
-        self.on.set_toggle(True)
         self.off.set_toggle(False)
+        self.on.set_toggle(True)
 
         self.handle_toggle(True)
 

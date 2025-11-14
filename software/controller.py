@@ -77,7 +77,7 @@ class Controller():
         Attempts to close the oxidizer valves and handles the
         corresponding error code from micropython.
         '''
-        message = 'E-Stop button pressed'
+        message = 'Fill valve closed'
         status = 2
         return (message, status)
 
@@ -133,6 +133,7 @@ class Controller():
     def set_interlocks(self, state):
         self.state['interlocks'] = state
 
+        
         message = 'Interlocks mode set to ' + ('off', 'on')[state]
         status = 2
 

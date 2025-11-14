@@ -6,6 +6,8 @@ from theming import Custom_Button, Custom_Panel, Custom_Toggle, get_font
 
 from controller import Controller
 
+import sv_ttk
+
 
 class GUI_Window():
     '''
@@ -14,6 +16,7 @@ class GUI_Window():
 
     def __init__(self):
         root = tk.Tk()
+        sv_ttk.set_theme("dark")
 
         root.geometry('1200x700')
         # root.resizable(False, False)
@@ -34,8 +37,6 @@ class GUI_Window():
         self.setup_auto_control_section(2, 1)
         self.setup_manual_control_section(2, 2)
 
-        root.configure(bg='black')
-
         self.exit_attempt = False
 
         self.mode = None
@@ -49,9 +50,11 @@ class GUI_Window():
 
         mp = Custom_Panel(self.root, row_, column_, 'Modes')
 
-        Custom_Toggle(mp.panel, 'Interlocks', self.run('set_interlocks'))
-        Custom_Toggle(mp.panel, 'Auto Mode', self.run('set_auto'))
-
+        interlockT = Custom_Toggle(mp.panel, 'Interlocks', self.run('set_interlocks'),default='off')
+        interlockT.on.button.pack(expand=True,pady=5)
+        autoT = Custom_Toggle(mp.panel, 'Auto Mode', self.run('set_auto'),default='on')
+        autoT.on.button.pack(expand=True,pady=5)
+                             
     def setup_caution_panel(self, row_, column_):
         '''
         Generates a panel with caution circles for cautions
@@ -64,22 +67,26 @@ class GUI_Window():
         canvas = tk.Canvas(cp.panel, width=200, height=200)
 
         master_caution = canvas.create_oval(30, 15, 80, 65)
-        canvas.create_text(55, 80, text='Master')
+        label = ttk.Label(cp.panel, text='Master')
+        label.place(x=38, y=70)
         canvas.itemconfig(master_caution, fill='green')
 
         sensors_caution = canvas.create_oval(30, 115, 80, 165)
-        canvas.create_text(55, 180, text='Sensors')
+        label = ttk.Label(cp.panel, text='Sensors')
+        label.place(x=35, y=170)
         canvas.itemconfig(sensors_caution, fill='green')
 
         comms_caution = canvas.create_oval(130, 15, 180, 65)
-        canvas.create_text(155, 80, text='Comms')
+        label = ttk.Label(cp.panel, text='Comms')
+        label.place(x=136, y=70)
         canvas.itemconfig(comms_caution, fill='green')
 
         gui_caution = canvas.create_oval(130, 115, 180, 165)
-        canvas.create_text(155, 180, text='GUI')
+        label = ttk.Label(cp.panel, text='Gui')
+        label.place(x=149, y=170)
         canvas.itemconfig(gui_caution, fill='green')
 
-        canvas.pack()
+        canvas.pack(padx=5)
 
         self.caution_panel = {
             'master': master_caution,
@@ -173,7 +180,7 @@ class GUI_Window():
                        ox_venturi_flow_PTs, chamber_PT, ox_TC, chamber_TC]
 
         for sensor in sensor_list:
-            sensor.pack(anchor='w', pady=2)
+            sensor.pack(anchor='w', pady=2,padx=5)
         return sensor_list
         
     
