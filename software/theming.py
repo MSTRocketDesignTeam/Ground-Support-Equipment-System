@@ -63,7 +63,7 @@ class Custom_Button():
 class Custom_Panel():
     def __init__(self, root, row_, column_, text_):
         self.panel = tk.LabelFrame(root, text=text_, bg='black',
-                                   fg='white', padx=15, pady=15, relief='groove', width=300, height=300)
+                                   fg='white', padx=15, pady=15, relief='groove', width=175, height=175)
         self.panel.grid(row=row_, column=column_,
                         sticky='nsew', padx=5, pady=5)
 

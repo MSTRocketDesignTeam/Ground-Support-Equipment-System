@@ -36,6 +36,7 @@ class GUI_Window():
         self.setup_auto_control_section(2, 1)
         self.setup_manual_control_section(2, 2)
         
+        '''
         #Start serial line and specify the Pi Pico's USB/Serial address
         self.ser = serial.Serial('/dev/ttyACM0', 115200)
         
@@ -46,6 +47,7 @@ class GUI_Window():
         
         self.sensorData = []
         self.root.after(100, self.update_sensor_data)
+        '''
 
         root.configure(bg='black')
 
@@ -85,7 +87,7 @@ class GUI_Window():
         cp = Custom_Panel(self.root, row_, column_, 'Status Lights')
         cp.panel.grid(row=0, column=column_, rowspan=2)
 
-        canvas = tk.Canvas(cp.panel, width=250, height=450)
+        canvas = tk.Canvas(cp.panel, width=250, height=250)
 
         master_caution = canvas.create_oval(30, 15, 80, 65)
         canvas.create_text(55, 80, text='Master')
@@ -251,7 +253,7 @@ class GUI_Window():
         cp = Custom_Panel(self.root, 0, column_, 'Console')
         cp.panel.grid(row=0, column=column_, rowspan=2)
 
-        console = tk.Text(cp.panel, width=40, height=20,
+        console = tk.Text(cp.panel, width=30, height=10,
                           wrap='word', font=get_font('c16'))
 
         console.pack()
