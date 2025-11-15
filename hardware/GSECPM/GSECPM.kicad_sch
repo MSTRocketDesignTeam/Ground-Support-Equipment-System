@@ -6636,16 +6636,6 @@
 		)
 		(uuid "064432a5-89a0-4fcc-bd6b-4a8ff4103fc6")
 	)
-	(label "GPIO0 (Radio_UART_TX)"
-		(at 205.74 147.32 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "083fdfb7-03b2-43a1-b4ac-0c49d4378b5c")
-	)
 	(label "ADC_AI2"
 		(at 96.52 143.51 180)
 		(effects
@@ -6716,7 +6706,7 @@
 		)
 		(uuid "2a843d59-cb22-45b0-9486-67c6f8a72d0d")
 	)
-	(label "GPIO0 (Radio_UART_TX)"
+	(label "GPIO2 (Radio_UART_TX)"
 		(at 229.87 66.04 180)
 		(effects
 			(font
@@ -6846,7 +6836,7 @@
 		)
 		(uuid "4b358b9e-4fcd-405a-99c4-e0b70f7a23af")
 	)
-	(label "GPIO3_INA237 SCL"
+	(label "GPIO1_INA237 SCL"
 		(at 38.1 134.62 180)
 		(effects
 			(font
@@ -6865,16 +6855,6 @@
 			(justify right bottom)
 		)
 		(uuid "51bc9727-4b4e-4d3c-b08d-198250ae70d6")
-	)
-	(label "GPIO1 (Radio_UART_RX)"
-		(at 205.74 149.86 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "524ea125-3b57-481c-9e2f-db706fed8a00")
 	)
 	(label "ADC_AI1"
 		(at 34.29 172.72 180)
@@ -6936,15 +6916,15 @@
 		)
 		(uuid "5c5f17ce-ccda-4e0a-8ab6-cdbd50d2ec2e")
 	)
-	(label "GPIO3_INA237 SCL"
-		(at 205.74 154.94 180)
+	(label "GPIO2 (Radio_UART_TX)"
+		(at 205.74 152.4 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "65fb0332-a535-48e4-8683-0f214a0f92eb")
+		(uuid "65ff792f-93c7-4988-bf0e-29c3d9bff169")
 	)
 	(label "ADC_AI0"
 		(at 96.52 138.43 180)
@@ -6955,16 +6935,6 @@
 			(justify right bottom)
 		)
 		(uuid "6acf005b-df45-4c78-a7b6-d70eb7ad6f70")
-	)
-	(label "GPIO2_INA237 SDA"
-		(at 205.74 152.4 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "6e7c973d-afef-49ba-a5ea-53e499e7c015")
 	)
 	(label "GPIO5 (CS_ADC)"
 		(at 148.59 146.05 0)
@@ -6985,6 +6955,26 @@
 			(justify right bottom)
 		)
 		(uuid "84d7b4c1-2f42-4525-bc5e-be4ad1513ae0")
+	)
+	(label "GPIO3 (Radio_UART_RX)"
+		(at 205.74 154.94 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "91e594b0-1e6b-4d41-9e53-7b539dad0200")
+	)
+	(label "GPIO1_INA237 SCL"
+		(at 205.74 149.86 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "92da531b-30d7-4b9c-951a-151f46dd954d")
 	)
 	(label "GPIO16 (Nitrous_Cooling)"
 		(at 369.57 50.8 180)
@@ -7046,6 +7036,16 @@
 		)
 		(uuid "aa525e2b-fddd-44dc-a021-f6eeef250e51")
 	)
+	(label "GPIO0_INA237 SDA"
+		(at 205.74 147.32 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "b3b3bd49-9b86-4635-84c5-74c4c26867f7")
+	)
 	(label "Vin (DAQ_Module5V)"
 		(at 96.52 163.83 180)
 		(effects
@@ -7056,7 +7056,7 @@
 		)
 		(uuid "b4b23537-2b84-4b05-b2cf-82546e39c1e5")
 	)
-	(label "GPIO2_INA237 SDA"
+	(label "GPIO0_INA237 SDA"
 		(at 38.1 132.08 180)
 		(effects
 			(font
@@ -7076,7 +7076,7 @@
 		)
 		(uuid "b69d1318-fcbb-40b6-b2e1-eeb2fbbd225e")
 	)
-	(label "GPIO1 (Radio_UART_RX)"
+	(label "GPIO3 (Radio_UART_RX)"
 		(at 229.87 68.58 180)
 		(effects
 			(font
@@ -13166,7 +13166,7 @@
 				)
 			)
 		)
-		(property "Value" "L78M09CDT-TR"
+		(property "Value" "UA78M09CKVURG3"
 			(at 102.87 66.04 0)
 			(effects
 				(font
@@ -13184,7 +13184,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.st.com/content/ccc/resource/technical/document/datasheet/d7/5f/dc/5c/d5/b6/48/7c/CD00000447.pdf/files/CD00000447.pdf/jcr:content/translations/en.CD00000447.pdf"
+		(property "Datasheet" "https://www.ti.com/lit/ds/slvs059v/slvs059v.pdf?ts=1763139695419&ref_url=https%253A%252F%252Fszlcscdz.cn%252F"
 			(at 102.87 73.66 0)
 			(effects
 				(font
@@ -13242,7 +13242,7 @@
 				(hide yes)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/stmicroelectronics/L78M09CDT-TR/585732"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/texas-instruments/UA78M09CKVURG3/1000275"
 			(at 102.87 73.66 0)
 			(effects
 				(font
@@ -14040,7 +14040,7 @@
 			)
 		)
 		(instances
-			(project "GSED_0001"
+			(project "GSECPM"
 				(path "/264b8d8f-c165-4609-b867-e24f99960723"
 					(page "5")
 				)
