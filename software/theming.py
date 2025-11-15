@@ -12,6 +12,8 @@ class Custom_CheckButton:
         self.basetext = text_
         self.button = ttk.Checkbutton(parent, text=text_, variable=self.state)
         self.button.bind('<Button-1>', self.block_click, add='+')
+        self.button.bind('<ButtonPress-1>', self.block_click, add='+')
+        self.button.bind('<ButtonRelease-1>',self.block_click, add='+')
         self.button.bind('<Double-Button-1>', self.on_click)
         if kwargs.get('toggle', False):
             self.button.pack(side='left')
