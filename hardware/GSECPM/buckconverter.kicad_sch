@@ -4140,7 +4140,7 @@
 				)
 			)
 		)
-		(property "Footprint" "LMR33640ADDAR:VREG_LM5017MR_NOPB"
+		(property "Footprint" "Package_SO:Texas_HSOP-8-1EP_3.9x4.9mm_P1.27mm_ThermalVias"
 			(at 97.79 76.2 0)
 			(effects
 				(font
