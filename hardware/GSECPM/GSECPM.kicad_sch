@@ -4556,7 +4556,7 @@
 		)
 		(uuid e0477163-4160-43a0-ab5b-f68fd161f501)
 	)
-	(text "1206 Resistor footprint,\nfor if LDO is unstable\nunder low load. 200 Ohm\nselected for a 50mA\nload, experiment with\ndifferent values \nif needed."
+	(text "1206 Resistor footprint,\nfor if LDO is unstable\nunder low load. 1k Ohm\nselected for about a 1mA\nload, experiment with\ndifferent values \nif needed."
 		(exclude_from_sim no)
 		(at 146.304 59.182 0)
 		(effects
