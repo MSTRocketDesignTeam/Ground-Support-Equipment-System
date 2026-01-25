@@ -7455,7 +7455,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "BUK6Y33-60PX"
+		(property "Value" "PSMP033-60YEX"
 			(at 381 239.522 90)
 			(effects
 				(font
@@ -7474,7 +7474,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/BUK6Y33-60P.pdf"
+		(property "Datasheet" "PSMP033-60YEX"
 			(at 372.11 223.52 0)
 			(effects
 				(font
@@ -7493,7 +7493,7 @@
 				(hide yes)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/nexperia-usa-inc/BUK6Y33-60PX/12325065"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/nexperia-usa-inc/PSMP033-60YEX/18689473"
 			(at 372.11 223.52 0)
 			(effects
 				(font
@@ -8447,7 +8447,7 @@
 			)
 		)
 		(property "Value" "+V_Servo"
-			(at 380.746 233.426 0)
+			(at 389.128 231.902 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9718,6 +9718,81 @@
 		)
 	)
 	(symbol
+		(lib_id "Device:C")
+		(at 77.47 76.2 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4de9d3f9-5d82-47ba-9271-65c193456065")
+		(property "Reference" "C4"
+			(at 83.566 75.946 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10u"
+			(at 83.566 78.486 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" "Capacitor_SMD:C_1210_3225Metric"
+			(at 76.5048 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/41/CL32B106KBJNNNE_Spec.pdf"
+			(at 77.47 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 77.47 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL32B106KBJNNNE/3889045"
+			(at 77.47 76.2 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "62adae11-ca0c-4227-9931-c93469551183")
+		)
+		(pin "2"
+			(uuid "6d12d1c2-9a9e-49ad-b19c-9d32e141bb19")
+		)
+		(instances
+			(project "GSECPM"
+				(path "/264b8d8f-c165-4609-b867-e24f99960723"
+					(reference "C4")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:+5V")
 		(at 224.79 109.22 0)
 		(unit 1)
@@ -10474,81 +10549,6 @@
 		)
 	)
 	(symbol
-		(lib_id "Device:C")
-		(at 77.47 76.2 180)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "6bdf0215-cf2f-4575-9cf8-1a50e6f2d545")
-		(property "Reference" "C23"
-			(at 83.566 75.946 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "0.33u"
-			(at 83.566 78.486 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
-			(at 76.5048 72.39 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.samsungsem.com/resources/file/global/support/product_catalog/MLCC_Automotive.pdf"
-			(at 77.47 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 77.47 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL31B334KBH5PNF/7320560"
-			(at 77.47 76.2 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "b3023451-bba9-4d7d-9c31-e08be431a243")
-		)
-		(pin "2"
-			(uuid "2067b617-a4c8-43fe-a1d4-331b4a5e128c")
-		)
-		(instances
-			(project "GSED_0001"
-				(path "/264b8d8f-c165-4609-b867-e24f99960723"
-					(reference "C23")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
 		(lib_id "power:+12V")
 		(at 146.05 71.12 0)
 		(unit 1)
@@ -10717,7 +10717,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "~"
+		(property "Datasheet" "https://www.diodes.com/assets/Datasheets/BC846AW-BC848CW.pdf"
 			(at 393.446 217.932 0)
 			(effects
 				(font
@@ -10735,7 +10735,7 @@
 				(hide yes)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/nexperia-usa-inc/BC847CW-135/1232291"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/diodes-incorporated/BC847CW-7-F/1099140"
 			(at 394.208 218.948 0)
 			(effects
 				(font
@@ -10845,7 +10845,7 @@
 				)
 			)
 		)
-		(property "Value" "100n"
+		(property "Value" "10u"
 			(at 129.286 77.216 0)
 			(effects
 				(font
@@ -10853,7 +10853,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" "Capacitor_SMD:C_1210_3225Metric"
 			(at 122.2248 71.12 0)
 			(effects
 				(font
@@ -10862,7 +10862,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/609/CL10B104KB8NNNC_Spec.pdf"
+		(property "Datasheet" "https://mm.digikey.com/Volume0/opasdata/d220001/medias/docus/41/CL32B106KBJNNNE_Spec.pdf"
 			(at 123.19 74.93 0)
 			(effects
 				(font
@@ -10879,7 +10879,7 @@
 				)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL10B104KB8NNNC/3886658"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL32B106KBJNNNE/3889045"
 			(at 123.19 74.93 0)
 			(effects
 				(font
@@ -12033,7 +12033,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/BAV199.pdf"
+		(property "Datasheet" "https://www.diodes.com/assets/Datasheets/ds30232.pdf"
 			(at 292.1 196.85 0)
 			(effects
 				(font
@@ -12052,7 +12052,7 @@
 				(hide yes)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/nexperia-usa-inc/BAV199-215/763223?msockid=128e8e655193667d39a29db6508167d6"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/diodes-incorporated/BAV199-7-F/1033647"
 			(at 292.1 196.85 0)
 			(effects
 				(font
@@ -12541,7 +12541,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://assets.nexperia.com/documents/data-sheet/BAV199.pdf"
+		(property "Datasheet" "https://www.diodes.com/assets/Datasheets/ds30232.pdf"
 			(at 287.02 161.29 0)
 			(effects
 				(font
@@ -12560,7 +12560,7 @@
 				(hide yes)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/nexperia-usa-inc/BAV199-215/763223?msockid=128e8e655193667d39a29db6508167d6"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/diodes-incorporated/BAV199-7-F/1033647"
 			(at 287.02 161.29 0)
 			(effects
 				(font
@@ -13166,7 +13166,7 @@
 				)
 			)
 		)
-		(property "Value" "UA78M09CKVURG3"
+		(property "Value" "BD90C0AFP-CE2"
 			(at 102.87 66.04 0)
 			(effects
 				(font
@@ -13184,7 +13184,7 @@
 				(hide yes)
 			)
 		)
-		(property "Datasheet" "https://www.ti.com/lit/ds/slvs059v/slvs059v.pdf?ts=1763139695419&ref_url=https%253A%252F%252Fszlcscdz.cn%252F"
+		(property "Datasheet" "https://www.ti.com/lit/ds/slvs059v/slvs059v.pdf?ts=1763737860687"
 			(at 102.87 73.66 0)
 			(effects
 				(font
@@ -13232,7 +13232,7 @@
 				(hide yes)
 			)
 		)
-		(property "MANUFACTURER" "STMicroelectronics"
+		(property "MANUFACTURER" "Rohm Semiconductor"
 			(at 102.87 73.66 0)
 			(effects
 				(font
