@@ -10,7 +10,9 @@ import time
 
 
 # On Raspberry Pi, USB serial devices usually appear as /dev/ttyUSB0 or /dev/ttyACM0
-port = "/dev/ttyACM0"
+port = "/dev/ttyACM0"   #Linux filepath
+#port = "COM3" #Windows com port
+
 baud_rate = 115200  # Match the device's baud rate
 ser = serial.Serial(port, baud_rate, timeout=1)
 time.sleep(2) #Let device initialize
@@ -78,8 +80,3 @@ rdtLogoLabel.grid(row=5, column=1, padx=10, pady=10)
 
 sv_ttk.set_theme("dark")
 root.mainloop()
-
-#Clean up
-fuelServoLine.release()
-oxServoLine.release()
-
