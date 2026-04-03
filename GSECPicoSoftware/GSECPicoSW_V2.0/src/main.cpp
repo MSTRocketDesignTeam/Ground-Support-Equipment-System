@@ -5,16 +5,18 @@
 #include <DAQ.h>
 
 
-// Initializing pin mapping for the GSECPM
+// -------------------- Pin Setup --------------------
 int GSECUServoPwrSwitchPin = 28;
-int GN2FillValvePWMPin = 26;
-Servo GN2FillValve;
-int N2OFillValvePWMPin = 27;
-Servo N2OFillValve;
-int QDRelayPin = 20;
-int ignitionRelayPin = 22;
+int GN2FillValvePWMPin     = 26;
+int N2OFillValvePWMPin     = 27;
+int QDRelayPin             = 20;
+int ignitionRelayPin       = 22;
 
-// Initalizing the state variables (ignores start and end markers, as they are discarded by the recv function)
+Servo GN2FillValve;
+Servo N2OFillValve;
+
+// -------------------- Control States --------------------
+// Loop-owned states
 char GSECUServoPwrSwitchState;
 char GN2FillValveState;
 char N2OFillValveState;
@@ -25,115 +27,147 @@ char QDRelayState;
 char ignitionRelayState;
 char throttlingAlgorithmState;
 
-// Initializing timer objects and parameters
-unsigned long DAQ_READ_INTERVAL_MS = 1500;
-RPI_PICO_Timer ITimer0(0);
-unsigned long SENSOR_DATA_TX_INTERVAL_MS = 400;  // Interval in milliseconds
-RPI_PICO_Timer ITimer1(1);
+// Snapshot for ISR-safe transmission
+volatile char ctrlSnapshot[4];  
+// [0]=LECU Servo Pwr, [1]=Purge, [2]=Main Valves, [3]=Throttle Algo
 
-// Initializing the sensor readings as volatiles because they might work better when modified inside an ISR?
-volatile uint32_t AI0, AI1, AI2, AI3;
-volatile uint32_t TC1, TC2, TC3;
-
-// Defining the packet structure (ignores start and end markers, as they are discarded by the recv function)
+// -------------------- Serial RX --------------------
 const byte NUM_CHARS = 10;
-//char receivedChars[NUM_CHARS] = {GSECUServoPwrSwitchState, GN2FillValveState, N2OFillValveState, LECUServoPwrSwitchState, N2OMainValvePurgeState, mainValvesState, QDRelayState, ignitionRelayState, throttlingAlgorithmState};
 char receivedChars[NUM_CHARS];
-boolean newData = false;
+bool newData = false;
 
-// Miscellaneous com functions
-void recvWithStartEndMarkers();
+// -------------------- Timer --------------------
+RPI_PICO_Timer ITimer0(0);
+const int LECU_CTRLSTRING_TX_INTERVAL = 10;   // in ms
+volatile bool sendCtrlFlag = false;
 
+// -------------------- Function Declarations --------------------
+void recv_with_start_end_markers();
+void process_ctrl_packet();
+void update_ctrl_snapshot();
+void send_ctrl_string();
+bool send_LECU_ctrlString_ISR(struct repeating_timer *t);
 
-// ISR functions (not all are used)
-bool sendSensorDataMsg(struct repeating_timer *t); 
-bool sendLECUCtrlString(struct repeating_timer *t);
-bool readDAQ(struct repeating_timer *t);
 
 
 void setup() {
   Serial.begin(115200);
+  Serial1.begin(115200);
   pinMode(GSECUServoPwrSwitchPin, OUTPUT);
   pinMode(QDRelayPin, OUTPUT);
   pinMode(ignitionRelayPin, OUTPUT);
   pinMode(LED_BUILTIN, OUTPUT);
+
   GN2FillValve.attach(GN2FillValvePWMPin, 500, 2500);
   N2OFillValve.attach(N2OFillValvePWMPin, 500, 2500);
-  init_DAQ();
-  //ITimer1.attachInterruptInterval(SENSOR_DATA_TX_INTERVAL_MS * 1000, sendSensorDataMsg);
-  //ITimer0.attachInterruptInterval(DAQ_READ_INTERVAL_MS * 1000, readDAQ);
+
+  // Timer ISR every 100 ms
+  ITimer0.attachInterruptInterval(LECU_CTRLSTRING_TX_INTERVAL*1000, send_LECU_ctrlString_ISR);
 }
-
-
 
 
 void loop() {
-  /*
-  recvWithStartEndMarkers();
+  
+
+
+  // 1. Receive incoming serial data
+  recv_with_start_end_markers();
+
+  // 2. Process new packet
   if (newData) {
-    GSECUServoPwrSwitchState = receivedChars[0];
-    GN2FillValveState        = receivedChars[1];
-    N2OFillValveState        = receivedChars[2];
-    LECUServoPwrSwitchState  = receivedChars[3];
-    N2OMainValvePurgeState   = receivedChars[4];
-    mainValvesState          = receivedChars[5];
-    QDRelayState             = receivedChars[6];
-    ignitionRelayState       = receivedChars[7];
-    throttlingAlgorithmState = receivedChars[8];
-    update_GSE_states(GSECUServoPwrSwitchState, GN2FillValveState, N2OFillValveState, QDRelayState, ignitionRelayState,
-                    GSECUServoPwrSwitchPin, GN2FillValve, N2OFillValve, QDRelayPin, ignitionRelayPin);
+    process_ctrl_packet();
     newData = false;
   }
-  //read_DAQ_module(AI0, AI1, AI2, AI3, TC1, TC2, TC3);
-  */
-  read_DAQ_module(AI0, AI1, AI2, AI3, TC1, TC2, TC3);
-  Serial.print(AI0);
-  Serial.print(' ');
-  Serial.print(AI1);
-  Serial.print(' ');
-  Serial.print(AI2);
-  Serial.print(' ');
-  Serial.print(AI3);
-  Serial.print(' ');
-  Serial.print(TC1);
-  Serial.print(' ');
-  Serial.print(TC2);
-  Serial.print(' ');
-  Serial.print(TC3);
-  Serial.println();
-  /*
-  _u32data_t CONV_DATA; 
-  CONV_DATA.DWORD = 0x00000000;
 
-  _u32data_t TEMP_SNSR_DATA;
-  TEMP_SNSR_DATA.DWORD = 0x00000000;
-
-  _u16data_t ADC_CRC;
-  ADC_CRC.WORD = 0x0000;
-
-  uint64_t CALC_CRC = 0x000000000000;
-
-  if (Serial) 
-  {            
-    delay(1500);                                                                // Delay for 1.5s.
-    if(CONV_START(MUX_VINP_CH0 | MUX_VINN_AGND) == 0x13)                         // Convert CH0(+) and AGND(-) channel (singlez) and check Data-Ready(DR) Bit of STATUS Byte.               
-    {  
-      CONV_DATA.DWORD = SPI_RD(_ADCDATA_, ADC_CRC, CALC_CRC);                 // Read Signal Conversion data.     
-      Serial.print((CONV_DATA.DWORD & 0x00FFFFFF), DEC);
-      Serial.println();
-    }
-    else                                                                        // No new Data-Ready? 
-    {
-      Serial.print(" Invalid Measurement!!! Displaying previous data. ");     // Print " Invalid Measurement!!! Displaying previous data. ".                                                          
-      Serial.println();
-    }     
+  // 3. Handle periodic transmission (triggered by ISR)
+  if (sendCtrlFlag) {
+    sendCtrlFlag = false;
+    send_ctrl_string();
   }
-  */
+
+  // Optional: DAQ reading (keep outside ISR)
+  // read_DAQ_module(...);
+  
+}
+
+void process_ctrl_packet() {
+
+  // ---- Critical section: copy shared RX buffer ----
+  noInterrupts();
+  GSECUServoPwrSwitchState = receivedChars[0];
+  GN2FillValveState        = receivedChars[1];
+  N2OFillValveState        = receivedChars[2];
+  LECUServoPwrSwitchState  = receivedChars[3];
+  N2OMainValvePurgeState   = receivedChars[4];
+  mainValvesState          = receivedChars[5];
+  QDRelayState             = receivedChars[6];
+  ignitionRelayState       = receivedChars[7];
+  throttlingAlgorithmState = receivedChars[8];
+  interrupts();
+
+  // ---- Update hardware (interrupts ENABLED) ----
+  update_GSE_states(
+    GSECUServoPwrSwitchState,
+    GN2FillValveState,
+    N2OFillValveState,
+    QDRelayState,
+    ignitionRelayState,
+    GSECUServoPwrSwitchPin,
+    GN2FillValve,
+    N2OFillValve,
+    QDRelayPin,
+    ignitionRelayPin
+  );
+
+  // ---- Update snapshot for transmission ----
+  update_ctrl_snapshot();
+}
+
+
+void update_ctrl_snapshot() {
+  noInterrupts();
+  ctrlSnapshot[0] = LECUServoPwrSwitchState;
+  ctrlSnapshot[1] = N2OMainValvePurgeState;
+  ctrlSnapshot[2] = mainValvesState;
+  ctrlSnapshot[3] = throttlingAlgorithmState;
+  interrupts();
+}
+
+
+bool send_LECU_ctrlString_ISR(struct repeating_timer *t) {
+  sendCtrlFlag = true;  // Set flag only
+  return true;
 }
 
 
 
-void recvWithStartEndMarkers() {
+void send_ctrl_string() {
+
+  // Local copy prevents mid-print corruption
+  char localCopy[4];
+
+  noInterrupts();
+  for (int i = 0; i < 4; i++) {
+    localCopy[i] = ctrlSnapshot[i];
+  }
+  interrupts();
+
+  Serial1.print('<');
+  Serial1.print(localCopy[0]);
+  Serial1.print(localCopy[1]);
+  if (localCopy[1] == 'O') {
+    digitalWrite(LED_BUILTIN, HIGH);
+  } else if (localCopy[1] == 'C') {
+    digitalWrite(LED_BUILTIN, LOW);
+  }
+  Serial1.print(localCopy[2]);
+  Serial1.print(localCopy[3]);
+  Serial1.print('>');
+}
+
+
+
+void recv_with_start_end_markers() {
   static boolean recvInProgress = false;
   static byte ndx = 0;
   char startMarker = '<';
@@ -151,7 +185,7 @@ void recvWithStartEndMarkers() {
           ndx = NUM_CHARS - 1;
         }
       } else {
-        receivedChars[ndx] = '\0'; // terminate the string
+        receivedChars[ndx] = '\0';
         recvInProgress = false;
         ndx = 0;
         newData = true;
@@ -160,40 +194,4 @@ void recvWithStartEndMarkers() {
       recvInProgress = true;
     }
   }
-}
-
-
-
-
-bool sendSensorDataMsg(struct repeating_timer *t) {
-  Serial.print(AI0);
-  Serial.print(' ');
-  Serial.print(AI1);
-  Serial.print(' ');
-  Serial.print(AI2);
-  Serial.print(' ');
-  Serial.print(AI3);
-  Serial.print(' ');
-  Serial.print(TC1);
-  Serial.print(' ');
-  Serial.print(TC2);
-  Serial.print(' ');
-  Serial.print(TC3);
-  Serial.println();
-  return true;
-}
-
-bool sendLECUCtrlString(struct repeating_timer *t) {
-  Serial2.print('<');
-  Serial2.print(LECUServoPwrSwitchState);
-  Serial2.print(N2OMainValvePurgeState);
-  Serial2.print(mainValvesState);
-  Serial2.print(throttlingAlgorithmState);
-  Serial2.print('>');
-  return true;
-}
-
-bool readDAQ(struct repeating_timer *t) {
-  read_DAQ_module(AI0, AI1, AI2, AI3, TC1, TC2, TC3);
-  return true;
 }

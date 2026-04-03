@@ -16,7 +16,7 @@ int TC3_CS_PIN     = 12;   // N2O TC
 SPISettings tcSPISettings(4000000, MSBFIRST, SPI_MODE0);
 
 // MCP3564 ADC Settings
-SPISettings adcSPISettings(4000000, MSBFIRST, SPI_MODE0);         // SPI Bus is 4MHz, MSb-First, Mode 0,0.  
+SPISettings adcSPISettings(12000000, MSBFIRST, SPI_MODE0);         // SPI Bus is 4MHz, MSb-First, Mode 0,0.  
 
 
 // -------------------------
@@ -97,7 +97,7 @@ void init_DAQ() {
 }
 
 // -------------------------
-// High‑level DAQ read function
+// High‑level DAQ read function (pass by reference parameters so that they can be modified)
 // -------------------------
 void read_DAQ_module(
     volatile uint32_t &AI0Reading,

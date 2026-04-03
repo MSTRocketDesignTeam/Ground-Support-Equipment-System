@@ -7,7 +7,7 @@ import csv
 import sv_ttk
 
 class GUI_Window():
-
+    ESTOP_CTRL   = "<HCCHCCLLU>"
     DEFAULT_CTRL = "<LCCLCCLLU>"
     BUTTON_GRID_OPTS = {"padx": 3, "pady": 3}
     FRAME_OPTS = {"borderwidth" : 5, "relief" : "ridge", "padding" : (8,8,8,8)}
@@ -90,7 +90,7 @@ class GUI_Window():
     def ctrl_loop(self):
         try:
             if self.ser and self.ser.is_open:
-                msg = "".join(self.ctrlString) + "\n"
+                msg = "".join(self.ctrlString)
                 self.ser.write(msg.encode())
         except Exception as e:
             print("Serial error:", e)
@@ -372,8 +372,10 @@ class GUI_Window():
     # ---------------- SAFETY ---------------- #
 
     def e_stop(self):
-
-        self.ctrlString = list(self.DEFAULT_CTRL)
+        self.update_ctrlString(1,'H')      # set GSECU Servo Pwr Switch high
+        self.update_ctrlString(4,'H')      # set LECU Servo Pwr Switch high
+        self.root.after(100, lambda: setattr(self, "ctrlString", list(self.ESTOP_CTRL)))
+        self.root.after(75, lambda: setattr(self, "ctrlString", list(self.DEFAULT_CTRL)))
         self.log("E-STOP ACTIVATED")
 
     def on_close(self):
