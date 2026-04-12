@@ -1,343 +1,392 @@
 import tkinter as tk
-import tkinter.ttk as ttk
+from tkinter import ttk
 import serial
 import threading
 from datetime import datetime, timezone
-import sys
-from theming import Custom_Button, Custom_Panel, Custom_Toggle, get_font
+import csv
 import sv_ttk
 
-from controller import Controller
-
 class GUI_Window():
-    '''
-    Sets up the launch GUI
-    '''
+    ESTOP_CTRL   = "<HCCHCCLLU>"
+    DEFAULT_CTRL = "<LCCLCCLLU>"
+    BUTTON_GRID_OPTS = {"padx": 3, "pady": 3}
+    FRAME_OPTS = {"borderwidth" : 5, "relief" : "ridge", "padding" : (8,8,8,8)}
+    FRAME_GRID_OPTS = {"padx" : 10, "pady" : 10}
+    FRAME_TITLE_LABEL_OPTS = {"borderwidth" : 2, "relief" : "solid", "padding": (4,3,4,3)}
+    FRAME_TITLE_GRID_OPTS = {"padx": 3, "pady": 3}
+    SENSOR_NAME_LABEL_OPTS = {"width":15, "anchor":"w", "borderwidth":1, "relief":"solid", "padding":(4,3,4,3)}
 
     def __init__(self):
-        root = tk.Tk()
 
-        root.geometry('1200x700')
-        # root.resizable(False, False)
-        root.title('GSEC GUI')
+        self.root = tk.Tk()
+        self.root.geometry('1200x700')
+        self.root.title('GSEC GUI')
 
-        self.root = root
+        sv_ttk.set_theme("dark")
 
         self.start_timestamp = datetime.now(timezone.utc)
-        self.controller = Controller(self.start_timestamp)
 
-        # Setup basic GUI elements
-        self.setup_console(0)
-        self.setup_caution_panel(0, 1)
-        self.setup_sensor_readouts(0, 2)
-        self.setup_modes_panel(1, 2)
-        self.setup_kill_panel(1, 3)
-        self.setup_ox_monitor(2, 0)
-        self.setup_auto_control_section(2, 1)
-        self.setup_manual_control_section(2, 2)
-        
-        '''
-        #Start serial line and specify the Pi Pico's USB/Serial address
-        self.ser = serial.Serial('/dev/ttyACM0', 115200)
-        
-        # Start reading from the serial port in a separate thread
-        self.serialThread = threading.Thread(target=self.read_serial_data)
-        self.serialThread.daemon = True  # Make sure this thread exits when the app closes
-        self.serialThread.start()
-        
+        # control string as list for fast updates
+        self.ctrlString = list(self.DEFAULT_CTRL)
+
         self.sensorData = []
-        self.root.after(100, self.update_sensor_data)
-        '''
+        self.GSECPicoCommState = "red"
+        self.LECUCommState = "red"
 
-        root.configure(bg='black')
+        # Serial
+        self.port = "/dev/ttyACM0"
+        try:
+            self.ser = serial.Serial(self.port, 115200, timeout=0.05, write_timeout=0.05)
+            self.GSECPicoCommState = "green"
+            print("Serial connected")
+        except:
+            print("Serial not connected — running in GUI-only mode")
+            self.GSECPicoCommState = "red"
+            self.ser = None
 
-        self.exit_attempt = False
+        #self.serialThread = threading.Thread(target=self.read_serial_data)
+        #self.serialThread.daemon = True
+        #self.serialThread.start()
 
-        self.mode = None
-        #sv_ttk.set_theme("dark")
+        # GUI panels
+        self.setup_GN2_fill_ops_panel(0,0)
+        self.setup_N2O_purge_ops_panel(1,0)
+        self.setup_GSECU_sensor_readouts(4,0)
+        self.setup_e_stop(2,1)
+        self.setup_N2O_fill_ops(0,2)
+        self.setup_console(2,2)
+        self.setup_COM_panel(0, 3, self.GSECPicoCommState, self.LECUCommState)
+        self.setup_LECU_sensor_readouts(4,2)
+
+        # loops
+        if (self.GSECPicoCommState == "green"):
+            self.root.after(100,self.ctrl_loop)
+            #self.root.after(500,self.print_sensorData)
+        elif ((self.GSECPicoCommState == "red")):
+            self.root.after(500, self.print_ctrlString)
+        
+        #self.root.after(100,self.update_sensor_data)
+        #self.root.after(250,self.write_sensor_data_to_file)
+
+        self.root.protocol("WM_DELETE_WINDOW", self.on_close)
 
         self.root.mainloop()
 
-    def setup_modes_panel(self, row_, column_):
-        '''Sets up a panel with buttons for toggling auto launch interlock modes.'''
+    # ---------------- CONTROL STRING ---------------- #
 
-        mp = Custom_Panel(self.root, row_, column_, 'Modes')
+    def update_ctrlString(self,index,value):
+        self.ctrlString[index] = value
 
-        Custom_Toggle(mp.panel, 'Interlocks', self.run('set_interlocks'))
-        Custom_Toggle(mp.panel, 'Auto Mode', self.run('set_auto'))
-        
-        
+    def print_ctrlString(self):
+        print(self.ctrlString)
+        #print(self.ser.readline().decode().strip())
+        self.root.after(500, self.print_ctrlString)
+
+    def print_sensorData(self):
+        self.read_serial_data()
+        print(self.sensorData)
+        self.root.after(500, self.print_sensorData)
+
+    def ctrl_loop(self):
+        try:
+            if self.ser and self.ser.is_open:
+                msg = "".join(self.ctrlString)
+                self.ser.write(msg.encode())
+        except Exception as e:
+            print("Serial error:", e)
+        finally:
+            self.root.after(100, self.ctrl_loop)
+
+    # ---------------- SERIAL ---------------- #
+
     def read_serial_data(self):
+
         while True:
-            if self.ser.in_waiting > 0:
-                # Read the data sent from the Pico
-                data = self.ser.readline().decode('utf-8').strip()
-                # Split the received string into individual integers
-                self.sensorData = list(map(int, data.split()))
-                
-    
 
-    def setup_caution_panel(self, row_, column_):
-        '''
-        Generates a panel with caution circles for cautions
-        falling into the category of master, comms, sensors,
-        or GUI. Other issues will be reported directly to the
-        console.
-        '''
-        cp = Custom_Panel(self.root, row_, column_, 'Status Lights')
-        cp.panel.grid(row=0, column=column_, rowspan=2)
+            try:
+                if self.ser.in_waiting:
 
-        canvas = tk.Canvas(cp.panel, width=250, height=250)
+                    data = self.ser.readline().decode().strip()
+                    values = list(map(float,data.split()))
 
-        master_caution = canvas.create_oval(30, 15, 80, 65)
-        canvas.create_text(55, 80, text='Master')
-        canvas.itemconfig(master_caution, fill='green')
+                    self.sensorData = values
 
-        sensors_caution = canvas.create_oval(30, 115, 80, 165)
-        canvas.create_text(55, 180, text='Sensors')
-        canvas.itemconfig(sensors_caution, fill='green')
+            except:
+                pass
 
-        comms_caution = canvas.create_oval(130, 15, 180, 65)
-        canvas.create_text(155, 80, text='Comms')
-        canvas.itemconfig(comms_caution, fill='green')
+    # ---------------- SEQUENCES ---------------- #
 
-        gui_caution = canvas.create_oval(130, 115, 180, 165)
-        canvas.create_text(155, 180, text='GUI')
-        canvas.itemconfig(gui_caution, fill='green')
+    def open_GN2_fill(self):
 
-        canvas.pack()
+        self.update_ctrlString(1,'H')
 
-        self.caution_panel = {
-            'master': master_caution,
-            'sensors': sensors_caution,
-            'coms': comms_caution,
-            'GUI': gui_caution,
-            'canvas': canvas
-        }
+        self.root.after(500,
+            lambda: self.update_ctrlString(2,'O')
+        )
 
-        self.caution_states = {
-            'master': 0,
-            'sensors': 0,
-            'coms': 0,
-            'GUI': 0
-        }
+        self.log("Open GN2 Fill Valve")
 
-    def set_caution(self, caution_type, state):
+    def close_GN2_fill(self):
 
-        color_states = ['green', 'yellow', 'red']
-        self.caution_states[caution_type] = state
+        self.update_ctrlString(1,'H')
 
-        self.caution_panel['canvas'].itemconfig(
-            self.caution_panel[caution_type], fill=color_states[state])
+        self.root.after(250,
+            lambda: self.update_ctrlString(2,'C')
+        )
 
-        if state > self.caution_states['master']:
-            self.caution_states['master'] = state
+        self.root.after(1000,
+            lambda: self.update_ctrlString(1,'L')
+        )
 
-            self.caution_panel['canvas'].itemconfig(
-                self.caution_panel['master'], fill=color_states[state])
+        self.log("Close GN2 Fill Valve")
 
-    def setup_kill_panel(self, row_, column_):
-        '''
-        Provides a button to exit the program and a
-        button to immediately restore the program to a
-        safe operating condition and then exit (E-stop)
-        '''
+    def open_N2O_main_purge(self):
 
-        mp = Custom_Panel(self.root, row_, column_, 'Program Termination')
+        self.update_ctrlString(4,'H')
 
-        Custom_Button(mp.panel, 'Emergency Stop', self.run('estop'), 'red')
-        Custom_Button(mp.panel, 'Exit Program', self.prg_exit, 'white')
-        Custom_Button(mp.panel, 'Dump Oxidizer', self.run('dump'), 'white')
+        self.root.after(500,
+            lambda: self.update_ctrlString(5,'O')
+        )
 
-        self.set_control_mode = None
-        self.set_interlocks = None
+        self.log("Open N2O Main Valve")
 
-        self.go_emergency_stop = None
-        self.go_safe_exit = None
+    def close_N2O_main_purge(self):
 
-    def setup_auto_control_section(self, row_, column_):
-        '''
-        Provides a button to run the automatic launch sequencer which
-        will fire commands to light the igniter and open the main valves.
-        '''
-        ap = Custom_Panel(self.root, row_, column_, 'Automated Controls')
+        self.update_ctrlString(4,'H')
 
-        Custom_Button(ap.panel, 'Start launch sequence', self.run('launch'), 'white')
+        self.root.after(250,
+            lambda: self.update_ctrlString(5,'C')
+        )
 
-    def setup_manual_control_section(self, row_, column_):
-        '''
-        Provides buttons for oxidizer dump as well as manual
-        ignition and manual main valve actuation.
-        '''
-        mp = Custom_Panel(self.root, row_, column_, 'Manual Controls')
+        self.root.after(1000,
+            lambda: self.update_ctrlString(4,'L')
+        )
 
-        Custom_Button(mp.panel, 'Igniter', self.run('ignite'), 'white')
+        self.log("Close N2O Main Valve")
+
+    def open_N2O_fill(self):
+        self.update_ctrlString(1,'H')
+
+        self.root.after(500,
+            lambda: self.update_ctrlString(3,'O')
+        )
+
+        self.log("Open N2O Fill Valve")
+
+    def close_N2O_fill(self):
+
+        self.update_ctrlString(1,'H')
+
+        self.root.after(250,
+            lambda: self.update_ctrlString(3,'C')
+        )
+
+        self.root.after(1000,
+            lambda: self.update_ctrlString(1,'L')
+        )
+
+        self.log("Close N2O Main Valve")
+
+    def launch_sequence(self):
+
+        self.log("Launch sequence start")
+
+        self.update_ctrlString(1,'H')      # set GSECU Servo Pwr Switch high
+        self.update_ctrlString(4,'H')      # set LECU Servo Pwr Switch high
+
+        self.root.after(250,
+            lambda: self.update_ctrlString(3,'C')      # close N2O Fill Valve
+        )
+
+        self.root.after(1000,
+            lambda: self.update_ctrlString(1,'L')      # set GSECU Servo Pwr Switch low
+        )
+
+        self.root.after(2000,
+            lambda: self.update_ctrlString(7,'H')      # set QD relay pin high
+        )
+
+        self.root.after(3000,
+            lambda: self.update_ctrlString(7,'L')      # set QD relay pin low
+        )
+
+        self.root.after(8000,
+            lambda: self.update_ctrlString(8,'H')      # set igniter relay pin high
+        )
+
+        self.root.after(8500,
+            lambda: self.update_ctrlString(6,'O')      # open mains
+        )
+
+        self.root.after(10000,
+            lambda: self.update_ctrlString(8,'L')      # set igniter relay pin low
+        )
+
+    # ---------------- PANELS ---------------- #
+
+    def setup_COM_panel(self, c, r, GSECPicoCommState, LECUCommState):
+        panel = ttk.Frame(self.root, **self.FRAME_OPTS)
+        panel.grid(column=c,row=r, **self.FRAME_GRID_OPTS)
+
+        ttk.Label(panel,text="COM Status", **self.FRAME_TITLE_LABEL_OPTS).grid(row=0,column=0, **self.FRAME_TITLE_GRID_OPTS)
+        tk.Label(panel, text="GSEC Pico", bg=GSECPicoCommState).grid(row=1,column=0)
+        tk.Label(panel, text="LECU", bg=LECUCommState).grid(row=2,column=0)
+
+    def setup_GN2_fill_ops_panel(self,c,r):
+
+        panel = ttk.Frame(self.root, **self.FRAME_OPTS)
+        panel.grid(column=c,row=r, **self.FRAME_GRID_OPTS)
+
+        ttk.Label(panel,text="GN2 Fill Ops", **self.FRAME_TITLE_LABEL_OPTS).grid(row=0,column=0, **self.FRAME_TITLE_GRID_OPTS)
+
+        ttk.Button(panel,text="Open GN2 Fill Valve",
+                   command=self.open_GN2_fill).grid(row=1,column=0, **self.BUTTON_GRID_OPTS)
+
+        ttk.Button(panel,text="Close GN2 Fill Valve",
+                   command=self.close_GN2_fill).grid(row=2,column=0, **self.BUTTON_GRID_OPTS)
+
+    def setup_N2O_purge_ops_panel(self,c,r):
+
+        panel = ttk.Frame(self.root, **self.FRAME_OPTS)
+        panel.grid(column=c,row=r, **self.FRAME_GRID_OPTS)
+
+        ttk.Label(panel,text="N2O Purge Ops", **self.FRAME_TITLE_LABEL_OPTS).grid(row=0,column=0, **self.FRAME_TITLE_GRID_OPTS)
+
+        ttk.Button(panel,text="Open N2O Main Valve",
+                   command=self.open_N2O_main_purge).grid(row=1,column=0, **self.BUTTON_GRID_OPTS)
+
+        ttk.Button(panel,text="Close N2O Main Valve",
+                   command=self.close_N2O_main_purge).grid(row=2,column=0, **self.BUTTON_GRID_OPTS)
+
+    def setup_N2O_fill_ops(self,c,r):
+
+        panel = ttk.Frame(self.root, **self.FRAME_OPTS)
+        panel.grid(column=c,row=r, **self.FRAME_GRID_OPTS)
+
+        ttk.Label(panel,text="N2O Fill Ops", **self.FRAME_TITLE_LABEL_OPTS).grid(row=0,column=0,  columnspan=2, **self.FRAME_TITLE_GRID_OPTS)
+
+        ttk.Button(panel,text="Open N2O Fill Valve",
+                   command=self.open_N2O_fill).grid(row=1,column=0, **self.BUTTON_GRID_OPTS)
         
-        Custom_Button(mp.panel, 'Open Mains', self.run('open_mains'), 'white')
+        ttk.Button(panel,text="Close N2O Fill Valve",
+                   command=self.close_N2O_fill).grid(row=2,column=0, **self.BUTTON_GRID_OPTS)
 
+        ttk.Button(panel,text="Start Launch Sequence",
+                   command=self.launch_sequence).grid(row=1,column=1, **self.BUTTON_GRID_OPTS)
+        
 
-    def setup_sensor_readouts(self, row_, column_):
-        '''Displays all sensor readouts in table format.'''
+    def setup_e_stop(self,c,r):
 
-        sp = Custom_Panel(self.root, row_, column_, 'Sensors')
+        panel = ttk.Frame(self.root, **self.FRAME_OPTS)
+        panel.grid(column=c,row=r)
 
-        self.fuel_tank_PT = tk.Label(
-            sp.panel, text='Fuel tank PT         waiting...', font=get_font('c12'))
-        self.ox_tank_PT = tk.Label(
-            sp.panel, text='Ox tank PT           waiting...', font=get_font('c12'))
-        self.fuel_venturi_flow_PT = tk.Label(
-            sp.panel, text='Fuel Venturi PT     waiting...', font=get_font('c12'))
-        self.ox_venturi_flow_PT = tk.Label(
-            sp.panel, text='Ox Venturi PT       waiting...', font=get_font('c12'))
-        self.chamber_PT = tk.Label(
-            sp.panel, text='Chamber PT           waiting... ', font=get_font('c12'))
-        self.ox_TC = tk.Label(
-            sp.panel, text='Ox TC                waiting... ', font=get_font('c12'))
-        self.chamber_TC = tk.Label(
-            sp.panel, text='Chamber TC           waiting... ', font=get_font('c12'))
+        btn = tk.Button(panel,
+                        text="E-STOP",
+                        bg="red",
+                        fg="white",
+                        font=("Segoe UI",14,"bold"),
+                        command=self.e_stop)
 
-        sensor_list = [self.fuel_tank_PT, self.ox_tank_PT, self.fuel_venturi_flow_PT,
-                       self.ox_venturi_flow_PT, self.chamber_PT, self.ox_TC, self.chamber_TC]
+        btn.grid(row=0,column=0)
 
-        for sensor in sensor_list:
-            sensor.pack(anchor='w', pady=2)
-        sp.panel.pack_propagate(False)
+    # ---------------- SENSORS ---------------- #
+
+    def setup_GSECU_sensor_readouts(self,c,r):
+
+        panel = ttk.Frame(self.root, **self.FRAME_OPTS)
+        panel.grid(column=c,row=r, **self.FRAME_GRID_OPTS)
+
+        ttk.Label(panel,text="GSECU Sensor Readouts", **self.FRAME_TITLE_LABEL_OPTS).grid(row=0,column=0,columnspan=2, **self.FRAME_TITLE_GRID_OPTS)
+
+        ttk.Label(panel, text='N2O K-Bottle PT', **self.SENSOR_NAME_LABEL_OPTS).grid(column=0, row=1, padx=3, pady=3, sticky="e")
+        self.N2OKBtlPT = ttk.Label(panel,text="Waiting...")
+        self.N2OKBtlPT.grid(column=1, row=1)
+
+        ttk.Label(panel,text="N2O K Bottle PT").grid(row=1,column=0)
+
+        self.fillLinePT = ttk.Label(panel,text="Waiting...")
+        self.fillLinePT.grid(column=1,row=2)
+
+        ttk.Label(panel,text="Fill Line PT").grid(row=2,column=0)
+
+    def setup_LECU_sensor_readouts(self,c,r):
+
+        panel = ttk.Frame(self.root, **self.FRAME_OPTS)
+        panel.grid(column=c,row=r, **self.FRAME_GRID_OPTS)
+
+        ttk.Label(panel,text="LECU Sensor Readouts", **self.FRAME_TITLE_LABEL_OPTS).grid(row=0,column=0,columnspan=2, **self.FRAME_TITLE_GRID_OPTS)
+
+        self.fuelTankPT = ttk.Label(panel,text="Waiting...")
+        self.fuelTankPT.grid(row=1,column=1)
+
+        ttk.Label(panel,text="Fuel Tank PT").grid(row=1,column=0)
+
+    # ---------------- SENSOR UPDATE ---------------- #
 
     def update_sensor_data(self):
-        if self.sensorData:
-                sensorDataString = list(map(str, self.sensorData))
-                for i in range(len(sensorDataString)):
-                        if (int(sensorDataString[i]) < 10):
-                                sensorDataString[i] = "0" + sensorDataString[i]
-                self.fuel_tank_PT.config(text=f"Fuel Tank PT: {sensorDataString[0]} psi")
-                self.ox_tank_PT.config(text=f"Ox Tank PT: {sensorDataString[1]} psi")
-                self.fuel_venturi_flow_PT.config(text=f"Fuel Venturi PT: {sensorDataString[2]} psi")
-                self.ox_venturi_flow_PT.config(text=f"Ox Venturi PT: {sensorDataString[3]} psi")
-                self.chamber_PT.config(text=f"Chamber PT: {sensorDataString[4]} psi")
-                self.ox_TC.config(text=f"Ox TC: {sensorDataString[5]} F")
-                self.chamber_TC.config(text=f"Chamber TC: {sensorDataString[6]} F")
-        self.root.after(250, self.update_sensor_data) #recursively call this function every 250ms
 
+        if len(self.sensorData) >= 2:
 
-    def setup_ox_monitor(self, row_, column_):
-        '''
-        Displays the oxidizer button to actuate fill
-        and estimated fill state.
-        '''
+            self.N2OKBtlPT.config(text=f"{self.sensorData[0]:.2f}")
+            self.fillLinePT.config(text=f"{self.sensorData[1]:.2f}")
 
-        op = Custom_Panel(self.root, row_, column_, 'Nitrous Fill')
+        self.root.after(100,self.update_sensor_data)
 
-        s = ttk.Style()
-        s.configure('TProgressbar', thickness=20)
+    # ---------------- CONSOLE ---------------- #
 
-        Custom_Button(op.panel, 'Open Fill Valve', self.run('open_fill'), 'white')
-        Custom_Button(op.panel, 'Close Fill Valve', self.run('close_fill'), 'white')
-        fill_time = tk.Label(
-            op.panel, text='Time to fill:\t\t-- Not Started --')
-        progress_label = tk.Label(op.panel, text='Fill progress:')
-        progress = ttk.Progressbar(op.panel, orient='horizontal',
-                                   length=250, mode='determinate')
+    def setup_console(self,c,r):
 
-        fill_time.pack(pady=5, anchor='w')
-        progress_label.pack(anchor='w')
-        progress.pack()
+        panel = ttk.Frame(self.root, **self.FRAME_OPTS)
+        panel.grid(column=c,row=r, **self.FRAME_GRID_OPTS)
 
-        self.ox_progress_bar = progress
+        ttk.Label(panel,text="Console", **self.FRAME_TITLE_LABEL_OPTS).pack()
 
-    def setup_console(self, column_):
-        '''
-        Sets up the console for later messages to be logged and
-        the launch sequence to be recorded.
-        '''
+        self.console = tk.Text(panel,height=10,width=50)
+        self.console.pack()
 
-        cp = Custom_Panel(self.root, 0, column_, 'Console')
-        cp.panel.grid(row=0, column=column_, rowspan=2)
+    def log(self,msg):
 
-        console = tk.Text(cp.panel, width=30, height=10,
-                          wrap='word', font=get_font('c16'))
+        t = datetime.now().strftime("%H:%M:%S")
+        self.console.insert(tk.END,f"[{t}] {msg}\n")
+        self.console.see(tk.END)
 
-        console.pack()
-        console.configure(state='disabled')
+    # ---------------- CSV LOGGING ---------------- #
 
-        self.console = console
+    def write_sensor_data_to_file(self):
 
-        self.run_console_log('STARTUP', 0)
+        timestamp = (datetime.now(timezone.utc)-self.start_timestamp).total_seconds()
 
-    def run_console_log(self, text, state):
-        '''
-        Logs a message to the console and to the corresponding
-        record file for future reference.
-
-        text - the message to be logged
-        state - the message status to be logged:
-            0 >>> Standard operation
-            1 >>> Caution
-            2 >>> Warning
-            3 >>> No status
-        '''
-
-        if text == 'STARTUP':
-            fmt = '%m-%d-%Y, %H:%M:%S UTC : CONSOLE STARTUP\n\n'
-            text = 'Missouri S&T RDT Ground Control\n\n' \
-                '>> Standard Operation\nxx Caution\n!! Warning\n\n' \
-                'ALL BUTTONS MUST BE DOUBLE CLICKED\n'
-            state = 3
-            self.console_file = open(self.start_timestamp.strftime(
-                'GSECLOG_%m_%d_%Y_%H_%M_%S.txt'), 'a+')
-        else:
-            fmt = '%H:%M:%S : '
-
-        state_indicators = ['>> ', 'xx ', '!! ', '']
-
-        str_date_time = datetime.now(timezone.utc).strftime(fmt)
-
-        full_text = state_indicators[state] + str_date_time + text + '\n'
-        self.console.configure(state='normal')
-        self.console.insert(tk.END, full_text)
-        self.console.configure(state='disabled')
+        row = [timestamp] + self.sensorData
 
         try:
-            self.console_file.write(full_text)
+            with open("engine_test_data.csv","a",newline="") as f:
+
+                writer = csv.writer(f)
+                writer.writerow(row)
+
         except:
-            self.console.configure(state='normal')
-            self.console.insert(
-                tk.END, '!! WARNING - The console is no longer logging to the output file. '
-                'Please restart the application or manually record events logged to the console.')
-            self.console.configure(state='disabled')
+            pass
 
-            self.set_caution('GUI', 1)
+        self.root.after(250,self.write_sensor_data_to_file)
 
-        self.console.yview_pickplace('end')
+    # ---------------- SAFETY ---------------- #
 
-    def prg_exit(self):
-        '''
-        Immediately terminates program operation without running safing procedures
-        '''
+    def e_stop(self):
+        self.update_ctrlString(1,'H')      # set GSECU Servo Pwr Switch high
+        self.update_ctrlString(4,'H')      # set LECU Servo Pwr Switch high
+        self.root.after(100, lambda: setattr(self, "ctrlString", list(self.ESTOP_CTRL)))
+        self.root.after(1100, lambda: setattr(self, "ctrlString", list(self.DEFAULT_CTRL)))
+        self.log("E-STOP ACTIVATED")
+
+    def on_close(self):
 
         try:
-            self.run_console_log('Program exited', 1)
-            self.console_file.close()
-            self.exit_attempt = True
+            self.ser.close()
         except:
-            print('error')
-            self.run_console_log(
-                'An error occured while trying to exit the program. This probably occured because of an error in saving the log file. To proceed anyway, please click this button again.', 2)
+            pass
 
-        if self.exit_attempt:
-            sys.exit(0 if self.exit_attempt == False else 1)
-        else:
-            self.exit_attempt = True
+        self.root.destroy()
 
-    def run(self, function_name):
-        '''
-        Handles exectution of commands to the controller.
-        '''
 
-        func = getattr(self.controller, function_name)
 
-        return lambda *args: self.run_console_log(*func(*args))
 
-    def set_mode(self, mode):
-        assert (mode in ['launch', 'test'])
-
-        self.mode = mode
