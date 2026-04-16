@@ -14,6 +14,7 @@ class GUI_Window():
     FRAME_GRID_OPTS = {"padx" : 10, "pady" : 10}
     FRAME_TITLE_LABEL_OPTS = {"borderwidth" : 2, "anchor" : "center", "relief" : "solid", "padding": (4,3,4,3)}
     FRAME_TITLE_GRID_OPTS = {"padx": 3, "pady": 3}
+    TRM_LNCH_SEQ_LBL_OPTS = {"borderwidth":1, "relief":"solid"}
     SNSR_NAME_LABEL_OPTS = {"width":15, "anchor":"w", "borderwidth":1, "relief":"solid", "padding":(4,3,4,3)}
     SNSR_RDING_LABEL_OPTS = {"width":10, "anchor":"w", "borderwidth":1, "relief":"solid", "padding":(4,3,4,3)}
     SNSR_UNIT_LABEL_OPTS = {"width":5, "anchor":"w", "borderwidth":1, "relief":"solid", "padding":(4,3,4,3)}
@@ -27,9 +28,8 @@ class GUI_Window():
     def __init__(self):
 
         self.root = tk.Tk()
-        self.root.geometry('1200x700')
+        self.root.geometry('1920x1080')
         self.root.title('GSEC GUI')
-
         sv_ttk.set_theme("dark")
 
         self.start_timestamp = datetime.now(timezone.utc)
@@ -61,15 +61,23 @@ class GUI_Window():
         #self.serialThread.start()
 
         # GUI panels
+        self.root.rowconfigure(0, weight=1)
+        self.root.rowconfigure(1, weight=1)
+        self.root.rowconfigure(2, weight=1)
+        self.root.rowconfigure(3, weight=1)
+        self.root.columnconfigure(0,weight=1)
+        self.root.columnconfigure(1,weight=1)
+        self.root.columnconfigure(2,weight=1)
         self.setup_GN2_fill_ops_panel(0,0)
         self.setup_N2O_purge_ops_panel(1,0)
-        #self.setup_GSECU_sensor_readouts(4,0)
-        self.setup_e_stop(2,1)
-        self.setup_N2O_fill_ops(0,2)
-        self.setup_term_lnch_seq_stat_bar(2,3)
-        self.setup_console(2,2)
-        self.setup_COM_panel(0, 3, self.GSECPicoCommState, self.LECUCommState)
-        #self.setup_LECU_sensor_readouts(4,2)
+        self.setup_N2O_fill_ops(2,0)
+        self.setup_console(0,1)
+        self.setup_GSECU_sensor_readouts(1,1)
+        self.setup_LECU_sensor_readouts(2,1)
+        self.setup_term_lnch_seq_stat_bar(0,2)
+        self.setup_COM_panel(1, 2, self.GSECPicoCommState, self.LECUCommState)
+        self.setup_e_stop(2,2)
+        
 
         # loops
         if (self.GSECPicoCommState == "green"):
@@ -338,13 +346,13 @@ class GUI_Window():
         panel.grid(column=c,row=r, **self.FRAME_GRID_OPTS)
 
         ttk.Label(panel,text="Terminal Launch Sequence Status Bar", **self.FRAME_TITLE_LABEL_OPTS).grid(row=0,column=0,  columnspan=4, **self.FRAME_TITLE_GRID_OPTS)
-        self.N2OFillClosed = tk.Label(panel, text="N2O Fill Closed", bg="orange", fg="blue")
+        self.N2OFillClosed = tk.Label(panel, text="N2O Fill Closed,", bg="orange", fg="blue", **self.TRM_LNCH_SEQ_LBL_OPTS)
         self.N2OFillClosed.grid(row=1,column=0)
-        self.QDActuated = tk.Label(panel, text="QD Actuated", bg="orange", fg="blue")
+        self.QDActuated = tk.Label(panel, text="QD Actuated", bg="orange", fg="blue", **self.TRM_LNCH_SEQ_LBL_OPTS)
         self.QDActuated.grid(row=1,column=1)
-        self.ignition = tk.Label(panel, text="Ignition", bg="orange", fg="blue")
+        self.ignition = tk.Label(panel, text="Ignition", bg="orange", fg="blue", **self.TRM_LNCH_SEQ_LBL_OPTS)
         self.ignition.grid(row=1,column=2)
-        self.mainsOpened = tk.Label(panel, text="Mains Opened", bg="orange", fg="blue")
+        self.mainsOpened = tk.Label(panel, text="Mains Opened", bg="orange", fg="blue", **self.TRM_LNCH_SEQ_LBL_OPTS)
         self.mainsOpened.grid(row=1,column=3)
 
     def setup_e_stop(self,c,r):
