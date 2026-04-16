@@ -46,7 +46,7 @@ class GUI_Window():
         self.fired = False
 
         # Serial
-        self.port = "COM3"
+        self.port = "/dev/ttyACM0"
         try:
             self.ser = serial.Serial(self.port, 115200, timeout=0.05, write_timeout=0.05)
             self.GSECPicoCommState = "green"
@@ -63,13 +63,13 @@ class GUI_Window():
         # GUI panels
         self.setup_GN2_fill_ops_panel(0,0)
         self.setup_N2O_purge_ops_panel(1,0)
-        self.setup_GSECU_sensor_readouts(4,0)
+        #self.setup_GSECU_sensor_readouts(4,0)
         self.setup_e_stop(2,1)
         self.setup_N2O_fill_ops(0,2)
         self.setup_term_lnch_seq_stat_bar(2,3)
         self.setup_console(2,2)
         self.setup_COM_panel(0, 3, self.GSECPicoCommState, self.LECUCommState)
-        self.setup_LECU_sensor_readouts(4,2)
+        #self.setup_LECU_sensor_readouts(4,2)
 
         # loops
         if (self.GSECPicoCommState == "green"):
@@ -168,7 +168,7 @@ class GUI_Window():
 
         self.update_ctrlString(1,'H')
 
-        self.root.after(500,
+        self.root.after(250,
             lambda: self.update_ctrlString(2,'O')
         )
 
@@ -192,7 +192,7 @@ class GUI_Window():
 
         self.update_ctrlString(4,'H')
 
-        self.root.after(500,
+        self.root.after(250,
             lambda: self.update_ctrlString(5,'O')
         )
 
@@ -215,7 +215,7 @@ class GUI_Window():
     def open_N2O_fill(self):
         self.update_ctrlString(1,'H')
 
-        self.root.after(500,
+        self.root.after(250,
             lambda: self.update_ctrlString(3,'O')
         )
 
@@ -262,11 +262,11 @@ class GUI_Window():
             lambda: [self.update_ctrlString(8,'H'), self.ignition.config(bg="green")]      # set igniter relay pin high and update terminal launch sequence status bar accordingly
         )
 
-        self.root.after(9000,
+        self.root.after(8500,
             lambda: [self.update_ctrlString(6,'O'), self.mainsOpened.config(bg="green")]      # open mains and update terminal launch sequence status bar accordingly
         )
 
-        self.root.after(11000,
+        self.root.after(10000,
             lambda: self.update_ctrlString(8,'L')      # set igniter relay pin low
         )
 
@@ -531,7 +531,7 @@ class GUI_Window():
         self.ignition.config(bg="orange")
         self.mainsOpened.config(bg="orange")
         self.root.after(100, lambda: setattr(self, "ctrlString", list(self.ESTOP_CTRL)))
-        self.root.after(75, lambda: setattr(self, "ctrlString", list(self.DEFAULT_CTRL)))
+        self.root.after(1100, lambda: setattr(self, "ctrlString", list(self.DEFAULT_CTRL)))
         self.log("E-STOP ACTIVATED")
 
     def on_close(self):
