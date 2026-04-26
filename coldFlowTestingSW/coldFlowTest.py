@@ -20,30 +20,30 @@ time.sleep(2) #Let device initialize
 
 #First index is the fuel control character, second index is the ox control character
 # 'F' is closed, 'T' is open
-ser.write(b"FF")   
+ser.write(b"<CC>")   
 ser.flush()
 
 
 def runFuel():
 	openTime = int(runTime.get(1.0, "end-1c"))
-	ser.write(b"TF")
+	ser.write(b"<OC>")
 	ser.flush()
 	root.after(openTime * 1000, closeValves)
 	
 def runOx():
 	openTime = int(runTime.get(1.0, "end-1c"))
-	ser.write(b"FT")
+	ser.write(b"<CO>")
 	ser.flush()
 	root.after(openTime * 1000, closeValves)
 
 def runBoth():
 	openTime = int(runTime.get(1.0, "end-1c"))
-	ser.write("TT".encode('utf-8'))
+	ser.write(b"<OO>")
 	ser.flush()
 	root.after(openTime * 1000, closeValves)
 
 def closeValves():
-	ser.write(b"FF")
+	ser.write(b"<CC>")
 	ser.flush()
 
 
