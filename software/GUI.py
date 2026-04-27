@@ -46,7 +46,9 @@ class GUI_Window():
         self.fired = False
 
         # Serial
-        self.port = "/dev/ttyACM0"
+        #self.port = "/dev/ttyACM0"
+        self.port = "COM3"
+
         try:
             self.ser = serial.Serial(self.port, 115200, timeout=0.05, write_timeout=0.05)
             self.GSECPicoCommState = "green"

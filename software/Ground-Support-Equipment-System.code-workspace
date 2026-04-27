@@ -6,6 +6,10 @@
 		{
 			"name": "GSECPicoSW_V2.0",
 			"path": "../GSECPicoSoftware/GSECPicoSW_V2.0"
+		},
+		{
+			"name": "GSEC_Pico_Cold_Flow_SW",
+			"path": "../coldFlowTestingSW/GSECPico_Cold_Flow_SW/GSEC_Pico_Cold_Flow_SW"
 		}
 	],
 	"settings": {}
