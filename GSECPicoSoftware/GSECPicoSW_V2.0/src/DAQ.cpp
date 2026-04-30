@@ -51,8 +51,6 @@ uint32_t analog_read_MCP3564_mux_chan(int csPin, int posMuxChanByte, int negMuxC
     ADC_CRC.WORD = 0x0000;
     uint64_t CALC_CRC = 0x000000000000;
 
-    delay(1400);   // Delay for 1.4s. It appears that the lower limit for this is between 1300 and 1400ms
-
     if(CONV_START(posMuxChanByte | negMuxChanByte) == 0x13) {     // Convert posMuxChanByte(+) and negMuxChanByte(-) channel ("single ended" reading) and check Data-Ready(DR) Bit of STATUS Byte.               
         CONV_DATA.DWORD = SPI_RD(_ADCDATA_, ADC_CRC, CALC_CRC);      // Read Signal Conversion data.
     }  // ADC Readings will be uncharacteristically perfectly stable at zero if there is no valid reading of the analog channel

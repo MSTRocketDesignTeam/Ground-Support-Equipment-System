@@ -154,7 +154,7 @@ const uint8_t _IRQ_ = 0x05;                   // IRQ Register Address.
     #define EN_STP_ON 0b00000001
     #define EN_STP_OFF 0b00000000
 
-    #define IRQ_CFG (DR_STAT | CRCCFG_STAT | POR_STAT | IRQ_MODE1_IRQ | IRQ_MODE0_HIZ | EN_FASTCMD_ON | EN_STP_OFF)  /* 0x72 */
+    #define IRQ_CFG (DR_STAT | CRCCFG_STAT | POR_STAT | IRQ_MODE1_IRQ | IRQ_MODE0_HI | EN_FASTCMD_ON | EN_STP_OFF)  /* 0x72 */
 
 
 /* MUX REGISTER */
@@ -196,7 +196,7 @@ const uint8_t _MUX_ = 0x06;                   // MUX Register Address.
     #define MUX_VINN_CH1 0b000000000001
     #define MUX_VINN_CH0 0b00000000
 
-    #define MUX_CFG (MUX_VINP_CH0 | MUX_VINN_CH1)  /* 0x01 */
+    #define MUX_CFG (MUX_VINP_CH0 | MUX_VINN_AGND)  /* 0x01 */
 
 
 /* SCAN REGISTER */

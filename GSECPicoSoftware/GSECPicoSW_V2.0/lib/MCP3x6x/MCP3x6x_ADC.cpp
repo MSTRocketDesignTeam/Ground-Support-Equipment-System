@@ -20,7 +20,7 @@ void MCP3x6x_CONFIG(void)
     //MUX --> VIN+ = CH0, VIN- = CH1 --> (0b00000001 = 0x01).
     SPI_WRT(_MUX_, MUX_CFG);                                          // MUX_CFG defined in "MCP3x6x_ADC_Definitions.h" file.                                       
     
-    //IRQ --> IRQ Mode = Hi-Z IRQ Output, Fast-CMD = Enabled, Conversion-Start Pulse = Disabled --> (0b00000000 = 0x72).
+    //IRQ --> IRQ Mode = Hi IRQ Output, Fast-CMD = Enabled, Conversion-Start Pulse = Disabled --> (0b00000000 = 0x72).
     SPI_WRT(_IRQ_, IRQ_CFG);                                          // IRQ_CFG defined in "MCP3x6x_ADC_Definitions.h" file.                                       
     
     //CONFIG3 --> Conv. Mod = One-Shot Conv. Mode, FORMAT = 24b, CRC_FORMAT = 16b, CRC-COM = Enabled, OFFSETCAL = Enabled, GAINCAL = Enabled --> (0b10000111 = 0x87).
