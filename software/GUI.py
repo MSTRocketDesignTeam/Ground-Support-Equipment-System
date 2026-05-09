@@ -5,6 +5,11 @@ import threading
 from datetime import datetime, timezone
 import csv
 import sv_ttk
+import matplotlib
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.figure import Figure
+import numpy as np
+
 
 class GUI_Window():
     ESTOP_CTRL   = "<HCCHCCLLU>"
@@ -19,11 +24,12 @@ class GUI_Window():
     SNSR_RDING_LABEL_OPTS = {"width":10, "anchor":"w", "borderwidth":1, "relief":"solid", "padding":(4,3,4,3)}
     SNSR_UNIT_LABEL_OPTS = {"width":5, "anchor":"w", "borderwidth":1, "relief":"solid", "padding":(4,3,4,3)}
     TMR_DESC_LABEL_OPTS = {"width":25, "anchor":"w", "borderwidth":2, "relief":"solid", "padding":(4,3,4,3)}
-    TMR_LABEL_OPTS = {"width":5, "anchor":"w", "borderwidth":2, "relief":"solid", "padding":(4,3,4,3)}
+    TMR_LABEL_OPTS = {"width":3, "anchor":"w", "borderwidth":2, "relief":"solid", "padding":(4,3,4,3)}
     DEF_PREBRN_PRGE_FILL_TM = 140
     DEF_PSTBRN_PRGE_FILL_TM = 7
     DEF_N2O_PRGE_TM = 3
     DEF_N2O_FILL_TIME = 300
+    DEF_LNCH_CNTDWN_TIME = 8
 
     def __init__(self):
 
@@ -43,22 +49,25 @@ class GUI_Window():
         self.purgeFillTmr = self.DEF_PREBRN_PRGE_FILL_TM
         self.N2OMainPurgeTmr = self.DEF_N2O_PRGE_TM
         self.N2OFillTmr = self.DEF_N2O_FILL_TIME
+        self.lnchCntdwnTmr = self.DEF_LNCH_CNTDWN_TIME
         self.fired = False
+        self.lastSent = self.ctrlString
 
         # Serial
         self.port = "/dev/ttyACM0"
         try:
             self.ser = serial.Serial(self.port, 115200, timeout=0.05, write_timeout=0.05)
             self.GSECPicoCommState = "green"
+            self.serialThread = threading.Thread(target=self.read_serial_data)
+            self.serialThread.daemon = True
+            self.serialThread.start()
+            self.sensor_lock = threading.Lock()
             print("Serial connected")
         except:
             print("Serial not connected — running in GUI-only mode")
             self.GSECPicoCommState = "red"
             self.ser = None
 
-        #self.serialThread = threading.Thread(target=self.read_serial_data)
-        #self.serialThread.daemon = True
-        #self.serialThread.start()
 
         # GUI panels
         self.root.rowconfigure(0, weight=1)
@@ -82,14 +91,14 @@ class GUI_Window():
         # loops
         if (self.GSECPicoCommState == "green"):
             self.root.after(100, self.ctrl_loop)
-            #self.root.after(500, self.print_sensorData)
+            self.root.after(100, self.update_sensor_data)
+            self.root.after(100, self.write_sensor_data_to_file)
         elif ((self.GSECPicoCommState == "red")):
             self.root.after(500, self.print_ctrlString)
         self.root.after(1000, self.update_purge_fill_tmr)
         self.root.after(1000, self.update_N2O_main_purge_tmr)
         self.root.after(1000, self.update_N2O_fill_tmr)
-        #self.root.after(100, self.update_sensor_data)
-        #self.root.after(250, self.write_sensor_data_to_file)
+        self.root.after(1000, self.update_lnch_cntdown_tmr)
 
         self.root.protocol("WM_DELETE_WINDOW", self.on_close)
         self.root.mainloop()
@@ -115,7 +124,9 @@ class GUI_Window():
                 self.GSECPicoCommState = "green"
                 self.GSECPicoCommStateLabel.config(bg=self.GSECPicoCommState)
                 msg = "".join(self.ctrlString)
-                self.ser.write(msg.encode())
+                if msg != self.lastSent:
+                    self.ser.write(msg.encode())
+                    self.lastSent = msg
         except Exception as e:
             self.GSECPicoCommState = "red"
             self.GSECPicoCommStateLabel.config(bg=self.GSECPicoCommState)
@@ -126,16 +137,22 @@ class GUI_Window():
     # ---------------- SERIAL ---------------- #
 
     def read_serial_data(self):
-
         while True:
             try:
-                if self.ser.in_waiting:
+                if self.ser and self.ser.in_waiting:
+                    data = self.ser.readline().decode(errors='ignore').strip()
 
-                    data = self.ser.readline().decode().strip()
-                    values = list(map(float,data.split()))
-                    self.sensorData = values
+                    if data:
+                        values = [int(x.strip()) for x in data.split(',')]
 
-            except:
+                        # Optional: validate packet length
+                        if len(values) == 7:
+                            with self.sensor_lock:
+                                self.sensorData = values
+                        else:
+                            print("Bad packet length:", data)
+
+            except Exception as e:
                 pass
 
     # ---------------- LAUNCH/FIRE SEQUENCE TIMERS ---------------- #
@@ -169,6 +186,15 @@ class GUI_Window():
             self.N2OFillTmr = self.DEF_N2O_FILL_TIME
             self.N2OFillTmrLabel.config(text=self.N2OFillTmr)
         self.root.after(1000, self.update_N2O_fill_tmr)
+        
+    def update_lnch_cntdown_tmr(self):
+            if (self.fired):
+                    self.lnchCntdwnTmr -= 1
+                    self.lnchCntdwnTmrLabel.config(text=self.lnchCntdwnTmr)
+            else:
+                    self.lnchCntdwnTmr = self.DEF_LNCH_CNTDWN_TIME
+                    self.lnchCntdwnTmrLabel.config(text=self.lnchCntdwnTmr)
+            self.root.after(1000,self.update_lnch_cntdown_tmr)
 
     # ---------------- SEQUENCES ---------------- #
 
@@ -346,6 +372,9 @@ class GUI_Window():
         panel.grid(column=c,row=r, **self.FRAME_GRID_OPTS)
 
         ttk.Label(panel,text="Terminal Launch Sequence Status Bar", **self.FRAME_TITLE_LABEL_OPTS).grid(row=0,column=0,  columnspan=4, **self.FRAME_TITLE_GRID_OPTS)
+        self.lnchCntdwnTmrLabel = ttk.Label(panel, text=self.lnchCntdwnTmr, **self.TMR_LABEL_OPTS)
+        self.lnchCntdwnTmrLabel.grid(row=0, column=4)
+        
         self.N2OFillClosed = tk.Label(panel, text="N2O Fill Closed,", bg="orange", fg="blue", **self.TRM_LNCH_SEQ_LBL_OPTS)
         self.N2OFillClosed.grid(row=1,column=0)
         self.QDActuated = tk.Label(panel, text="QD Actuated", bg="orange", fg="blue", **self.TRM_LNCH_SEQ_LBL_OPTS)
@@ -369,6 +398,10 @@ class GUI_Window():
         btn.grid(row=0,column=0)
 
     # ---------------- SENSORS ---------------- #
+    
+    #def setup_WMLC_plot(self,c,r):
+     # TODO: implement WMLC plot   
+            
 
     def setup_GSECU_sensor_readouts(self,c,r):
 
@@ -484,12 +517,19 @@ class GUI_Window():
 
     def update_sensor_data(self):
 
-        if len(self.sensorData) >= 2:
+        with self.sensor_lock:
+            data = self.sensorData.copy()
 
-            self.N2OKBtlPT.config(text=f"{self.sensorData[0]:.2f}")
-            self.fillLinePT.config(text=f"{self.sensorData[1]:.2f}")
+        if len(data) >= 7:
+            self.N2OKBtlPT.config(text=f"{data[0]:.2f}")
+            self.fillLinePT.config(text=f"{data[1]:.2f}")
+            self.PurgeKBtlPT.config(text=f"{data[2]:.2f}")
+            self.wetMassLC.config(text=f"{data[3]:.2f}")
+            self.PurgeKBtlTC.config(text=f"{data[4]:.2f}")
+            self.GSECUintTC.config(text=f"{data[5]:.2f}")
+            self.N2OKBtlTC.config(text=f"{data[6]:.2f}")
 
-        self.root.after(100,self.update_sensor_data)
+        self.root.after(100, self.update_sensor_data)
 
     # ---------------- CONSOLE ---------------- #
 
@@ -518,7 +558,7 @@ class GUI_Window():
         row = [timestamp] + self.sensorData
 
         try:
-            with open("engine_test_data.csv","a",newline="") as f:
+            with open("data.csv","a",newline="") as f:
 
                 writer = csv.writer(f)
                 writer.writerow(row)
@@ -526,7 +566,7 @@ class GUI_Window():
         except:
             pass
 
-        self.root.after(250,self.write_sensor_data_to_file)
+        self.root.after(100,self.write_sensor_data_to_file)
 
     # ---------------- SAFETY ---------------- #
 
