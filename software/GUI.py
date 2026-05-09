@@ -44,23 +44,24 @@ class GUI_Window():
         self.N2OMainPurgeTmr = self.DEF_N2O_PRGE_TM
         self.N2OFillTmr = self.DEF_N2O_FILL_TIME
         self.fired = False
+        self.lastSent = self.ctrlString
 
         # Serial
         #self.port = "/dev/ttyACM0"
-        self.port = "COM3"
+        self.port = "COM11"
 
         try:
             self.ser = serial.Serial(self.port, 115200, timeout=0.05, write_timeout=0.05)
             self.GSECPicoCommState = "green"
+            self.serialThread = threading.Thread(target=self.read_serial_data)
+            self.serialThread.daemon = True
+            self.serialThread.start()
+            self.sensor_lock = threading.Lock()
             print("Serial connected")
         except:
             print("Serial not connected — running in GUI-only mode")
             self.GSECPicoCommState = "red"
             self.ser = None
-
-        #self.serialThread = threading.Thread(target=self.read_serial_data)
-        #self.serialThread.daemon = True
-        #self.serialThread.start()
 
         # GUI panels
         self.root.rowconfigure(0, weight=1)
@@ -84,14 +85,13 @@ class GUI_Window():
         # loops
         if (self.GSECPicoCommState == "green"):
             self.root.after(100, self.ctrl_loop)
-            #self.root.after(500, self.print_sensorData)
+            self.root.after(100, self.update_sensor_data)
+            self.root.after(100, self.write_sensor_data_to_file)
         elif ((self.GSECPicoCommState == "red")):
             self.root.after(500, self.print_ctrlString)
         self.root.after(1000, self.update_purge_fill_tmr)
         self.root.after(1000, self.update_N2O_main_purge_tmr)
         self.root.after(1000, self.update_N2O_fill_tmr)
-        #self.root.after(100, self.update_sensor_data)
-        #self.root.after(250, self.write_sensor_data_to_file)
 
         self.root.protocol("WM_DELETE_WINDOW", self.on_close)
         self.root.mainloop()
@@ -117,7 +117,9 @@ class GUI_Window():
                 self.GSECPicoCommState = "green"
                 self.GSECPicoCommStateLabel.config(bg=self.GSECPicoCommState)
                 msg = "".join(self.ctrlString)
-                self.ser.write(msg.encode())
+                if msg != self.lastSent:
+                    self.ser.write(msg.encode())
+                    self.lastSent = msg
         except Exception as e:
             self.GSECPicoCommState = "red"
             self.GSECPicoCommStateLabel.config(bg=self.GSECPicoCommState)
@@ -128,17 +130,24 @@ class GUI_Window():
     # ---------------- SERIAL ---------------- #
 
     def read_serial_data(self):
-
         while True:
             try:
-                if self.ser.in_waiting:
+                if self.ser and self.ser.in_waiting:
+                    data = self.ser.readline().decode(errors='ignore').strip()
 
-                    data = self.ser.readline().decode().strip()
-                    values = list(map(float,data.split()))
-                    self.sensorData = values
+                    if data:
+                        values = [int(x.strip()) for x in data.split(',')]
 
-            except:
+                        # Optional: validate packet length
+                        if len(values) == 7:
+                            with self.sensor_lock:
+                                self.sensorData = values
+                        else:
+                            print("Bad packet length:", data)
+
+            except Exception as e:
                 pass
+                #print("Parse error:", e, "| Raw:", data)   # uncommenting this line floods the terminal with errors upon closing the program
 
     # ---------------- LAUNCH/FIRE SEQUENCE TIMERS ---------------- #
 
@@ -486,12 +495,19 @@ class GUI_Window():
 
     def update_sensor_data(self):
 
-        if len(self.sensorData) >= 2:
+        with self.sensor_lock:
+            data = self.sensorData.copy()
 
-            self.N2OKBtlPT.config(text=f"{self.sensorData[0]:.2f}")
-            self.fillLinePT.config(text=f"{self.sensorData[1]:.2f}")
+        if len(data) >= 7:
+            self.N2OKBtlPT.config(text=f"{data[0]:.2f}")
+            self.fillLinePT.config(text=f"{data[1]:.2f}")
+            self.PurgeKBtlPT.config(text=f"{data[2]:.2f}")
+            self.wetMassLC.config(text=f"{data[3]:.2f}")
+            self.PurgeKBtlTC.config(text=f"{data[4]:.2f}")
+            self.GSECUintTC.config(text=f"{data[5]:.2f}")
+            self.N2OKBtlTC.config(text=f"{data[6]:.2f}")
 
-        self.root.after(100,self.update_sensor_data)
+        self.root.after(100, self.update_sensor_data)
 
     # ---------------- CONSOLE ---------------- #
 
@@ -514,21 +530,17 @@ class GUI_Window():
     # ---------------- CSV LOGGING ---------------- #
 
     def write_sensor_data_to_file(self):
-
         timestamp = (datetime.now(timezone.utc)-self.start_timestamp).total_seconds()
-
         row = [timestamp] + self.sensorData
-
         try:
-            with open("engine_test_data.csv","a",newline="") as f:
+            with open("data.csv","a",newline="") as f:
 
                 writer = csv.writer(f)
                 writer.writerow(row)
-
         except:
             pass
 
-        self.root.after(250,self.write_sensor_data_to_file)
+        self.root.after(100,self.write_sensor_data_to_file)
 
     # ---------------- SAFETY ---------------- #
 
@@ -545,11 +557,9 @@ class GUI_Window():
         self.log("E-STOP ACTIVATED")
 
     def on_close(self):
-
         try:
             self.ser.close()
         except:
             pass
-
         self.root.destroy()
 

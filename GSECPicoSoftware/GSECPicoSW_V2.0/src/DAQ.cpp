@@ -16,7 +16,7 @@ int TC3_CS_PIN     = 12;   // N2O TC
 SPISettings tcSPISettings(4000000, MSBFIRST, SPI_MODE0);
 
 // MCP3564 ADC Settings
-SPISettings adcSPISettings(12000000, MSBFIRST, SPI_MODE0);         // SPI Bus is 4MHz, MSb-First, Mode 0,0.  
+SPISettings adcSPISettings(5000000, MSBFIRST, SPI_MODE0);         // SPI Bus is 4MHz, MSb-First, Mode 0,0.  
 
 
 // -------------------------
@@ -86,7 +86,7 @@ void init_DAQ() {
     // Configure ADC
     MCP3x6x_CONFIG();    // MCP3564 Register Configuration.
     SPI.endTransaction();
-    delay(10);         // Theoretical min is 256 AMCK cycles (256us if SCK is at 1 MHz??) (see T_ADC_SETUP in datasheet for MCP3564)
+    delayMicroseconds(10);         // Theoretical min is 256 AMCK cycles (256us if SCK is at 1 MHz??) (see T_ADC_SETUP in datasheet for MCP3564)
 
     // SPI1 → MAX31855
     SPI1.setRX(TCIC_MISO_PIN);     // MISO

@@ -1,3 +1,25 @@
+/*
+#include <Arduino.h>
+
+void setup() {
+  Serial.begin(115200);
+
+  pinMode(LED_BUILTIN, OUTPUT);
+  
+
+  Serial.println("START");
+}
+
+void loop() {
+  Serial.println("hi");
+  digitalWrite(LED_BUILTIN, HIGH);
+  delay(500);
+  digitalWrite(LED_BUILTIN, LOW);
+  delay(500);
+}
+*/
+
+
 #include <Arduino.h>
 #include <Servo.h>
 #include <control.h>
@@ -27,6 +49,16 @@ char QDRelayState;
 char ignitionRelayState;
 char throttlingAlgorithmState;
 
+// ------------------- Sensor Data -----------------------
+volatile uint32_t AI0Reading;
+volatile uint32_t AI1Reading;
+volatile uint32_t AI2Reading;
+volatile uint32_t AI3Reading;
+volatile uint32_t TC1Reading;
+volatile uint32_t TC2Reading;
+volatile uint32_t TC3Reading;
+
+
 // Snapshot for ISR-safe transmission
 volatile char ctrlSnapshot[4];  
 // [0]=LECU Servo Pwr, [1]=Purge, [2]=Main Valves, [3]=Throttle Algo
@@ -38,21 +70,24 @@ bool newData = false;
 
 // -------------------- Timer --------------------
 RPI_PICO_Timer ITimer0(0);
-const int LECU_CTRLSTRING_TX_INTERVAL = 10;   // in ms
+const int ISR_INTERVAL = 10;   // in ms
 volatile bool sendCtrlFlag = false;
+volatile bool DAQFlag = false;
+volatile uint32_t tick = 0;
+
 
 // -------------------- Function Declarations --------------------
 void recv_with_start_end_markers();
 void process_ctrl_packet();
 void update_ctrl_snapshot();
 void send_ctrl_string();
-bool send_LECU_ctrlString_ISR(struct repeating_timer *t);
+void send_sensor_data();
+bool Timer_ISR(struct repeating_timer *t);
 
 
 
 void setup() {
-  Serial.begin(115200);
-  Serial1.begin(115200);
+  
   pinMode(GSECUServoPwrSwitchPin, OUTPUT);
   pinMode(QDRelayPin, OUTPUT);
   pinMode(ignitionRelayPin, OUTPUT);
@@ -61,33 +96,75 @@ void setup() {
   GN2FillValve.attach(GN2FillValvePWMPin, 500, 2500);
   N2OFillValve.attach(N2OFillValvePWMPin, 500, 2500);
 
-  // Timer ISR every 100 ms
-  ITimer0.attachInterruptInterval(LECU_CTRLSTRING_TX_INTERVAL*1000, send_LECU_ctrlString_ISR);
+  init_DAQ();
+
+  Serial.begin(115200);
+  //Serial1.begin(115200);
+  delay(1500);
+
+  // Timer ISR every 10 ms
+  ITimer0.attachInterruptInterval(ISR_INTERVAL*1000, Timer_ISR);
 }
 
 
 void loop() {
-  
-
-
-  // 1. Receive incoming serial data
+  // Receive incoming serial data
   recv_with_start_end_markers();
 
-  // 2. Process new packet
+  // Process new packet
   if (newData) {
     process_ctrl_packet();
     newData = false;
   }
 
-  // 3. Handle periodic transmission (triggered by ISR)
+  // Handle periodic transmission (triggered by ISR)
   if (sendCtrlFlag) {
     sendCtrlFlag = false;
+    //Serial.println("hi");
     send_ctrl_string();
   }
 
-  // Optional: DAQ reading (keep outside ISR)
-  // read_DAQ_module(...);
   
+  // DAQ reading (keep outside ISR)
+  
+  if (DAQFlag) {
+    DAQFlag = false;
+    read_DAQ_module(AI0Reading, AI1Reading, AI2Reading, AI3Reading, TC1Reading, TC2Reading, TC3Reading);
+    send_sensor_data();
+  }
+  
+  
+}
+
+
+
+void recv_with_start_end_markers() {
+  static boolean recvInProgress = false;
+  static byte ndx = 0;
+  char startMarker = '<';
+  char endMarker = '>';
+  char rc;
+
+  while (Serial.available() > 0 && newData == false) {
+    rc = Serial.read();
+
+    if (recvInProgress == true) {
+      if (rc != endMarker) {
+        receivedChars[ndx] = rc;
+        ndx++;
+        if (ndx >= NUM_CHARS) {
+          ndx = NUM_CHARS - 1;
+        }
+      } else {
+        receivedChars[ndx] = '\0';
+        recvInProgress = false;
+        ndx = 0;
+        newData = true;
+      }
+    } else if (rc == startMarker) {
+      recvInProgress = true;
+    }
+  }
 }
 
 void process_ctrl_packet() {
@@ -134,13 +211,6 @@ void update_ctrl_snapshot() {
 }
 
 
-bool send_LECU_ctrlString_ISR(struct repeating_timer *t) {
-  sendCtrlFlag = true;  // Set flag only
-  return true;
-}
-
-
-
 void send_ctrl_string() {
 
   // Local copy prevents mid-print corruption
@@ -165,33 +235,31 @@ void send_ctrl_string() {
   Serial1.print('>');
 }
 
-
-
-void recv_with_start_end_markers() {
-  static boolean recvInProgress = false;
-  static byte ndx = 0;
-  char startMarker = '<';
-  char endMarker = '>';
-  char rc;
-
-  while (Serial.available() > 0 && newData == false) {
-    rc = Serial.read();
-
-    if (recvInProgress == true) {
-      if (rc != endMarker) {
-        receivedChars[ndx] = rc;
-        ndx++;
-        if (ndx >= NUM_CHARS) {
-          ndx = NUM_CHARS - 1;
-        }
-      } else {
-        receivedChars[ndx] = '\0';
-        recvInProgress = false;
-        ndx = 0;
-        newData = true;
-      }
-    } else if (rc == startMarker) {
-      recvInProgress = true;
-    }
-  }
+void send_sensor_data() {
+  Serial.print(AI0Reading);
+  Serial.print(",");
+  Serial.print(AI1Reading);
+  Serial.print(",");
+  Serial.print(AI2Reading);
+  Serial.print(",");
+  Serial.print(AI3Reading);
+  Serial.print(",");
+  Serial.print(TC1Reading);
+  Serial.print(",");
+  Serial.print(TC2Reading);
+  Serial.print(",");
+  Serial.println(TC3Reading);
 }
+
+bool Timer_ISR(struct repeating_timer *t) {
+  tick++;
+  if (tick % 1 == 0) {      // every tick aka 10 ms
+    sendCtrlFlag = true;
+  }
+  if (tick % 10 == 0) {     // every 10 ticks aka 100 ms
+    DAQFlag = true;
+  }
+  
+  return true;
+}
+

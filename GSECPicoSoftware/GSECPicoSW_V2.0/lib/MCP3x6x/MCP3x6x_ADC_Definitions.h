@@ -60,7 +60,7 @@ const uint8_t _CONFIG1_ = 0x02;               // CONFIG1 Register Address.
     #define OSR_64 0b00000100
     #define OSR_32 0b00000000
 
-    #define CONFIG1_CFG (PRE_MCLK | OSR_98304)  /*0x3C*/
+    #define CONFIG1_CFG (PRE_MCLK | OSR_20480)  /*0x3C*/
 
 
 /* CONFIG2 REGISTER */
