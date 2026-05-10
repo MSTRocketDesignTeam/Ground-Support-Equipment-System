@@ -48,6 +48,10 @@ char mainValvesState;
 char QDRelayState;
 char ignitionRelayState;
 char throttlingAlgorithmState;
+char prevLECUServoPwrSwitchState;
+char prevN2OMainValvePurgeState;
+char prevmainValvesState;
+char prevthrottlingAlgorithmState;
 
 // ------------------- Sensor Data -----------------------
 volatile uint32_t AI0Reading;
@@ -99,7 +103,7 @@ void setup() {
   init_DAQ();
 
   Serial.begin(115200);
-  //Serial1.begin(115200);
+  Serial1.begin(115200);
   delay(1500);
 
   // Timer ISR every 10 ms
@@ -117,23 +121,24 @@ void loop() {
     newData = false;
   }
 
-  // Handle periodic transmission (triggered by ISR)
   if (sendCtrlFlag) {
     sendCtrlFlag = false;
-    //Serial.println("hi");
+    if (((prevLECUServoPwrSwitchState != LECUServoPwrSwitchState) || (prevN2OMainValvePurgeState != N2OMainValvePurgeState) || (prevmainValvesState != mainValvesState) || (prevthrottlingAlgorithmState != throttlingAlgorithmState))) {
+      send_ctrl_string();
+    }
     send_ctrl_string();
   }
 
-  
-  // DAQ reading (keep outside ISR)
-  
   if (DAQFlag) {
     DAQFlag = false;
     read_DAQ_module(AI0Reading, AI1Reading, AI2Reading, AI3Reading, TC1Reading, TC2Reading, TC3Reading);
     send_sensor_data();
   }
   
-  
+  prevLECUServoPwrSwitchState = LECUServoPwrSwitchState;
+  prevN2OMainValvePurgeState = N2OMainValvePurgeState;
+  prevmainValvesState = mainValvesState;
+  prevthrottlingAlgorithmState = throttlingAlgorithmState;
 }
 
 
