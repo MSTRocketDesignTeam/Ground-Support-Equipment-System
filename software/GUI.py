@@ -10,6 +10,26 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from matplotlib.figure import Figure
 import numpy as np
 
+# Sensor Locations
+# 0: N2O Bottle PT
+# 1: Fill Line PT
+# 2: Purge Bottle PT
+# 3: Wet Mass Load Cell
+# 4: Purge Bottle TC
+# 5: GSEC Internal TC
+# 6: N2O Bottle TC
+
+# Format: (slope, intercept)
+sensor_scales = [
+        (0.00023718752,-2.12623638812),
+        (0.00023718752,-2.12623638812),
+        (0.00023718752,-2.12623638812),
+        (1,0),
+        (0,0),
+        (0,0),
+        (0,0)
+]
+
 
 class GUI_Window():
     ESTOP_CTRL   = "<HCCHCCLLU>"
@@ -144,6 +164,10 @@ class GUI_Window():
 
                     if data:
                         values = [int(x.strip()) for x in data.split(',')]
+                        
+                        # Apply Scales
+                        for i, scale in enumerate(sensor_scales):
+                                values[i] = values[i]*scale[0] + scale[1]
 
                         # Optional: validate packet length
                         if len(values) == 7:
@@ -552,13 +576,12 @@ class GUI_Window():
     # ---------------- CSV LOGGING ---------------- #
 
     def write_sensor_data_to_file(self):
-
         timestamp = (datetime.now(timezone.utc)-self.start_timestamp).total_seconds()
 
         row = [timestamp] + self.sensorData
 
         try:
-            with open("data.csv","a",newline="") as f:
+            with open(f"data{self.start_timestamp.strftime('%m-%d-%Y %H:%M:%S')}.csv","a",newline="") as f:
 
                 writer = csv.writer(f)
                 writer.writerow(row)
