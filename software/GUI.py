@@ -71,6 +71,7 @@ class GUI_Window():
         self.N2OFillTmr = self.DEF_N2O_FILL_TIME
         self.lnchCntdwnTmr = self.DEF_LNCH_CNTDWN_TIME
         self.fired = False
+        self.QD_actuated = False
         self.lastSent = self.ctrlString
 
         # Serial
@@ -292,41 +293,52 @@ class GUI_Window():
         )
 
         self.log("Close N2O Main Valve")
+        
+    def actuate_QD(self):
+        self.update_ctrlString(7,'H')
+        
+        self.root.after(750,
+            lambda: self.update_ctrlString(7,'L')
+        )
+        
+        self.QD_actuated = True
+        self.log("QD actuated")
 
     def launch_sequence(self):
+        if self.QD_actuated:
+                self.log("Launch sequence start")
+                self.fired = True
+                self.update_ctrlString(1,'H')      # set GSECU Servo Pwr Switch high
+                self.update_ctrlString(4,'H')      # set LECU Servo Pwr Switch high
+                self.update_ctrlString(8,'H')
+                self.ignition.config(bg="green")
+                
+                self.root.after(500,
+                    lambda: [self.update_ctrlString(6,'O'), self.mainsOpened.config(bg="green")]      # open mains and update terminal launch sequence status bar accordingly
+                )
 
-        self.log("Launch sequence start")
-        self.fired = True
-        self.update_ctrlString(1,'H')      # set GSECU Servo Pwr Switch high
-        self.update_ctrlString(4,'H')      # set LECU Servo Pwr Switch high
+                self.root.after(2000,
+                    lambda: self.update_ctrlString(8,'L')      # set igniter relay pin low
+                )
+                """
+                self.root.after(250,
+                    lambda: [self.update_ctrlString(3,'C'), self.N2OFillClosed.config(bg="green")]      # close N2O Fill Valve and update terminal launch sequence status bar accordingly
+                )
 
-        self.root.after(250,
-            lambda: [self.update_ctrlString(3,'C'), self.N2OFillClosed.config(bg="green")]      # close N2O Fill Valve and update terminal launch sequence status bar accordingly
-        )
+                self.root.after(1000,
+                    lambda: self.update_ctrlString(1,'L')      # set GSECU Servo Pwr Switch low
+                )
+                
+                self.root.after(2000,
+                    lambda: [self.update_ctrlString(7,'H'), self.QDActuated.config(bg="green")]      # set QD relay pin high and update terminal launch sequence status bar accordingly
+                )
 
-        self.root.after(1000,
-            lambda: self.update_ctrlString(1,'L')      # set GSECU Servo Pwr Switch low
-        )
-
-        self.root.after(2000,
-            lambda: [self.update_ctrlString(7,'H'), self.QDActuated.config(bg="green")]      # set QD relay pin high and update terminal launch sequence status bar accordingly
-        )
-
-        self.root.after(3000,
-            lambda: self.update_ctrlString(7,'L')      # set QD relay pin low
-        )
-
-        self.root.after(8000,
-            lambda: [self.update_ctrlString(8,'H'), self.ignition.config(bg="green")]      # set igniter relay pin high and update terminal launch sequence status bar accordingly
-        )
-
-        self.root.after(8500,
-            lambda: [self.update_ctrlString(6,'O'), self.mainsOpened.config(bg="green")]      # open mains and update terminal launch sequence status bar accordingly
-        )
-
-        self.root.after(10000,
-            lambda: self.update_ctrlString(8,'L')      # set igniter relay pin low
-        )
+                self.root.after(3000,
+                    lambda: self.update_ctrlString(7,'L')      # set QD relay pin low
+                )
+                """
+        else:
+                self.log("Unable to start launch sequence - QD not actuated")
 
     # ---------------- PANELS ---------------- #
 
@@ -388,9 +400,12 @@ class GUI_Window():
         ttk.Button(panel,text="Close N2O Fill Valve",
                    command=self.close_N2O_fill).grid(row=3,column=0, **self.BUTTON_GRID_OPTS)
 
+        ttk.Button(panel,text="Acutate QD",
+                   command=self.actuate_QD).grid(row=2,column=1, **self.BUTTON_GRID_OPTS)
+
         ttk.Button(panel,text="Start Launch Sequence",
-                   command=self.launch_sequence).grid(row=2,column=1, **self.BUTTON_GRID_OPTS)
-        
+                   command=self.launch_sequence).grid(row=3,column=1, **self.BUTTON_GRID_OPTS)
+                           
     def setup_term_lnch_seq_stat_bar(self, c, r):
         panel = ttk.Frame(self.root, **self.FRAME_OPTS)
         panel.grid(column=c,row=r, **self.FRAME_GRID_OPTS)
@@ -398,11 +413,12 @@ class GUI_Window():
         ttk.Label(panel,text="Terminal Launch Sequence Status Bar", **self.FRAME_TITLE_LABEL_OPTS).grid(row=0,column=0,  columnspan=4, **self.FRAME_TITLE_GRID_OPTS)
         self.lnchCntdwnTmrLabel = ttk.Label(panel, text=self.lnchCntdwnTmr, **self.TMR_LABEL_OPTS)
         self.lnchCntdwnTmrLabel.grid(row=0, column=4)
-        
+        """
         self.N2OFillClosed = tk.Label(panel, text="N2O Fill Closed,", bg="orange", fg="blue", **self.TRM_LNCH_SEQ_LBL_OPTS)
         self.N2OFillClosed.grid(row=1,column=0)
         self.QDActuated = tk.Label(panel, text="QD Actuated", bg="orange", fg="blue", **self.TRM_LNCH_SEQ_LBL_OPTS)
         self.QDActuated.grid(row=1,column=1)
+        """
         self.ignition = tk.Label(panel, text="Ignition", bg="orange", fg="blue", **self.TRM_LNCH_SEQ_LBL_OPTS)
         self.ignition.grid(row=1,column=2)
         self.mainsOpened = tk.Label(panel, text="Mains Opened", bg="orange", fg="blue", **self.TRM_LNCH_SEQ_LBL_OPTS)
@@ -597,8 +613,11 @@ class GUI_Window():
         self.update_ctrlString(1,'H')      # set GSECU Servo Pwr Switch high
         self.update_ctrlString(4,'H')      # set LECU Servo Pwr Switch high
         self.fired = False
+        self.QD_actuated = False
+        """
         self.N2OFillClosed.config(bg="orange")
         self.QDActuated.config(bg="orange")
+        """
         self.ignition.config(bg="orange")
         self.mainsOpened.config(bg="orange")
         self.root.after(100, lambda: setattr(self, "ctrlString", list(self.ESTOP_CTRL)))
