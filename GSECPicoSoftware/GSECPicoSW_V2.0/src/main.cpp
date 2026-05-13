@@ -90,6 +90,7 @@ void setup() {
 }
 
 
+
 void loop() {
   // Receive incoming serial data
   recv_with_start_end_markers();
@@ -199,10 +200,6 @@ void update_ctrl_snapshot() {
 
 
 void send_ctrl_string() {
-
-  if (Serial1.availableForWrite() < 16) {
-    return;
-  }
 
   // Local copy prevents mid-print corruption
   char localCopy[4];
