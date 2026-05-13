@@ -279,6 +279,10 @@ class GUI_Window():
         )
 
         self.log("Open N2O Fill Valve")
+        
+    def actuate_qd(self):
+            self.QD_actuated = True
+            self.log("Actuate QD")
 
     def close_N2O_fill(self):
 
@@ -291,24 +295,22 @@ class GUI_Window():
         self.root.after(1000,
             lambda: self.update_ctrlString(1,'L')
         )
+        
+        self.root.after(2750,
+                lambda: self.update_ctrlString(7,'H')
+        )
+        
+        self.root.after(4000,
+                lambda: [self.update_ctrlString(7,'L'), self.actuate_qd()]
+        )
 
         self.log("Close N2O Main Valve")
         
-    def actuate_QD(self):
-        self.update_ctrlString(7,'H')
-        
-        self.root.after(750,
-            lambda: self.update_ctrlString(7,'L')
-        )
-        
-        self.QD_actuated = True
-        self.log("QD actuated")
-
     def launch_sequence(self):
         if self.QD_actuated:
                 self.log("Launch sequence start")
                 self.fired = True
-                self.update_ctrlString(1,'H')      # set GSECU Servo Pwr Switch high
+                #self.update_ctrlString(1,'H')      # set GSECU Servo Pwr Switch high
                 self.update_ctrlString(4,'H')      # set LECU Servo Pwr Switch high
                 self.update_ctrlString(8,'H')
                 self.ignition.config(bg="green")
@@ -398,11 +400,11 @@ class GUI_Window():
                    command=self.open_N2O_fill).grid(row=2,column=0, **self.BUTTON_GRID_OPTS)
         
         ttk.Button(panel,text="Close N2O Fill Valve",
-                   command=self.close_N2O_fill).grid(row=3,column=0, **self.BUTTON_GRID_OPTS)
-
+                   command=self.close_N2O_fill).grid(row=2,column=1, **self.BUTTON_GRID_OPTS)
+        """
         ttk.Button(panel,text="Acutate QD",
                    command=self.actuate_QD).grid(row=2,column=1, **self.BUTTON_GRID_OPTS)
-
+        """
         ttk.Button(panel,text="Start Launch Sequence",
                    command=self.launch_sequence).grid(row=3,column=1, **self.BUTTON_GRID_OPTS)
                            
