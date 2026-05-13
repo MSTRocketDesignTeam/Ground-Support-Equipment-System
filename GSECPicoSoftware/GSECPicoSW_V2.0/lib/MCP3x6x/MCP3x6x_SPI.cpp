@@ -11,31 +11,31 @@ void SPI_WRT(uint8_t REG_ADDR, uint32_t REG_CFG)
 
     if (REG_ADDR == _CONFIG0_ || REG_ADDR == _CONFIG1_ || REG_ADDR == _CONFIG2_ || REG_ADDR == _CONFIG3_ || REG_ADDR == _IRQ_ || REG_ADDR == _MUX_ || REG_ADDR == _LOCK_) 
     {
-        delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
+        //delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
         digitalWrite(PIN_SPI_nCS, LOW);                                             // Assert nCS Pin low.
         delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
         SPI.transfer((REG_ADDR << 2) | _WRT_CTRL_);                                 // Write-CMD of REG_ADDR Register.
-        delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano                 
+        //delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano                 
         SPI.transfer(WR_DATA.BYTE.LOW);                                             // 8-bit REG_ADDR Register write-data byte.
         
-        delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
+        //delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
         digitalWrite(PIN_SPI_nCS, HIGH);                                            // Assert nCS Pin high.
         delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
     } 
     if (REG_ADDR == _SCAN_ || REG_ADDR == _TIMER_ || REG_ADDR == _OFFSETCAL_ || REG_ADDR == _GAINCAL_) 
     {
-        delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
+        //delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
         digitalWrite(PIN_SPI_nCS, LOW);                                             // Assert nCS Pin low.
         delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
         SPI.transfer((REG_ADDR << 2) | _WRT_CTRL_);                                 // Write-CMD of REG_ADDR Register.
-        delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano                      
+        //delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano                      
         SPI.transfer(WR_DATA.BYTE.UPPER);                                           // 24-bit REG_ADDR Register write-data upper-byte.
-        delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
+        //delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
         SPI.transfer(WR_DATA.BYTE.HIGH);                                            // 24-bit REG_ADDR Register write-data high-byte.
-        delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
+        //delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
         SPI.transfer(WR_DATA.BYTE.LOW);                                             // 24-bit REG_ADDR Register write-data low-byte. 
         
-        delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
+        //delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
         digitalWrite(PIN_SPI_nCS, HIGH);                                            // Assert nCS Pin high
         delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
     }  
@@ -50,17 +50,17 @@ uint32_t SPI_RD(uint8_t REG_ADDR, _u16data_t& COMM_CRC, uint64_t& CALC_CRC)
 
     if (REG_ADDR == _CONFIG0_ || REG_ADDR == _CONFIG1_ || REG_ADDR == _CONFIG2_ || REG_ADDR == _CONFIG3_ || REG_ADDR == _IRQ_ || REG_ADDR == _MUX_ || REG_ADDR == _RESERVED_C_ || REG_ADDR == _LOCK_)    
     {
-        delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
+        //delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
         digitalWrite(PIN_SPI_nCS, LOW);                                             // Assert nCS Pin low.
         delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
         RD_DATA.BYTE.STATUS = SPI.transfer((REG_ADDR << 2) | _RD_CTRL_);            // Read-CMD of REG_ADDR Register.
-        delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
+        //delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
         RD_DATA.BYTE.LOW = SPI.transfer(0x00);                                      // Read 8-bit REG_ADDR Register data. 
-        delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
+        //delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
     
         #ifdef ENABLE_SPI_CRC                                                       // Insert SPI Communication-CRC code if enabled. 
             COMM_CRC.BYTE.HIGH = SPI.transfer(0x00);                                // Read CRC high-byte.
-            delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
+            //delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
             COMM_CRC.BYTE.LOW = SPI.transfer(0x00);                                 // Read CRC low-byte.
             
 
@@ -68,58 +68,58 @@ uint32_t SPI_RD(uint8_t REG_ADDR, _u16data_t& COMM_CRC, uint64_t& CALC_CRC)
             CRC_DATA_64b.BYTE.BYTE4 = RD_DATA.BYTE.LOW;                             // Load 8-bit DATA-Byte to CRC_DIVD_64b high-high-word low-byte.
         #endif
     
-        delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
+        //delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
         digitalWrite(PIN_SPI_nCS, HIGH);                                            // Assert nCS Pin high.
         delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
     }
     else if (REG_ADDR == _RESERVED_E_ || REG_ADDR == _CRCCFG_)
     {
-        delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano
+        //delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano
         digitalWrite(PIN_SPI_nCS, LOW);                                             // Assert nCS Pin low.
         delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
         RD_DATA.BYTE.STATUS = SPI.transfer((REG_ADDR << 2) | _RD_CTRL_);            // Read-CMD of REG_ADDR Register.
-        delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
+        //delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
         RD_DATA.BYTE.HIGH = SPI.transfer(0x00);                                     // Read 16-bit REG_ADDR Register data high-byte.
-        delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
+        //delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
         RD_DATA.BYTE.LOW = SPI.transfer(0x00);                                      // Read 16-bit REG_ADDR Register data low-byte.
-        delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
+        //delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
     
         #ifdef ENABLE_SPI_CRC                                                       // Insert SPI Communication-CRC code if enabled.
             COMM_CRC.BYTE.HIGH = SPI.transfer(0x00);                                // Read CRC high-byte.
-            delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
+            //delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
             COMM_CRC.BYTE.LOW = SPI.transfer(0x00);                                 // Read CRC low-byte.
 
             CRC_DATA_64b.WORD.UPPER = RD_DATA.BYTE.STATUS;                          // Load STATUS Byte to CRC_DIVD_64b upper-word.
             CRC_DATA_64b.WORD.HIGHH = RD_DATA.WORD.LOW;                             // Load 16-bit DATA-Byte to CRC_DIVD_64b high-high-word.
         #endif 
 
-        delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
+        //delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
         digitalWrite(PIN_SPI_nCS, HIGH);                                            // Assert nCS Pin high.
         delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano  
     }
     else if (REG_ADDR == _ADCDATA_ || REG_ADDR == _SCAN_ || REG_ADDR == _TIMER_ || REG_ADDR == _OFFSETCAL_ || REG_ADDR == _GAINCAL_ || REG_ADDR == _RESERVED_B_)
     {
-        delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
+        //delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
         digitalWrite(PIN_SPI_nCS, LOW);                                             // Assert nCS Pin low.
         delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
         RD_DATA.BYTE.STATUS = SPI.transfer((REG_ADDR << 2) | _RD_CTRL_);            // Read-CMD of REG_ADDR Register.
-        delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano  
+        //delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano  
         RD_DATA.BYTE.UPPER = SPI.transfer(0x00);                                    // 24-bit REG_ADDR Register data upper-byte.
-        delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
+        //delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
         RD_DATA.BYTE.HIGH = SPI.transfer(0x00);                                     // 24-bit REG_ADDR Register data high-byte.
-        delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
+        //delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
         RD_DATA.BYTE.LOW = SPI.transfer(0x00);                                      // 24-bit REG_ADDR Register data low-byte.
-        delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
+        //delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
 
         #ifdef ENABLE_SPI_CRC                                                       // Insert SPI Communication-CRC code if enabled
             COMM_CRC.BYTE.HIGH = SPI.transfer(0x00);                                // CRC high-byte.
-            delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
+            //delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
             COMM_CRC.BYTE.LOW = SPI.transfer(0x00);                                 // CRC low-byte.
       
             CRC_DATA_64b.DWORD.HIGH = RD_DATA.DWORD;                                // Message Data w/STATUS Byte.  
         #endif 
         
-        delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
+        //delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
         digitalWrite(PIN_SPI_nCS, HIGH);                                            // Assert nCS Pin high.
         delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano    
     }
@@ -169,12 +169,12 @@ uint8_t RETRIEVE_STATUS(void)
 {
     uint8_t RETRIEVE_STATUS_STATUS_BYTE;                                            // STATUS Byte for RETRIEVE_STATUS() function. 
 
-    delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
+    //delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
     digitalWrite(PIN_SPI_nCS, LOW);                                                 // Assert nCS Pin low.     
     delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
     RETRIEVE_STATUS_STATUS_BYTE = SPI.transfer(_RTRV_STATUS_);                      // Retrieve STATUS Byte. 
     
-    delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
+    //delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
     digitalWrite(PIN_SPI_nCS, HIGH);                                                // Assert nCS Pin high. 
     delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
     return RETRIEVE_STATUS_STATUS_BYTE;                                             // Return STATUS Byte for RETRIEVE_STATUS() function. 
@@ -184,12 +184,12 @@ uint8_t RETRIEVE_STATUS(void)
 
 void SPI_FASTCMD(uint8_t FAST_CMD)
 {
-    delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
+    //delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
     digitalWrite(PIN_SPI_nCS, LOW);                                                 // Assert nCS Pin low. 
     delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
     SPI.transfer(FAST_CMD);                                                         // Send Fast-CMD.                    
     
-    delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
+    //delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano 
     digitalWrite(PIN_SPI_nCS, HIGH);                                                // Assert nCS Pin high.
     delayMicroseconds(1);                  // I added for pi pico bc pi pico runs much faster than arduino nano  
 } 

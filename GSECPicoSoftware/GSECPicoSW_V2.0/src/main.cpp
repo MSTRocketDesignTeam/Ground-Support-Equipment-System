@@ -40,6 +40,18 @@ volatile uint32_t TC1Reading;
 volatile uint32_t TC2Reading;
 volatile uint32_t TC3Reading;
 
+volatile uint32_t LECUAI0Reading;
+volatile uint32_t LECUAI1Reading;
+volatile uint32_t LECUAI2Reading;
+volatile uint32_t LECUAI3Reading;
+volatile uint32_t LECUAI4Reading;
+volatile uint32_t LECUAI5Reading;
+volatile uint32_t LECUAI6Reading;
+volatile uint32_t LECUTC1Reading;
+volatile uint32_t LECUTC2Reading;
+volatile uint32_t LECUTC3Reading;
+
+volatile uint32_t *sensorReadingArr[] = {&LECUAI0Reading, &LECUAI1Reading, &LECUAI2Reading, &LECUAI3Reading, &LECUAI4Reading, &LECUAI5Reading, &LECUAI6Reading, &LECUTC1Reading, &LECUTC2Reading, &LECUTC3Reading};
 
 // Snapshot for ISR-safe transmission
 volatile char ctrlSnapshot[4];  
@@ -49,6 +61,10 @@ volatile char ctrlSnapshot[4];
 const byte NUM_CHARS = 10;
 char receivedChars[NUM_CHARS];
 bool newData = false;
+
+const byte NUM_BYTES = 64;
+char receivedBytes[NUM_BYTES];
+bool LECUnewData = false;
 
 // -------------------- Timer --------------------
 RPI_PICO_Timer ITimer0(0);
@@ -61,6 +77,7 @@ volatile uint32_t tick = 0;
 // -------------------- Function Declarations --------------------
 void recv_with_start_end_markers();
 void recv_sensor_data();
+void process_sensor_data();
 void process_ctrl_packet();
 void update_ctrl_snapshot();
 void send_ctrl_string();
@@ -80,9 +97,9 @@ void setup() {
   N2OFillValve.attach(N2OFillValvePWMPin, 500, 2500);
 
   init_DAQ();
-
   Serial.begin(115200);
   Serial1.begin(115200);
+
   delay(1500);
 
   // Timer ISR every 10 ms
@@ -94,11 +111,17 @@ void setup() {
 void loop() {
   // Receive incoming serial data
   recv_with_start_end_markers();
+  recv_sensor_data();
 
   // Process new packet
   if (newData) {
     process_ctrl_packet();
     newData = false;
+  }
+  
+  if (LECUnewData) {
+    process_sensor_data();
+    LECUnewData = false;
   }
 
   if (sendCtrlFlag) {
@@ -152,7 +175,48 @@ void recv_with_start_end_markers() {
 }
 
 
+void recv_sensor_data() {
+  static boolean LECUrecvInProgress = false;
+  static byte LECUndx = 0;
+  char startMarker = '<';
+  char endMarker = '>';
+  char rb;
 
+  while (Serial1.available() > 0 && LECUnewData == false) {
+    digitalWrite(LED_BUILTIN, HIGH);
+    rb = Serial1.read();
+
+    if (LECUrecvInProgress == true) {
+      if (rb != endMarker) {
+        receivedBytes[LECUndx] = rb;
+        LECUndx++;
+        if (LECUndx >= NUM_BYTES) {
+          LECUndx = NUM_BYTES - 1;
+        }
+      } else {
+        receivedBytes[LECUndx] = '\0';
+        LECUrecvInProgress = false;
+        LECUndx = 0;
+        LECUnewData = true;
+      }
+    } else if (rb == startMarker) {
+      LECUrecvInProgress = true;
+    }
+  } 
+}
+
+
+void process_sensor_data() {
+  noInterrupts();
+  for (int i = 0; (i < sizeof(sensorReadingArr)/sizeof(sensorReadingArr[0])); i++) {
+      *sensorReadingArr[i] = 0;
+      *sensorReadingArr[i] |= (uint32_t)receivedBytes[i * sizeof(sensorReadingArr[0]) + 0];
+      *sensorReadingArr[i] |= (uint32_t)receivedBytes[i * sizeof(sensorReadingArr[0]) + 1] << 8;
+      *sensorReadingArr[i] |= (uint32_t)receivedBytes[i * sizeof(sensorReadingArr[0]) + 2] << 16;
+      *sensorReadingArr[i] |= (uint32_t)receivedBytes[i * sizeof(sensorReadingArr[0]) + 3] << 24;
+  }
+  interrupts();
+}
 
 
 void process_ctrl_packet() {
@@ -213,35 +277,49 @@ void send_ctrl_string() {
   Serial1.print('<');
   Serial1.print(localCopy[0]);
   Serial1.print(localCopy[1]);
-  if (localCopy[1] == 'O') {
-    digitalWrite(LED_BUILTIN, HIGH);
-  } else if (localCopy[1] == 'C') {
-    digitalWrite(LED_BUILTIN, LOW);
-  }
   Serial1.print(localCopy[2]);
   Serial1.print(localCopy[3]);
   Serial1.print('>');
 }
 
 void send_sensor_data() {
-
   if ((Serial.availableForWrite() < 64)) {
     return;
   }
 
   Serial.print(AI0Reading);
-  Serial.print(",");
+  Serial.print(',');
   Serial.print(AI1Reading);
-  Serial.print(",");
+  Serial.print(',');
   Serial.print(AI2Reading);
-  Serial.print(",");
+  Serial.print(',');
   Serial.print(AI3Reading);
-  Serial.print(",");
+  Serial.print(',');
   Serial.print(TC1Reading);
-  Serial.print(",");
+  Serial.print(',');
   Serial.print(TC2Reading);
-  Serial.print(",");
-  Serial.println(TC3Reading);
+  Serial.print(',');
+  Serial.print(TC3Reading);
+  Serial.print(',');
+  Serial.print(LECUAI0Reading);
+  Serial.print(',');
+  Serial.print(LECUAI1Reading);
+  Serial.print(',');
+  Serial.print(LECUAI2Reading);
+  Serial.print(',');
+  Serial.print(LECUAI3Reading);
+  Serial.print(',');
+  Serial.print(LECUAI4Reading);
+  Serial.print(',');
+  Serial.print(LECUAI5Reading);
+  Serial.print(',');
+  Serial.print(LECUAI6Reading);
+  Serial.print(',');
+  Serial.print(LECUTC1Reading);
+  Serial.print(',');
+  Serial.print(LECUTC2Reading);
+  Serial.print(',');
+  Serial.println(LECUTC3Reading);
 }
 
 bool Timer_ISR(struct repeating_timer *t) {
