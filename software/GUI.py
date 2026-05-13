@@ -5,6 +5,31 @@ import threading
 from datetime import datetime, timezone
 import csv
 import sv_ttk
+import matplotlib
+from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
+from matplotlib.figure import Figure
+import numpy as np
+
+# Sensor Locations
+# 0: N2O Bottle PT
+# 1: Fill Line PT
+# 2: Purge Bottle PT
+# 3: Wet Mass Load Cell
+# 4: Purge Bottle TC
+# 5: GSEC Internal TC
+# 6: N2O Bottle TC
+
+# Format: (slope, intercept)
+sensor_scales = [
+        (0.00023718752,-2.12623638812),
+        (0.00023718752,-2.12623638812),
+        (0.00023718752,-2.12623638812),
+        (1,0),
+        (0,0),
+        (0,0),
+        (0,0)
+]
+
 
 class GUI_Window():
     ESTOP_CTRL   = "<HCCHCCLLU>"
@@ -19,11 +44,12 @@ class GUI_Window():
     SNSR_RDING_LABEL_OPTS = {"width":10, "anchor":"w", "borderwidth":1, "relief":"solid", "padding":(4,3,4,3)}
     SNSR_UNIT_LABEL_OPTS = {"width":5, "anchor":"w", "borderwidth":1, "relief":"solid", "padding":(4,3,4,3)}
     TMR_DESC_LABEL_OPTS = {"width":25, "anchor":"w", "borderwidth":2, "relief":"solid", "padding":(4,3,4,3)}
-    TMR_LABEL_OPTS = {"width":5, "anchor":"w", "borderwidth":2, "relief":"solid", "padding":(4,3,4,3)}
+    TMR_LABEL_OPTS = {"width":3, "anchor":"w", "borderwidth":2, "relief":"solid", "padding":(4,3,4,3)}
     DEF_PREBRN_PRGE_FILL_TM = 140
     DEF_PSTBRN_PRGE_FILL_TM = 7
     DEF_N2O_PRGE_TM = 3
     DEF_N2O_FILL_TIME = 300
+    DEF_LNCH_CNTDWN_TIME = 8
 
     def __init__(self):
 
@@ -43,13 +69,14 @@ class GUI_Window():
         self.purgeFillTmr = self.DEF_PREBRN_PRGE_FILL_TM
         self.N2OMainPurgeTmr = self.DEF_N2O_PRGE_TM
         self.N2OFillTmr = self.DEF_N2O_FILL_TIME
+        self.lnchCntdwnTmr = self.DEF_LNCH_CNTDWN_TIME
         self.fired = False
+        self.QD_actuated = False
         self.lastSent = self.ctrlString
 
         # Serial
         #self.port = "/dev/ttyACM0"
-        self.port = "COM11"
-
+        self.port = "COM3"
         try:
             self.ser = serial.Serial(self.port, 115200, timeout=0.05, write_timeout=0.05)
             self.GSECPicoCommState = "green"
@@ -62,6 +89,7 @@ class GUI_Window():
             print("Serial not connected — running in GUI-only mode")
             self.GSECPicoCommState = "red"
             self.ser = None
+
 
         # GUI panels
         self.root.rowconfigure(0, weight=1)
@@ -92,6 +120,7 @@ class GUI_Window():
         self.root.after(1000, self.update_purge_fill_tmr)
         self.root.after(1000, self.update_N2O_main_purge_tmr)
         self.root.after(1000, self.update_N2O_fill_tmr)
+        self.root.after(1000, self.update_lnch_cntdown_tmr)
 
         self.root.protocol("WM_DELETE_WINDOW", self.on_close)
         self.root.mainloop()
@@ -137,6 +166,10 @@ class GUI_Window():
 
                     if data:
                         values = [int(x.strip()) for x in data.split(',')]
+                        
+                        # Apply Scales
+                        for i, scale in enumerate(sensor_scales):
+                                values[i] = values[i]*scale[0] + scale[1]
 
                         # Optional: validate packet length
                         if len(values) == 7:
@@ -147,7 +180,6 @@ class GUI_Window():
 
             except Exception as e:
                 pass
-                #print("Parse error:", e, "| Raw:", data)   # uncommenting this line floods the terminal with errors upon closing the program
 
     # ---------------- LAUNCH/FIRE SEQUENCE TIMERS ---------------- #
 
@@ -180,6 +212,15 @@ class GUI_Window():
             self.N2OFillTmr = self.DEF_N2O_FILL_TIME
             self.N2OFillTmrLabel.config(text=self.N2OFillTmr)
         self.root.after(1000, self.update_N2O_fill_tmr)
+        
+    def update_lnch_cntdown_tmr(self):
+            if (self.fired):
+                    self.lnchCntdwnTmr -= 1
+                    self.lnchCntdwnTmrLabel.config(text=self.lnchCntdwnTmr)
+            else:
+                    self.lnchCntdwnTmr = self.DEF_LNCH_CNTDWN_TIME
+                    self.lnchCntdwnTmrLabel.config(text=self.lnchCntdwnTmr)
+            self.root.after(1000,self.update_lnch_cntdown_tmr)
 
     # ---------------- SEQUENCES ---------------- #
 
@@ -253,41 +294,52 @@ class GUI_Window():
         )
 
         self.log("Close N2O Main Valve")
+        
+    def actuate_QD(self):
+        self.update_ctrlString(7,'H')
+        
+        self.root.after(750,
+            lambda: self.update_ctrlString(7,'L')
+        )
+        
+        self.QD_actuated = True
+        self.log("QD actuated")
 
     def launch_sequence(self):
+        if self.QD_actuated:
+                self.log("Launch sequence start")
+                self.fired = True
+                self.update_ctrlString(1,'H')      # set GSECU Servo Pwr Switch high
+                self.update_ctrlString(4,'H')      # set LECU Servo Pwr Switch high
+                self.update_ctrlString(8,'H')
+                self.ignition.config(bg="green")
+                
+                self.root.after(500,
+                    lambda: [self.update_ctrlString(6,'O'), self.mainsOpened.config(bg="green")]      # open mains and update terminal launch sequence status bar accordingly
+                )
 
-        self.log("Launch sequence start")
-        self.fired = True
-        self.update_ctrlString(1,'H')      # set GSECU Servo Pwr Switch high
-        self.update_ctrlString(4,'H')      # set LECU Servo Pwr Switch high
+                self.root.after(2000,
+                    lambda: self.update_ctrlString(8,'L')      # set igniter relay pin low
+                )
+                """
+                self.root.after(250,
+                    lambda: [self.update_ctrlString(3,'C'), self.N2OFillClosed.config(bg="green")]      # close N2O Fill Valve and update terminal launch sequence status bar accordingly
+                )
 
-        self.root.after(250,
-            lambda: [self.update_ctrlString(3,'C'), self.N2OFillClosed.config(bg="green")]      # close N2O Fill Valve and update terminal launch sequence status bar accordingly
-        )
+                self.root.after(1000,
+                    lambda: self.update_ctrlString(1,'L')      # set GSECU Servo Pwr Switch low
+                )
+                
+                self.root.after(2000,
+                    lambda: [self.update_ctrlString(7,'H'), self.QDActuated.config(bg="green")]      # set QD relay pin high and update terminal launch sequence status bar accordingly
+                )
 
-        self.root.after(1000,
-            lambda: self.update_ctrlString(1,'L')      # set GSECU Servo Pwr Switch low
-        )
-
-        self.root.after(2000,
-            lambda: [self.update_ctrlString(7,'H'), self.QDActuated.config(bg="green")]      # set QD relay pin high and update terminal launch sequence status bar accordingly
-        )
-
-        self.root.after(3000,
-            lambda: self.update_ctrlString(7,'L')      # set QD relay pin low
-        )
-
-        self.root.after(8000,
-            lambda: [self.update_ctrlString(8,'H'), self.ignition.config(bg="green")]      # set igniter relay pin high and update terminal launch sequence status bar accordingly
-        )
-
-        self.root.after(8500,
-            lambda: [self.update_ctrlString(6,'O'), self.mainsOpened.config(bg="green")]      # open mains and update terminal launch sequence status bar accordingly
-        )
-
-        self.root.after(10000,
-            lambda: self.update_ctrlString(8,'L')      # set igniter relay pin low
-        )
+                self.root.after(3000,
+                    lambda: self.update_ctrlString(7,'L')      # set QD relay pin low
+                )
+                """
+        else:
+                self.log("Unable to start launch sequence - QD not actuated")
 
     # ---------------- PANELS ---------------- #
 
@@ -349,18 +401,25 @@ class GUI_Window():
         ttk.Button(panel,text="Close N2O Fill Valve",
                    command=self.close_N2O_fill).grid(row=3,column=0, **self.BUTTON_GRID_OPTS)
 
+        ttk.Button(panel,text="Actuate QD",
+                   command=self.actuate_QD).grid(row=2,column=1, **self.BUTTON_GRID_OPTS)
+
         ttk.Button(panel,text="Start Launch Sequence",
-                   command=self.launch_sequence).grid(row=2,column=1, **self.BUTTON_GRID_OPTS)
-        
+                   command=self.launch_sequence).grid(row=3,column=1, **self.BUTTON_GRID_OPTS)
+                           
     def setup_term_lnch_seq_stat_bar(self, c, r):
         panel = ttk.Frame(self.root, **self.FRAME_OPTS)
         panel.grid(column=c,row=r, **self.FRAME_GRID_OPTS)
 
         ttk.Label(panel,text="Terminal Launch Sequence Status Bar", **self.FRAME_TITLE_LABEL_OPTS).grid(row=0,column=0,  columnspan=4, **self.FRAME_TITLE_GRID_OPTS)
+        self.lnchCntdwnTmrLabel = ttk.Label(panel, text=self.lnchCntdwnTmr, **self.TMR_LABEL_OPTS)
+        self.lnchCntdwnTmrLabel.grid(row=0, column=4)
+        """
         self.N2OFillClosed = tk.Label(panel, text="N2O Fill Closed,", bg="orange", fg="blue", **self.TRM_LNCH_SEQ_LBL_OPTS)
         self.N2OFillClosed.grid(row=1,column=0)
         self.QDActuated = tk.Label(panel, text="QD Actuated", bg="orange", fg="blue", **self.TRM_LNCH_SEQ_LBL_OPTS)
         self.QDActuated.grid(row=1,column=1)
+        """
         self.ignition = tk.Label(panel, text="Ignition", bg="orange", fg="blue", **self.TRM_LNCH_SEQ_LBL_OPTS)
         self.ignition.grid(row=1,column=2)
         self.mainsOpened = tk.Label(panel, text="Mains Opened", bg="orange", fg="blue", **self.TRM_LNCH_SEQ_LBL_OPTS)
@@ -380,6 +439,10 @@ class GUI_Window():
         btn.grid(row=0,column=0)
 
     # ---------------- SENSORS ---------------- #
+    
+    #def setup_WMLC_plot(self,c,r):
+     # TODO: implement WMLC plot   
+            
 
     def setup_GSECU_sensor_readouts(self,c,r):
 
@@ -531,12 +594,15 @@ class GUI_Window():
 
     def write_sensor_data_to_file(self):
         timestamp = (datetime.now(timezone.utc)-self.start_timestamp).total_seconds()
+
         row = [timestamp] + self.sensorData
+
         try:
-            with open("data.csv","a",newline="") as f:
+            with open(f"data{self.start_timestamp.strftime('%m-%d-%Y %H:%M:%S')}.csv","a",newline="") as f:
 
                 writer = csv.writer(f)
                 writer.writerow(row)
+
         except:
             pass
 
@@ -548,8 +614,11 @@ class GUI_Window():
         self.update_ctrlString(1,'H')      # set GSECU Servo Pwr Switch high
         self.update_ctrlString(4,'H')      # set LECU Servo Pwr Switch high
         self.fired = False
+        self.QD_actuated = False
+        """
         self.N2OFillClosed.config(bg="orange")
         self.QDActuated.config(bg="orange")
+        """
         self.ignition.config(bg="orange")
         self.mainsOpened.config(bg="orange")
         self.root.after(100, lambda: setattr(self, "ctrlString", list(self.ESTOP_CTRL)))
@@ -557,9 +626,11 @@ class GUI_Window():
         self.log("E-STOP ACTIVATED")
 
     def on_close(self):
+
         try:
             self.ser.close()
         except:
             pass
+
         self.root.destroy()
 

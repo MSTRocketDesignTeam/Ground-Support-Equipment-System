@@ -1,25 +1,3 @@
-/*
-#include <Arduino.h>
-
-void setup() {
-  Serial.begin(115200);
-
-  pinMode(LED_BUILTIN, OUTPUT);
-  
-
-  Serial.println("START");
-}
-
-void loop() {
-  Serial.println("hi");
-  digitalWrite(LED_BUILTIN, HIGH);
-  delay(500);
-  digitalWrite(LED_BUILTIN, LOW);
-  delay(500);
-}
-*/
-
-
 #include <Arduino.h>
 #include <Servo.h>
 #include <control.h>
@@ -82,6 +60,7 @@ volatile uint32_t tick = 0;
 
 // -------------------- Function Declarations --------------------
 void recv_with_start_end_markers();
+void recv_sensor_data();
 void process_ctrl_packet();
 void update_ctrl_snapshot();
 void send_ctrl_string();
@@ -126,7 +105,6 @@ void loop() {
     if (((prevLECUServoPwrSwitchState != LECUServoPwrSwitchState) || (prevN2OMainValvePurgeState != N2OMainValvePurgeState) || (prevmainValvesState != mainValvesState) || (prevthrottlingAlgorithmState != throttlingAlgorithmState))) {
       send_ctrl_string();
     }
-    send_ctrl_string();
   }
 
   if (DAQFlag) {
@@ -171,6 +149,10 @@ void recv_with_start_end_markers() {
     }
   }
 }
+
+
+
+
 
 void process_ctrl_packet() {
 
@@ -218,6 +200,10 @@ void update_ctrl_snapshot() {
 
 void send_ctrl_string() {
 
+  if (Serial1.availableForWrite() < 16) {
+    return;
+  }
+
   // Local copy prevents mid-print corruption
   char localCopy[4];
 
@@ -241,6 +227,11 @@ void send_ctrl_string() {
 }
 
 void send_sensor_data() {
+
+  if ((Serial.availableForWrite() < 64)) {
+    return;
+  }
+
   Serial.print(AI0Reading);
   Serial.print(",");
   Serial.print(AI1Reading);
@@ -258,7 +249,7 @@ void send_sensor_data() {
 
 bool Timer_ISR(struct repeating_timer *t) {
   tick++;
-  if (tick % 1 == 0) {      // every tick aka 10 ms
+  if (tick % 5 == 0) {      // every 5 ticks aka 50 ms
     sendCtrlFlag = true;
   }
   if (tick % 10 == 0) {     // every 10 ticks aka 100 ms

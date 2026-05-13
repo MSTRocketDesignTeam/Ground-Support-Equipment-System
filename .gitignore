@@ -7,7 +7,8 @@ GSECLOG*.txt
 #Ignore virtual environment files
 venv/
 
-
+#Ignore VS Code workspace files
+*.code-workspace
 
 # Created by https://gitignore.org
 # KiCad.gitignore
