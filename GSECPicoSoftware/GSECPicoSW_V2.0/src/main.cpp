@@ -176,6 +176,33 @@ void recv_with_start_end_markers() {
 
 
 void recv_sensor_data() {
+  static bool receiving = false;
+  static uint8_t idx = 0;
+
+  while (Serial1.available() > 0) {
+
+    uint8_t b = Serial1.read();
+    digitalWrite(LED_BUILTIN, HIGH);
+
+    if (!receiving) {
+
+      if (b == '<') {
+        receiving = true;
+        idx = 0;
+      }
+
+    } else {
+
+      receivedBytes[idx++] = b;
+
+      if (idx >= 40) {
+        LECUnewData = true;
+        receiving = false;
+        idx = 0;
+      }
+    }
+  }
+  /*
   static boolean LECUrecvInProgress = false;
   static byte LECUndx = 0;
   char startMarker = '<';
@@ -203,20 +230,36 @@ void recv_sensor_data() {
       LECUrecvInProgress = true;
     }
   } 
+  */
 }
 
 
 void process_sensor_data() {
+  /*
   noInterrupts();
   for (int i = 0; (i < sizeof(sensorReadingArr)/sizeof(sensorReadingArr[0])); i++) {
       *sensorReadingArr[i] = 0;
-      *sensorReadingArr[i] |= (uint32_t)receivedBytes[i * sizeof(sensorReadingArr[0]) + 0];
-      *sensorReadingArr[i] |= (uint32_t)receivedBytes[i * sizeof(sensorReadingArr[0]) + 1] << 8;
-      *sensorReadingArr[i] |= (uint32_t)receivedBytes[i * sizeof(sensorReadingArr[0]) + 2] << 16;
-      *sensorReadingArr[i] |= (uint32_t)receivedBytes[i * sizeof(sensorReadingArr[0]) + 3] << 24;
+      *sensorReadingArr[i] |= (uint32_t)receivedBytes[i*4 + 0];
+      *sensorReadingArr[i] |= (uint32_t)receivedBytes[i*4 + 1] << 8;
+      *sensorReadingArr[i] |= (uint32_t)receivedBytes[i*4 + 2] << 16;
+      *sensorReadingArr[i] |= (uint32_t)receivedBytes[i*4 + 3] << 24;
+  }
+  interrupts();
+  */
+
+  noInterrupts();
+  for (int i = 0; i < 10; i++) {
+
+    uint32_t val;
+
+    memcpy(&val, &receivedBytes[i * 4], 4);
+
+    *sensorReadingArr[i] = val;
   }
   interrupts();
 }
+
+
 
 
 void process_ctrl_packet() {
