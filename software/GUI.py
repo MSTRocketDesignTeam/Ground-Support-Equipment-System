@@ -18,25 +18,35 @@ import numpy as np
 # 4: Purge Bottle TC
 # 5: GSEC Internal TC
 # 6: N2O Bottle TC
+# 7: Fuel tank PT
+# 8: Ox tank PT
+# 9: fueldPT
+# 10: oxdPT
+# 11: oxManPT
+# 12: fuelManPT
+# 13: chamberPT
+# 14: CSTC1
+# 15: CSTC2
+# 16: N2OTankTC
 
 # Format: (slope, intercept)
 sensor_scales = [
         (0.00023718752,-2.12623638812),
         (0.00023718752,-2.12623638812),
         (0.00023718752,-2.12623638812),
-        (1,0),
+        (2.5404e-5,1.07976),
         (0,0),
         (0,0),
         (0,0),
         (0.00023718752,-2.12623638812),
         (0.00023718752,-2.12623638812),
-        (0.00023718752,-2.12623638812),
-        (0.00023718752,-2.12623638812),
-        (0.00023718752,-2.12623638812),
-        (0.00023718752,-2.12623638812),
-        (0.00023718752,-2.12623638812),
         (0,0),
         (0,0),
+        (0.00023718752,-2.12623638812),
+        (0.00023718752,-2.12623638812),
+        (0.00023718752,-2.12623638812),
+        (0.25,0),
+        (0.25,0),
         (0,0)
 ]
 
@@ -121,7 +131,7 @@ class GUI_Window():
         if (self.GSECPicoCommState == "green"):
             self.root.after(100, self.ctrl_loop)
             self.root.after(100, self.update_sensor_data)
-            #self.root.after(100, self.write_sensor_data_to_file)
+            self.root.after(250, self.write_sensor_data_to_file)
         elif ((self.GSECPicoCommState == "red")):
             self.root.after(500, self.print_ctrlString)
         self.root.after(1000, self.update_purge_fill_tmr)
@@ -177,6 +187,8 @@ class GUI_Window():
                         
                         # Apply Scales
                         for i, scale in enumerate(sensor_scales):
+                                if values[i]*scale[0] + scale[1] > 1e11:
+                                        print(f'Sensor issue detected. Packet: {prelimData}')
                                 values[i] = values[i]*scale[0] + scale[1]
 
                         # Optional: validate packet length
@@ -286,24 +298,24 @@ class GUI_Window():
             self.log("Actuate QD")
 
     def close_N2O_fill(self):
-
+        
+        # Set Servo Powers to High
         self.update_ctrlString(1,'H')
 
-        self.root.after(250,
-            lambda: self.update_ctrlString(3,'C')
-        )
+        # Close Nitrous Fill Servo
+        self.root.after(250, lambda: self.update_ctrlString(3,'C'))
 
-        self.root.after(1000,
-            lambda: self.update_ctrlString(1,'L')
-        )
+        # Turn Nitrous Fill Servo Off
+        self.root.after(2000, lambda: self.update_ctrlString(1,'L'))
         
-        self.root.after(2750,
-                lambda: self.update_ctrlString(7,'H')
-        )
+        # QD Actuation
+        self.root.after(2000, lambda: self.update_ctrlString(7,'H'))
         
-        self.root.after(4000,
-                lambda: [self.update_ctrlString(7,'L'), self.actuate_qd()]
-        )
+        # Unlock Launch
+        self.root.after(3000, self.actuate_qd)
+        
+        # QD Actuation End
+        self.root.after(4000, lambda: self.update_ctrlString(7,'L'))
 
         self.log("Close N2O Main Valve")
         
@@ -314,15 +326,12 @@ class GUI_Window():
                 #self.update_ctrlString(1,'H')      # set GSECU Servo Pwr Switch high
                 self.update_ctrlString(4,'H')      # set LECU Servo Pwr Switch high
                 self.update_ctrlString(8,'H')
-                self.ignition.config(bg="green")
                 
-                self.root.after(500,
-                    lambda: [self.update_ctrlString(6,'O'), self.mainsOpened.config(bg="green")]      # open mains and update terminal launch sequence status bar accordingly
-                )
+                # Open Mains 
+                self.root.after(500, lambda: self.update_ctrlString(6,'O'))
 
-                self.root.after(2000,
-                    lambda: self.update_ctrlString(8,'L')      # set igniter relay pin low
-                )
+                # Set igniter relay pin low
+                self.root.after(2000, lambda: self.update_ctrlString(8,'L'))
         else:
                 self.log("Unable to start launch sequence - QD not actuated")
 
@@ -383,21 +392,11 @@ class GUI_Window():
         ttk.Button(panel,text="Open N2O Fill Valve",
                    command=self.open_N2O_fill).grid(row=2,column=0, **self.BUTTON_GRID_OPTS)
         
-        ttk.Button(panel,text="Close N2O Fill Valve",
+        ttk.Button(panel,text="Run QD + Close N2O Fill",
                    command=self.close_N2O_fill).grid(row=2,column=1, **self.BUTTON_GRID_OPTS)
         ttk.Button(panel,text="Start Launch Sequence",
                    command=self.launch_sequence).grid(row=3,column=1, **self.BUTTON_GRID_OPTS)
                            
-    def setup_term_lnch_seq_stat_bar(self, c, r):
-        panel = ttk.Frame(self.root, **self.FRAME_OPTS)
-        panel.grid(column=c,row=r, **self.FRAME_GRID_OPTS)
-
-        ttk.Label(panel,text="Terminal Launch Sequence Status Bar", **self.FRAME_TITLE_LABEL_OPTS).grid(row=0,column=0,  columnspan=4, **self.FRAME_TITLE_GRID_OPTS)
-        self.ignition = tk.Label(panel, text="Ignition", bg="orange", fg="blue", **self.TRM_LNCH_SEQ_LBL_OPTS)
-        self.ignition.grid(row=1,column=2)
-        self.mainsOpened = tk.Label(panel, text="Mains Opened", bg="orange", fg="blue", **self.TRM_LNCH_SEQ_LBL_OPTS)
-        self.mainsOpened.grid(row=1,column=3)
-
     def setup_e_stop(self,c,r):
         panel = ttk.Frame(self.root, **self.FRAME_OPTS)
         panel.grid(column=c,row=r)
@@ -447,17 +446,17 @@ class GUI_Window():
         ttk.Label(panel,text="Purge K-Bottle TC", **self.SNSR_NAME_LABEL_OPTS).grid(row=5, column=0)
         self.PurgeKBtlTC = ttk.Label(panel,text="Waiting...", **self.SNSR_RDING_LABEL_OPTS)
         self.PurgeKBtlTC.grid(row=5, column=1)
-        ttk.Label(panel, text="F", **self.SNSR_UNIT_LABEL_OPTS).grid(row=5,column=2)
+        ttk.Label(panel, text="C", **self.SNSR_UNIT_LABEL_OPTS).grid(row=5,column=2)
 
         ttk.Label(panel,text="GSECU Internal TC", **self.SNSR_NAME_LABEL_OPTS).grid(row=6, column=0)
         self.GSECUintTC = ttk.Label(panel,text="Waiting...", **self.SNSR_RDING_LABEL_OPTS)
         self.GSECUintTC.grid(row=6, column=1)
-        ttk.Label(panel, text="F", **self.SNSR_UNIT_LABEL_OPTS).grid(row=6,column=2)
+        ttk.Label(panel, text="C", **self.SNSR_UNIT_LABEL_OPTS).grid(row=6,column=2)
 
         ttk.Label(panel,text="N2O K-Bottle TC", **self.SNSR_NAME_LABEL_OPTS).grid(row=7, column=0)
         self.N2OKBtlTC = ttk.Label(panel,text="Waiting...", **self.SNSR_RDING_LABEL_OPTS)
         self.N2OKBtlTC.grid(row=7, column=1)
-        ttk.Label(panel, text="F", **self.SNSR_UNIT_LABEL_OPTS).grid(row=7,column=2)
+        ttk.Label(panel, text="C", **self.SNSR_UNIT_LABEL_OPTS).grid(row=7,column=2)
 
         ttk.Label(panel,text="GSECU Net Current", **self.SNSR_NAME_LABEL_OPTS).grid(row=8, column=0)
         self.GSECUINA237 = ttk.Label(panel,text="Waiting...", **self.SNSR_RDING_LABEL_OPTS)
@@ -510,17 +509,17 @@ class GUI_Window():
         ttk.Label(panel,text="Chamber Shell TC1", **self.SNSR_NAME_LABEL_OPTS).grid(row=8, column=0)
         self.CSTC1 = ttk.Label(panel,text="Waiting...", **self.SNSR_RDING_LABEL_OPTS)
         self.CSTC1.grid(row=8, column=1)
-        ttk.Label(panel, text="F", **self.SNSR_UNIT_LABEL_OPTS).grid(row=8,column=2)
+        ttk.Label(panel, text="C", **self.SNSR_UNIT_LABEL_OPTS).grid(row=8,column=2)
 
         ttk.Label(panel,text="Chamber Shell TC2", **self.SNSR_NAME_LABEL_OPTS).grid(row=9, column=0)
         self.CSTC2 = ttk.Label(panel,text="Waiting...", **self.SNSR_RDING_LABEL_OPTS)
         self.CSTC2.grid(row=9, column=1)
-        ttk.Label(panel, text="F", **self.SNSR_UNIT_LABEL_OPTS).grid(row=9,column=2)
+        ttk.Label(panel, text="C", **self.SNSR_UNIT_LABEL_OPTS).grid(row=9,column=2)
 
         ttk.Label(panel,text="N2O Tank TC", **self.SNSR_NAME_LABEL_OPTS).grid(row=10, column=0)
         self.N2OTankTC = ttk.Label(panel,text="Waiting...", **self.SNSR_RDING_LABEL_OPTS)
         self.N2OTankTC.grid(row=10, column=1)
-        ttk.Label(panel, text="F", **self.SNSR_UNIT_LABEL_OPTS).grid(row=10,column=2)
+        ttk.Label(panel, text="C", **self.SNSR_UNIT_LABEL_OPTS).grid(row=10,column=2)
 
         ttk.Label(panel,text="LECU Net Current", **self.SNSR_NAME_LABEL_OPTS).grid(row=11, column=0)
         self.LECUINA237 = ttk.Label(panel,text="Waiting...", **self.SNSR_RDING_LABEL_OPTS)
@@ -589,20 +588,18 @@ class GUI_Window():
         except:
             pass
 
-        self.root.after(100,self.write_sensor_data_to_file)
+        self.root.after(250,self.write_sensor_data_to_file)
 
     # ---------------- SAFETY ---------------- #
 
     def e_stop(self):
         self.update_ctrlString(1,'H')      # set GSECU Servo Pwr Switch high
         self.update_ctrlString(4,'H')      # set LECU Servo Pwr Switch high
-        self.fired = False
-        self.QD_actuated = False
-        self.ignition.config(bg="orange")
-        self.mainsOpened.config(bg="orange")
         self.root.after(100, lambda: setattr(self, "ctrlString", list(self.ESTOP_CTRL)))
         self.root.after(1100, lambda: setattr(self, "ctrlString", list(self.DEFAULT_CTRL)))
         self.log("E-STOP ACTIVATED")
+        self.fired = False
+        self.QD_actuated = False
 
     def on_close(self):
 
