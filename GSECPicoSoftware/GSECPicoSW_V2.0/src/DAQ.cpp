@@ -27,13 +27,14 @@ uint32_t read_MAX31855(int csPin) {
     digitalWrite(csPin, LOW);
 
     uint32_t raw = 0;
-    raw |= ((uint32_t)SPI1.transfer(0x00) << 24);
-    raw |= ((uint32_t)SPI1.transfer(0x00) << 16);
-    raw |= ((uint32_t)SPI1.transfer(0x00) << 8);
-    raw |= ((uint32_t)SPI1.transfer(0x00));
+    uint8_t rawH = SPI1.transfer(0x00);
+    uint8_t rawL = SPI1.transfer(0x00);
 
     digitalWrite(csPin, HIGH);
     SPI1.endTransaction();
+
+    raw = ((uint32_t)rawH << 8) | rawL;
+    raw = raw >> 2;
 
     return raw;
 }

@@ -202,51 +202,10 @@ void recv_sensor_data() {
       }
     }
   }
-  /*
-  static boolean LECUrecvInProgress = false;
-  static byte LECUndx = 0;
-  char startMarker = '<';
-  char endMarker = '>';
-  char rb;
-
-  while (Serial1.available() > 0 && LECUnewData == false) {
-    digitalWrite(LED_BUILTIN, HIGH);
-    rb = Serial1.read();
-
-    if (LECUrecvInProgress == true) {
-      if (rb != endMarker) {
-        receivedBytes[LECUndx] = rb;
-        LECUndx++;
-        if (LECUndx >= NUM_BYTES) {
-          LECUndx = NUM_BYTES - 1;
-        }
-      } else {
-        receivedBytes[LECUndx] = '\0';
-        LECUrecvInProgress = false;
-        LECUndx = 0;
-        LECUnewData = true;
-      }
-    } else if (rb == startMarker) {
-      LECUrecvInProgress = true;
-    }
-  } 
-  */
 }
 
 
 void process_sensor_data() {
-  /*
-  noInterrupts();
-  for (int i = 0; (i < sizeof(sensorReadingArr)/sizeof(sensorReadingArr[0])); i++) {
-      *sensorReadingArr[i] = 0;
-      *sensorReadingArr[i] |= (uint32_t)receivedBytes[i*4 + 0];
-      *sensorReadingArr[i] |= (uint32_t)receivedBytes[i*4 + 1] << 8;
-      *sensorReadingArr[i] |= (uint32_t)receivedBytes[i*4 + 2] << 16;
-      *sensorReadingArr[i] |= (uint32_t)receivedBytes[i*4 + 3] << 24;
-  }
-  interrupts();
-  */
-
   noInterrupts();
   for (int i = 0; i < 10; i++) {
 
@@ -308,9 +267,8 @@ void update_ctrl_snapshot() {
 
 void send_ctrl_string() {
 
-  // Local copy prevents mid-print corruption
   char localCopy[4];
-
+  
   noInterrupts();
   for (int i = 0; i < 4; i++) {
     localCopy[i] = ctrlSnapshot[i];
