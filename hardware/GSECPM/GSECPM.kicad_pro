@@ -415,11 +415,23 @@
     ],
     [
       "e34b93c8-2c40-4ece-9f3d-e2e6912bb15e",
-      "Ethernet"
+      "Ethernet_ACT"
     ],
     [
-      "5aa66df7-1392-47c9-9eac-08ee8ee35544",
-      "BuckConverter"
+      "df75ddd3-8750-4f12-b2f2-4cd40f9a8424",
+      "Ethernet_DAQ"
+    ],
+    [
+      "23da7662-0985-489a-bd35-c85741bb2fbc",
+      "Power"
+    ],
+    [
+      "5d976556-5edd-410a-8a26-80db1df2089a",
+      "Inputs_DAQ"
+    ],
+    [
+      "67e18946-2436-465d-bee0-00489829e0b5",
+      "Outputs_ACT"
     ]
   ],
   "text_variables": {}

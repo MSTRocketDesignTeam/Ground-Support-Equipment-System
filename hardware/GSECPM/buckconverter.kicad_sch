@@ -2610,7 +2610,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "6dc830e9-d9bb-42c1-a845-3ac0272c15a9")
-		(property "Reference" "R8"
+		(property "Reference" "R2"
 			(at 175.26 104.1399 0)
 			(effects
 				(font
@@ -2672,7 +2672,7 @@
 		(instances
 			(project "GSECPM"
 				(path "/03409c33-60c4-4fcd-8521-73191969e03b/5aa66df7-1392-47c9-9eac-08ee8ee35544"
-					(reference "R8")
+					(reference "R2")
 					(unit 1)
 				)
 			)
@@ -2753,7 +2753,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "78951e3d-0c7e-4b77-9ce8-d30cc82afe55")
-		(property "Reference" "R10"
+		(property "Reference" "R3"
 			(at 67.056 82.804 0)
 			(effects
 				(font
@@ -2815,7 +2815,7 @@
 		(instances
 			(project "GSECPM"
 				(path "/03409c33-60c4-4fcd-8521-73191969e03b/5aa66df7-1392-47c9-9eac-08ee8ee35544"
-					(reference "R10")
+					(reference "R3")
 					(unit 1)
 				)
 			)
@@ -3341,7 +3341,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "9e9f05b9-9800-47e8-b598-101bbc163620")
-		(property "Reference" "R11"
+		(property "Reference" "R4"
 			(at 66.802 71.374 0)
 			(effects
 				(font
@@ -3403,7 +3403,7 @@
 		(instances
 			(project "GSECPM"
 				(path "/03409c33-60c4-4fcd-8521-73191969e03b/5aa66df7-1392-47c9-9eac-08ee8ee35544"
-					(reference "R11")
+					(reference "R4")
 					(unit 1)
 				)
 			)
@@ -3980,7 +3980,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "d98212e0-daaa-430a-968e-6b52284d6924")
-		(property "Reference" "R3"
+		(property "Reference" "R1"
 			(at 166.116 85.344 0)
 			(effects
 				(font
@@ -4042,7 +4042,7 @@
 		(instances
 			(project "GSECPM"
 				(path "/03409c33-60c4-4fcd-8521-73191969e03b/5aa66df7-1392-47c9-9eac-08ee8ee35544"
-					(reference "R3")
+					(reference "R1")
 					(unit 1)
 				)
 			)
