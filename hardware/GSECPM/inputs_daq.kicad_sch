@@ -2439,24 +2439,21 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "2d68d36c-766c-426a-a3ec-31fac6297aee")
-		(property "Reference" "J5"
-			(at 69.85 27.9399 0)
+		(property "Reference" "J18"
+			(at 64.008 27.178 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Value" "K-Bottle TC"
-			(at 69.85 30.4799 0)
+			(at 64.008 29.718 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "TerminalBlock:TerminalBlock_Xinya_XY308-2.54-2P_1x02_P2.54mm_Horizontal"
@@ -2495,7 +2492,7 @@
 		(instances
 			(project "GSECPM"
 				(path "/03409c33-60c4-4fcd-8521-73191969e03b/5d976556-5edd-410a-8a26-80db1df2089a"
-					(reference "J5")
+					(reference "J18")
 					(unit 1)
 				)
 			)
@@ -3005,7 +3002,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "8cb11a65-65ed-4496-856f-9e19138f2616")
-		(property "Reference" "#PWR064"
+		(property "Reference" "#PWR0109"
 			(at 78.74 80.01 0)
 			(effects
 				(font
@@ -3055,7 +3052,7 @@
 		(instances
 			(project "GSECPM"
 				(path "/03409c33-60c4-4fcd-8521-73191969e03b/5d976556-5edd-410a-8a26-80db1df2089a"
-					(reference "#PWR064")
+					(reference "#PWR0109")
 					(unit 1)
 				)
 			)
@@ -3483,7 +3480,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "DAQBoard:DAQBoard V1"
 			(at 154.94 62.23 0)
 			(effects
 				(font
@@ -3751,24 +3748,21 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "f6acc506-6c9c-4068-bc38-e3dddbd638db")
-		(property "Reference" "J6"
-			(at 69.85 39.3699 0)
+		(property "Reference" "J19"
+			(at 64.77 38.354 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Value" "K-Bottle TC"
-			(at 69.85 41.9099 0)
+			(at 64.77 40.894 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "TerminalBlock:TerminalBlock_Xinya_XY308-2.54-2P_1x02_P2.54mm_Horizontal"
@@ -3807,7 +3801,7 @@
 		(instances
 			(project "GSECPM"
 				(path "/03409c33-60c4-4fcd-8521-73191969e03b/5d976556-5edd-410a-8a26-80db1df2089a"
-					(reference "J6")
+					(reference "J19")
 					(unit 1)
 				)
 			)
@@ -3824,7 +3818,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "fa09b531-193d-4a6c-93db-a5b67a975eb8")
-		(property "Reference" "#PWR063"
+		(property "Reference" "#PWR0110"
 			(at 78.74 139.7 0)
 			(effects
 				(font
@@ -3874,7 +3868,7 @@
 		(instances
 			(project "GSECPM"
 				(path "/03409c33-60c4-4fcd-8521-73191969e03b/5d976556-5edd-410a-8a26-80db1df2089a"
-					(reference "#PWR063")
+					(reference "#PWR0110")
 					(unit 1)
 				)
 			)
