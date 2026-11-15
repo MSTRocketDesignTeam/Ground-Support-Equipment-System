@@ -6336,6 +6336,24 @@
 				(hide yes)
 			)
 		)
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/cal-chip-electronics-inc/GMC10CG100J50NT/24398897"
+			(at 44.45 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.10"
+			(at 44.45 152.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "bd3b7943-cb36-44f3-8b80-3743e8722a5b")
 		)
@@ -6405,6 +6423,24 @@
 				(hide yes)
 			)
 		)
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/te-connectivity-passive-product/CRGCQ0603F2K2/8576294"
+			(at 48.26 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.10"
+			(at 48.26 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "d0e164e5-3fc7-4a38-83af-87a865515a32")
 		)
@@ -6464,6 +6500,24 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 160.02 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/te-connectivity-passive-product/CRGH0603J120R/2385333"
+			(at 160.02 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.10"
 			(at 160.02 128.27 0)
 			(effects
 				(font
@@ -6541,6 +6595,24 @@
 				(hide yes)
 			)
 		)
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/cal-chip-electronics-inc/GMC10X5R475M6R3NT/24883185"
+			(at 114.3 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.11"
+			(at 114.3 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "d0358d66-061b-4651-af2e-b6383adae05a")
 		)
@@ -6601,6 +6673,24 @@
 		)
 		(property "Description" "Resistor"
 			(at 71.12 44.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/cal-chip-electronics-inc/RM06J000CT/22461307"
+			(at 71.12 44.45 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.10"
+			(at 71.12 44.45 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -6670,6 +6760,24 @@
 			)
 		)
 		(property "Description" ""
+			(at 127 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/wiznet/W5500/4425702"
+			(at 127 36.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$3.47"
 			(at 127 36.83 0)
 			(effects
 				(font
@@ -6943,6 +7051,24 @@
 			)
 		)
 		(property "Description" ""
+			(at 38.1 34.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/abracon-llc/ARJM11D7-114-AB-EW2/7675220?gclsrc=aw.ds&gad_source=1&gad_campaignid=120565755&gclid=CjwKCAiAquDXBhApEiwAoyNqBKuqqMxTIe2JBPYyopZsteSVQ6BiR1LgRQuMLFE800xpnI0ARbZhjBoCkRkQAvD_BwE"
+			(at 38.1 34.29 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$3.03"
 			(at 38.1 34.29 0)
 			(effects
 				(font
@@ -7254,6 +7380,24 @@
 				(hide yes)
 			)
 		)
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/nic-components-corp/NMC0603X7R103K50TRPF/18724525"
+			(at 120.65 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.10"
+			(at 120.65 96.52 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "bd8640cc-b722-4d5f-8f17-3c583beef69f")
 		)
@@ -7519,6 +7663,24 @@
 				(hide yes)
 			)
 		)
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/cal-chip-electronics-inc/GMC10CG100J50NT/24398897"
+			(at 86.36 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.10"
+			(at 86.36 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "3bd9e50f-3077-41f8-8ac4-1af3abcb90c3")
 		)
@@ -7645,6 +7807,24 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 101.6 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/cal-chip-electronics-inc/GMC10X5R475M6R3NT/24883185"
+			(at 101.6 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.11"
 			(at 101.6 92.71 0)
 			(effects
 				(font
@@ -7788,6 +7968,24 @@
 				(hide yes)
 			)
 		)
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/cal-chip-electronics-inc/GMC10X7R104K25NT/19910724"
+			(at 124.46 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.10"
+			(at 124.46 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "ed823646-6581-49d3-9432-a4f5aefd432a")
 		)
@@ -7848,6 +8046,24 @@
 		)
 		(property "Description" "Resistor"
 			(at 71.12 52.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/cal-chip-electronics-inc/RM06J000CT/22461307"
+			(at 71.12 52.07 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.10"
+			(at 71.12 52.07 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8053,6 +8269,24 @@
 				(hide yes)
 			)
 		)
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/cal-chip-electronics-inc/RM06J000CT/22461307"
+			(at 71.12 36.83 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.10"
+			(at 71.12 36.83 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "d791021c-6a76-42a2-951e-769497c6fcd7")
 		)
@@ -8114,6 +8348,24 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 252.73 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/cal-chip-electronics-inc/GMC10X7R104K25NT/19910724"
+			(at 252.73 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.10"
 			(at 252.73 146.05 0)
 			(effects
 				(font
@@ -8323,6 +8575,24 @@
 				(hide yes)
 			)
 		)
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/cal-chip-electronics-inc/RM06J000CT/22461307"
+			(at 71.12 29.21 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.10"
+			(at 71.12 29.21 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "48242423-e1a2-43b1-a6c2-83af269e949d")
 		)
@@ -8522,6 +8792,24 @@
 				(hide yes)
 			)
 		)
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/cal-chip-electronics-inc/GMC10X7R104K25NT/19910724"
+			(at 153.67 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.10"
+			(at 153.67 140.97 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "1cfe33fb-0a8d-4870-b431-1bd754ff5204")
 		)
@@ -8655,6 +8943,24 @@
 				(hide yes)
 			)
 		)
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/te-connectivity-passive-product/CRG0603F10K-10/2390661"
+			(at 236.22 140.97 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.10"
+			(at 236.22 140.97 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "0e8c44c3-2fb0-4dbb-851b-5e25d0c2b64a")
 		)
@@ -8724,6 +9030,24 @@
 				(hide yes)
 			)
 		)
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/te-connectivity-passive-product/CRGCQ0603F2K2/8576294"
+			(at 53.34 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.10"
+			(at 53.34 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "d67e0d1e-8c20-41d9-b759-003b67c28729")
 		)
@@ -8783,6 +9107,24 @@
 			)
 		)
 		(property "Description" "Resistor"
+			(at 130.81 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/te-connectivity-passive-product/CRGH0603J120R/2385333"
+			(at 130.81 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.10"
 			(at 130.81 128.27 0)
 			(effects
 				(font
@@ -8924,6 +9266,24 @@
 				(hide yes)
 			)
 		)
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/te-connectivity-passive-product/CRG0603F10K-10/2390661"
+			(at 120.65 59.69 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.10"
+			(at 120.65 59.69 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "68f0241b-ab47-4352-a600-fc9c10187b9a")
 		)
@@ -9058,6 +9418,24 @@
 				(hide yes)
 			)
 		)
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/te-connectivity-passive-product/CRG0603F10K-10/2390661"
+			(at 236.22 133.35 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.10"
+			(at 236.22 133.35 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "6db7ae81-dd44-4a69-8873-335e2f980384")
 		)
@@ -9157,7 +9535,7 @@
 				(hide yes)
 			)
 		)
-		(property "PRICE" ""
+		(property "PRICE" "$0.52"
 			(at 64.77 143.51 0)
 			(effects
 				(font
@@ -9204,6 +9582,15 @@
 					(size 1.27 1.27)
 				)
 				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/ecs-inc/ECS-250-8-36-RWN-TR/6821593"
+			(at 64.77 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 				(hide yes)
 			)
 		)
@@ -9401,6 +9788,24 @@
 		)
 		(property "Description" "Resistor"
 			(at 236.22 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/te-connectivity-passive-product/CRG0603F10K-10/2390661"
+			(at 236.22 125.73 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.10"
+			(at 236.22 125.73 90)
 			(effects
 				(font
 					(size 1.27 1.27)

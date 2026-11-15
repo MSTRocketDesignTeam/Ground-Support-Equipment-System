@@ -938,16 +938,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "DATASHEET_URL" "https://s3.amazonaws.com/snapeda/datasheet/PJ-002A_Same_Sky.pdf"
+			(property "Description" "Power Barrel Connector Jack 2.00mm ID (0.079\"), 5.50mm OD (0.217\") Through Hole, Right Angle"
 				(at 0 0 0)
 				(effects
 					(font
@@ -957,7 +948,7 @@
 					(hide yes)
 				)
 			)
-			(property "DESCRIPTION" "Power Barrel Connector Jack 2.00mm ID (0.079\"), 5.50mm OD (0.217\") Through Hole, Right Angle"
+			(property "DATASHEET_URL" "https://s3.amazonaws.com/snapeda/datasheet/PJ-002A_Same_Sky.pdf"
 				(at 0 0 0)
 				(effects
 					(font
@@ -3205,6 +3196,15 @@
 				(hide yes)
 			)
 		)
+		(property "PRICE" "$1.53"
+			(at 215.9 85.09 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "db4c11b3-be68-493b-ab1f-0f2ceef172df")
 		)
@@ -3407,6 +3407,24 @@
 				(hide yes)
 			)
 		)
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/cal-chip-electronics-inc/GMC10X5R106K6R3NT/22471816"
+			(at 194.31 181.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.17"
+			(at 194.31 181.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "5b65cc39-d9b6-4b60-8697-01b1d4a65eee")
 		)
@@ -3450,7 +3468,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "Capacitor_SMD:C_0603_1608Metric"
+		(property "Footprint" "Capacitor_SMD:C_1206_3216Metric"
 			(at 260.0452 185.42 0)
 			(effects
 				(font
@@ -3469,6 +3487,24 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 259.08 181.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/cal-chip-electronics-inc/GMC31X5R107M6R3NT/18151133"
+			(at 259.08 181.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.70"
 			(at 259.08 181.61 0)
 			(effects
 				(font
@@ -3679,7 +3715,16 @@
 				(hide yes)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL21A226MAYNNWE/16344162"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/taiyo-yuden/AMK212ABJ226MGHT/4157353"
+			(at 331.47 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.28"
 			(at 331.47 95.25 0)
 			(effects
 				(font
@@ -3758,7 +3803,16 @@
 				(hide yes)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL21A226MAYNNWE/16344162"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/taiyo-yuden/AMK212ABJ226MGHT/4157353"
+			(at 317.5 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.28"
 			(at 317.5 95.25 0)
 			(effects
 				(font
@@ -3835,7 +3889,16 @@
 				)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL21Y105KCYVPNE/14565404"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/cal-chip-electronics-inc/GMC21Y5V105M16NT/25820713"
+			(at 135.89 124.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.10"
 			(at 135.89 124.46 0)
 			(effects
 				(font
@@ -3914,7 +3977,16 @@
 				(hide yes)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL21A226MAYNNWE/16344162"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/taiyo-yuden/AMK212ABJ226MGHT/4157353"
+			(at 247.65 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.28"
 			(at 247.65 95.25 0)
 			(effects
 				(font
@@ -3989,8 +4061,17 @@
 				)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL10B104KB8NNNC/3886658"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/kemet/C0603C104M5RACTU/2199782"
 			(at 190.5 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.10"
+			(at 190.5 92.71 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -4068,7 +4149,16 @@
 				(hide yes)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL21A226MAYNNWE/16344162"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/taiyo-yuden/AMK212ABJ226MGHT/4157353"
+			(at 275.59 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.28"
 			(at 275.59 95.25 0)
 			(effects
 				(font
@@ -4145,7 +4235,16 @@
 				)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL32B106KBJNNNE/3889045"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL32A106KAULNNE/3887512"
+			(at 109.22 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.37"
 			(at 109.22 95.25 0)
 			(effects
 				(font
@@ -4356,6 +4455,24 @@
 				(hide yes)
 			)
 		)
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/stmicroelectronics/LD1117S33TR/585766"
+			(at 246.38 179.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.40"
+			(at 246.38 179.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "3"
 			(uuid "8f81d4fe-57dc-45f6-82c5-09cd710f0889")
 		)
@@ -4494,7 +4611,16 @@
 				)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/vishay-dale/TNPW0603100KBEEA/1606995"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/cal-chip-electronics-inc/RM14F2492CT/28024313"
+			(at 240.03 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.16"
 			(at 240.03 125.73 0)
 			(effects
 				(font
@@ -4778,6 +4904,15 @@
 				(hide yes)
 			)
 		)
+		(property "PRICE" "$0.11"
+			(at 121.92 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "43543931-e9d5-4c8c-abde-6f13f492e7a4")
 		)
@@ -4846,7 +4981,16 @@
 				)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/vishay-dale/TNPW06032K49BEEA/1606810"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/yageo/RC0603FR-072K49L/727027"
+			(at 140.97 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.10"
 			(at 140.97 104.14 0)
 			(effects
 				(font
@@ -4875,9 +5019,9 @@
 		(at 220.98 106.68 180)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
+		(in_bom no)
 		(on_board yes)
-		(dnp no)
+		(dnp yes)
 		(uuid "7acab7df-3018-4883-9148-36a6a0944cdc")
 		(property "Reference" "C42"
 			(at 211.582 105.156 0)
@@ -5003,7 +5147,16 @@
 				(hide yes)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL21A226MAYNNWE/16344162"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/taiyo-yuden/AMK212ABJ226MGHT/4157353"
+			(at 303.53 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.28"
 			(at 303.53 95.25 0)
 			(effects
 				(font
@@ -5146,7 +5299,16 @@
 				)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL32B106KBJNNNE/3889045"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL32A106KAULNNE/3887512"
+			(at 96.52 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.37"
 			(at 96.52 95.25 0)
 			(effects
 				(font
@@ -5225,7 +5387,16 @@
 				(hide yes)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL21A226MAYNNWE/16344162"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/taiyo-yuden/AMK212ABJ226MGHT/4157353"
+			(at 289.56 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.28"
 			(at 289.56 95.25 0)
 			(effects
 				(font
@@ -5296,6 +5467,24 @@
 			)
 		)
 		(property "Description" "Unpolarized capacitor"
+			(at 74.93 176.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/cal-chip-electronics-inc/GMC10X5R106K6R3NT/22471816"
+			(at 74.93 176.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.17"
 			(at 74.93 176.53 0)
 			(effects
 				(font
@@ -5438,7 +5627,16 @@
 				)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/vishay-dale/TNPW060310K0BEEA/1606881"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/te-connectivity-passive-product/CRG0603F10K-10/2390661"
+			(at 140.97 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.10"
 			(at 140.97 92.71 0)
 			(effects
 				(font
@@ -5578,6 +5776,24 @@
 		)
 		(property "Description" ""
 			(at 74.93 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/diodes-incorporated/SMBJ14A-13-F/814769"
+			(at 74.93 171.45 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.56"
+			(at 74.93 171.45 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -5853,7 +6069,16 @@
 				(hide yes)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL21A226MAYNNWE/16344162"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/taiyo-yuden/AMK212ABJ226MGHT/4157353"
+			(at 261.62 95.25 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.28"
 			(at 261.62 95.25 0)
 			(effects
 				(font
@@ -6058,6 +6283,24 @@
 				(hide yes)
 			)
 		)
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/same-sky-formerly-cui-devices/PJ-002A/96962?gclsrc=aw.ds&gad_source=1&gad_campaignid=120565755&gclid=CjwKCAiAquDXBhApEiwAoyNqBA7N3WCCzfdogYcWfsgmdXrCsvuJjofsQrIAyzYQtOyNooFt66YZwhoCt3gQAvD_BwE"
+			(at 60.96 172.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.66"
+			(at 60.96 172.72 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "1"
 			(uuid "cbab5346-1349-402b-b67b-5d42e2ba8f83")
 		)
@@ -6129,7 +6372,16 @@
 				)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/vishay-dale/TNPW0603100KBEEA/1606995"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/cal-chip-electronics-inc/RM14J104CT/28024290"
+			(at 240.03 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.15"
 			(at 240.03 106.68 0)
 			(effects
 				(font
@@ -6470,7 +6722,16 @@
 				(hide yes)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/texas-instruments/LMR33640ADDAR/11308782?s=N4IgTCBcDaIDIFkBKBmFA2ALABgIIBF9ckQBdAXyA"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/texas-instruments/LMR33640DDDAR/11308833?gclsrc=aw.ds&gad_source=1&gad_campaignid=9265913509&gclid=CjwKCAiAquDXBhApEiwAoyNqBMTP-EMyiuVPbMO5BzkHpZOkOyUG591ygqQdkzddVqNJyXUDbGpI4RoCyng"
+			(at 165.1 104.14 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$3.15"
 			(at 165.1 104.14 0)
 			(effects
 				(font

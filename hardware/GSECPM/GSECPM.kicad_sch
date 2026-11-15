@@ -1976,16 +1976,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" ""
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "DATASHEET_URL" "https://s3.amazonaws.com/snapeda/datasheet/NUCLEO-F446RE_STMicroelectronics.pdf"
+			(property "Description" "STM32F446RE, mbed-Enabled Development Nucleo-64 STM32F4 ARM® Cortex®-M4 MCU 32-Bit Embedded Evaluation Board"
 				(at 0 0 0)
 				(effects
 					(font
@@ -1995,7 +1986,7 @@
 					(hide yes)
 				)
 			)
-			(property "DESCRIPTION" "STM32F446RE, mbed-Enabled Development Nucleo-64 STM32F4 ARM® Cortex®-M4 MCU 32-Bit Embedded Evaluation Board"
+			(property "DATASHEET_URL" "https://s3.amazonaws.com/snapeda/datasheet/NUCLEO-F446RE_STMicroelectronics.pdf"
 				(at 0 0 0)
 				(effects
 					(font
@@ -6902,16 +6893,6 @@
 		)
 		(uuid "034fea0c-7612-46f3-ba88-8d059eaa2ac9")
 	)
-	(label "Ignition_E-Match"
-		(at 158.75 162.56 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "04b71d1d-b5a9-4043-bd3e-ad25be84d297")
-	)
 	(label "Q1-Gate"
 		(at 260.35 73.66 0)
 		(effects
@@ -6921,16 +6902,6 @@
 			(justify left bottom)
 		)
 		(uuid "072d99a8-8f35-4d1e-a6d0-3a5f53b04e4a")
-	)
-	(label "Nitrous_Cooling"
-		(at 158.75 157.48 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "0af76433-52c0-4d54-879b-c711e97ec2ca")
 	)
 	(label "13V_FILL1"
 		(at 307.34 149.86 0)
@@ -6942,27 +6913,7 @@
 		)
 		(uuid "0e2dfbc9-4f21-46bc-86f5-d9799e32b681")
 	)
-	(label "ADC_CS"
-		(at 158.75 147.32 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "1320c4ff-cb6b-48e7-844b-f6da186ba2d3")
-	)
-	(label "Internal_Cooling"
-		(at 158.75 160.02 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "194eca2a-42dd-49ae-8271-342ccf985234")
-	)
-	(label "T+ (Internal)"
+	(label "T+ (N2O_1)"
 		(at 40.64 109.22 0)
 		(effects
 			(font
@@ -6972,7 +6923,17 @@
 		)
 		(uuid "1c5e80c0-ac57-439d-bf31-927155b50953")
 	)
-	(label "T- (N2O)"
+	(label "Purge_Servo"
+		(at 158.75 139.7 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "1fc37f64-a313-4f9c-8e8f-5b4f6ad43c25")
+	)
+	(label "T- (N2O_2)"
 		(at 40.64 118.11 0)
 		(effects
 			(font
@@ -6981,6 +6942,16 @@
 			(justify left bottom)
 		)
 		(uuid "21da777d-4386-40af-bbab-edc2ccb29c0c")
+	)
+	(label "TC2_CS"
+		(at 158.75 175.26 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "22a1d085-1122-43be-b1a7-76d2008ed204")
 	)
 	(label "ADC_AI3"
 		(at 44.45 175.26 0)
@@ -7002,6 +6973,16 @@
 		)
 		(uuid "241cec39-32c6-46ca-8a7c-7c65090ac2ee")
 	)
+	(label "TC3_CS"
+		(at 158.75 177.8 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "24d76495-9473-4f33-a011-c906446aaff3")
+	)
 	(label "Q1-Drain"
 		(at 279.4 86.36 0)
 		(effects
@@ -7022,16 +7003,6 @@
 		)
 		(uuid "2577ef21-730b-472e-b8ab-d434435aa27d")
 	)
-	(label "SPI_CLK"
-		(at 158.75 137.16 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "2584770b-1b0d-4cef-a0f5-2459913e9c53")
-	)
 	(label "ADC_AI2"
 		(at 44.45 160.02 0)
 		(effects
@@ -7041,16 +7012,6 @@
 			(justify left bottom)
 		)
 		(uuid "283e013a-5931-403f-b373-9b42381f23eb")
-	)
-	(label "TC1_CS"
-		(at 158.75 129.54 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "2a6bfa03-0979-4d49-a930-86661954c928")
 	)
 	(label "ADC_AI0"
 		(at 44.45 130.81 0)
@@ -7072,16 +7033,6 @@
 		)
 		(uuid "2e25a7be-349e-4f02-ae13-539e10b80b52")
 	)
-	(label "T+ (N2O)"
-		(at 68.58 129.54 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "315a69e1-aa4d-4743-b73c-cedfbdcc38d2")
-	)
 	(label "13V-QD"
 		(at 254 194.31 0)
 		(effects
@@ -7101,6 +7052,16 @@
 			(justify right bottom)
 		)
 		(uuid "392aaf35-5568-4629-a7e4-5478ef06cc4e")
+	)
+	(label "ADC_CS"
+		(at 158.75 154.94 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "3a015f96-c3d0-45c8-b71e-05cd72b03613")
 	)
 	(label "SPI_MOSI"
 		(at 111.76 139.7 0)
@@ -7132,16 +7093,6 @@
 		)
 		(uuid "4644247d-3b3c-437b-81c8-018cf3d291f0")
 	)
-	(label "QD_E-Match"
-		(at 158.75 165.1 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "46cb213f-5898-4221-b301-a9e3bf9e7d38")
-	)
 	(label "13V_IGNITION"
 		(at 318.77 101.6 0)
 		(effects
@@ -7172,6 +7123,26 @@
 		)
 		(uuid "51f79504-cbbd-4a29-ba4c-3ee57b774fe4")
 	)
+	(label "QD_E-Match"
+		(at 158.75 132.08 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "533bf65d-af36-4ab7-9c92-cdf8d6206952")
+	)
+	(label "T+ (N2O_1)"
+		(at 68.58 124.46 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "5529fc86-1d20-4a49-9af5-32b71e79c9d2")
+	)
 	(label "TC2_CS"
 		(at 111.76 129.54 0)
 		(effects
@@ -7192,16 +7163,6 @@
 		)
 		(uuid "6197bd2e-900f-458e-ab59-7c9c84084ce1")
 	)
-	(label "TC3_CS"
-		(at 158.75 134.62 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "6863102f-8d09-45bb-866f-22f8345c8184")
-	)
 	(label "ServoPWR_Switch2"
 		(at 322.58 177.8 180)
 		(effects
@@ -7211,16 +7172,6 @@
 			(justify right bottom)
 		)
 		(uuid "696bd969-db22-41eb-8bcd-767d155fcc7b")
-	)
-	(label "Purge_Servo"
-		(at 158.75 154.94 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "6ccea993-d619-449d-90bc-7da21aca6aff")
 	)
 	(label "TC1_CS"
 		(at 111.76 127 0)
@@ -7242,16 +7193,6 @@
 		)
 		(uuid "6f0ccbc7-b27c-4a6f-9f99-37aa7630037d")
 	)
-	(label "SPI_MISO"
-		(at 158.75 139.7 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "7067a0ce-e6d4-4235-b9b2-33c70373571b")
-	)
 	(label "Fill_Servo2"
 		(at 358.14 191.77 180)
 		(effects
@@ -7261,6 +7202,26 @@
 			(justify right bottom)
 		)
 		(uuid "70925ca7-96e9-405a-98b9-41c5ae89cb96")
+	)
+	(label "T- (N2O_2)"
+		(at 68.58 127 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "7323166f-8ff1-4485-ba9d-0911b080b0cc")
+	)
+	(label "Fill_Servo2"
+		(at 158.75 137.16 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "7332bf98-9221-47f1-985a-75a1c4f420a0")
 	)
 	(label "ServoPWR_Switch1"
 		(at 316.23 129.54 180)
@@ -7282,16 +7243,6 @@
 		)
 		(uuid "77aaff49-dfe7-4ddf-a386-3a4cf0182ba4")
 	)
-	(label "T- (N2O)"
-		(at 68.58 127 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "77e86d4e-00cb-4d00-91aa-d9514cce7d60")
-	)
 	(label "Q5-Drain"
 		(at 336.55 149.86 0)
 		(effects
@@ -7312,6 +7263,26 @@
 		)
 		(uuid "80359032-a1ba-4600-9258-761781e3e936")
 	)
+	(label "SPI_CLK"
+		(at 158.75 157.48 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "82a340d5-2524-4766-8a4c-c6ad918fa97a")
+	)
+	(label "T- (N2O_1)"
+		(at 68.58 121.92 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "8533b79e-1b83-44c9-bda8-59d03dbed443")
+	)
 	(label "TC3_CS"
 		(at 111.76 132.08 0)
 		(effects
@@ -7322,7 +7293,7 @@
 		)
 		(uuid "87fda1a0-4003-4fd7-8c8c-d9e9d95e4e57")
 	)
-	(label "T+ (N2O)"
+	(label "T+ (N2O_2)"
 		(at 40.64 120.65 0)
 		(effects
 			(font
@@ -7331,16 +7302,6 @@
 			(justify left bottom)
 		)
 		(uuid "89bd9828-1b8b-42ad-a604-997ec9f3315a")
-	)
-	(label "ServoPWR_Switch1"
-		(at 158.75 167.64 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "8b0546ba-2b5f-48a2-aa36-36c24e5e5370")
 	)
 	(label "QD_E-Match"
 		(at 276.86 196.85 180)
@@ -7362,15 +7323,15 @@
 		)
 		(uuid "8e0a7ac9-f2ae-4db9-a83a-180f1eef629e")
 	)
-	(label "T+ (Internal)"
-		(at 68.58 124.46 180)
+	(label "SPI_MOSI"
+		(at 158.75 162.56 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "8fedc80b-bd13-4eb1-af50-fbbd21eb7297")
+		(uuid "916e87bd-df6e-4887-9869-37c7d08b863e")
 	)
 	(label "Q6-Drain"
 		(at 341.63 196.85 0)
@@ -7402,7 +7363,7 @@
 		)
 		(uuid "9aa45491-b880-40bf-9cca-b3db833112d4")
 	)
-	(label "T- (Internal)"
+	(label "T- (N2O_1)"
 		(at 40.64 106.68 0)
 		(effects
 			(font
@@ -7422,26 +7383,6 @@
 		)
 		(uuid "a69b601b-5fdc-4024-be94-536ee48a6e4d")
 	)
-	(label "T- (Internal)"
-		(at 68.58 121.92 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "a8a553d8-e511-4792-bc3c-653ef39a753f")
-	)
-	(label "Fill_Servo1"
-		(at 158.75 175.26 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "b42301c1-eff8-4bfd-83ef-4b8983904258")
-	)
 	(label "ADC_AI1"
 		(at 67.31 134.62 180)
 		(effects
@@ -7451,6 +7392,16 @@
 			(justify right bottom)
 		)
 		(uuid "b5426199-f4d7-4960-9deb-93f4ed4d9979")
+	)
+	(label "Nitrous_Cooling"
+		(at 158.75 147.32 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "b9abd34c-229e-4a88-a76d-9a908229f65b")
 	)
 	(label "ServoPWR_Switch2"
 		(at 158.75 170.18 180)
@@ -7462,6 +7413,16 @@
 		)
 		(uuid "bd8f632c-49cf-493b-897c-9aec8497da29")
 	)
+	(label "T+ (N2O_2)"
+		(at 68.58 129.54 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "bdfe6eea-0717-49eb-ac2f-9bca6cd5ee64")
+	)
 	(label "T+ (N2)"
 		(at 40.64 97.79 0)
 		(effects
@@ -7471,6 +7432,16 @@
 			(justify left bottom)
 		)
 		(uuid "c27df693-742c-4a05-9d03-e384e91f4ea6")
+	)
+	(label "ServoPWR_Switch3"
+		(at 158.75 142.24 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "ca13237c-c8df-453f-a33e-626e5f180792")
 	)
 	(label "Q5-Gate"
 		(at 320.04 139.7 0)
@@ -7482,15 +7453,25 @@
 		)
 		(uuid "d4c62343-12db-43bc-a76e-dc0930eb865f")
 	)
-	(label "SPI_MOSI"
-		(at 158.75 142.24 180)
+	(label "TC1_CS"
+		(at 158.75 172.72 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "d8b133f0-54eb-4648-9de5-4aad7b1ca8b8")
+		(uuid "d64d6c72-94b2-40c4-8f3a-99f11214e2ce")
+	)
+	(label "ServoPWR_Switch1"
+		(at 158.75 165.1 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "d8efc6d3-566b-43e7-a68d-a145c3ea568d")
 	)
 	(label "SCLK"
 		(at 66.04 49.53 180)
@@ -7501,6 +7482,16 @@
 			(justify right bottom)
 		)
 		(uuid "d9597628-95f5-4af5-8a35-0495563a3362")
+	)
+	(label "Ignition_E-Match"
+		(at 158.75 129.54 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "dc07b1cb-1c74-41e1-822f-3c8162dc935f")
 	)
 	(label "ADC_CS"
 		(at 111.76 142.24 0)
@@ -7532,15 +7523,15 @@
 		)
 		(uuid "e393224e-0c50-4499-a956-f2a5d4c294ee")
 	)
-	(label "Fill_Servo2"
-		(at 158.75 177.8 180)
+	(label "Fill_Servo1"
+		(at 158.75 167.64 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "e4abd3b3-fcf9-41ba-b1ee-5a7efa0d402d")
+		(uuid "e5752b2d-d8cc-405c-862c-c109dc88cd76")
 	)
 	(label "SCSN"
 		(at 66.04 38.1 180)
@@ -7552,25 +7543,25 @@
 		)
 		(uuid "eeb50c86-601e-4dfa-8440-3f82af53cf28")
 	)
-	(label "ServoPWR_Switch3"
-		(at 158.75 172.72 180)
+	(label "SPI_MISO"
+		(at 158.75 160.02 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "f0ff4a06-61be-432e-b239-fd94679ef94b")
+		(uuid "f1b7b39f-44da-4c4a-94aa-1af93dd0cc1d")
 	)
-	(label "TC2_CS"
-		(at 158.75 132.08 180)
+	(label "Internal_Cooling"
+		(at 158.75 134.62 180)
 		(effects
 			(font
 				(size 1.27 1.27)
 			)
 			(justify right bottom)
 		)
-		(uuid "f3639d3a-1a5f-492c-8275-8c8f418bde2d")
+		(uuid "f349585f-e6f0-45e7-9ffb-898ce8e7f2d7")
 	)
 	(label "Q6-Gate"
 		(at 322.58 184.15 0)
@@ -7748,8 +7739,17 @@
 				(hide yes)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/diodes-incorporated/BC847CW-7-F/1099140"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/mcc-micro-commercial-components/BC847CW-TP/819626"
 			(at 344.678 138.938 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.24"
+			(at 332.74 137.16 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7893,6 +7893,24 @@
 				(hide yes)
 			)
 		)
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/umw/2N65G/17635281?gclsrc=aw.ds&gad_source=1&gad_campaignid=24316524447&gclid=CjwKCAiAquDXBhApEiwAoyNqBFV8QtiFWO3MXJMBoNeF-bf8QeEUiAqmMDrGwd5tbE4jzRhkB1o6ChoCj5QQAvD_BwE"
+			(at 326.39 147.32 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.99"
+			(at 326.39 147.32 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "2"
 			(uuid "d9654ba7-6197-47f6-ba1e-cf1b296535b0")
 		)
@@ -7958,6 +7976,24 @@
 		)
 		(property "Description" "N-MOSFET transistor"
 			(at 327.66 194.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/umw/2N65G/17635281?gclsrc=aw.ds&gad_source=1&gad_campaignid=24316524447&gclid=CjwKCAiAquDXBhApEiwAoyNqBFV8QtiFWO3MXJMBoNeF-bf8QeEUiAqmMDrGwd5tbE4jzRhkB1o6ChoCj5QQAvD_BwE"
+			(at 327.66 194.31 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.99"
+			(at 327.66 194.31 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -8155,7 +8191,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "+9V"
+		(property "Value" "+12V"
 			(at 43.688 141.986 0)
 			(effects
 				(font
@@ -8587,7 +8623,16 @@
 				)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL10B104KB8NNNC/3886658"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/kemet/C0603C104M5RACTU/2199782"
+			(at 318.77 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.10"
 			(at 318.77 80.01 0)
 			(effects
 				(font
@@ -8662,7 +8707,16 @@
 				)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/vishay-dale/TNPW060310K0BEEA/1606881"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/te-connectivity-passive-product/CRG0603F10K-10/2390661"
+			(at 320.04 189.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.10"
 			(at 320.04 189.23 0)
 			(effects
 				(font
@@ -8920,7 +8974,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "+9V"
+		(property "Value" "+12V"
 			(at 43.942 156.464 0)
 			(effects
 				(font
@@ -9084,7 +9138,16 @@
 				)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL10B104KB8NNNC/3886658"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/kemet/C0603C104M5RACTU/2199782"
+			(at 266.7 151.13 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.10"
 			(at 266.7 151.13 0)
 			(effects
 				(font
@@ -9126,7 +9189,7 @@
 				)
 			)
 		)
-		(property "Value" "K-Bottle TC"
+		(property "Value" "N2 TC"
 			(at 25.908 97.028 0)
 			(effects
 				(font
@@ -9301,8 +9364,17 @@
 				)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/vishay-dale/TNPW060310K0BEEA/1606881"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/te-connectivity-passive-product/CRG0603F10K-10/2390661"
 			(at 332.74 177.8 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.10"
+			(at 332.74 177.8 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9376,7 +9448,16 @@
 				)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/vishay-dale/TNPW060310K0BEEA/1606881"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/te-connectivity-passive-product/CRG0603F10K-10/2390661"
+			(at 318.77 144.78 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.10"
 			(at 318.77 144.78 0)
 			(effects
 				(font
@@ -9516,7 +9597,16 @@
 				)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL10B104KB8NNNC/3886658"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/kemet/C0603C104M5RACTU/2199782"
+			(at 334.01 97.79 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.10"
 			(at 334.01 97.79 0)
 			(effects
 				(font
@@ -9594,8 +9684,17 @@
 				(hide yes)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/diodes-incorporated/BC847CW-7-F/1099140"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/mcc-micro-commercial-components/BC847CW-TP/819626"
 			(at 349.758 185.928 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.24"
+			(at 337.82 184.15 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9672,8 +9771,17 @@
 				)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/vishay-dale/TNPW060310K0BEEA/1606881"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/te-connectivity-passive-product/CRG0603F10K-10/2390661"
 			(at 327.66 129.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.10"
+			(at 327.66 129.54 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -9833,8 +9941,8 @@
 		(at 87.63 134.62 0)
 		(unit 1)
 		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
+		(in_bom no)
+		(on_board no)
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "5d7ee02a-46d5-498a-8856-3efb13370109")
@@ -10054,24 +10162,21 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "6552fd50-3afc-4f96-b506-02ecc0aa8e25")
 		(property "Reference" "J23"
-			(at 31.75 144.7799 0)
+			(at 27.432 144.272 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
-		(property "Value" "Tank PT"
-			(at 31.75 147.3199 0)
+		(property "Value" "N2O_2 PT"
+			(at 27.432 146.812 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "TerminalBlock:TerminalBlock_Xinya_XY308-2.54-3P_1x03_P2.54mm_Horizontal"
@@ -10128,24 +10233,21 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "67ef7d6f-d076-475e-a317-70bd1b29a93b")
 		(property "Reference" "J21"
-			(at 31.75 118.1099 0)
+			(at 26.924 118.11 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
-		(property "Value" "K-Bottle TC"
-			(at 31.75 120.6499 0)
+		(property "Value" "N2O_2 TC"
+			(at 26.924 120.65 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "TerminalBlock:TerminalBlock_Xinya_XY308-2.54-2P_1x02_P2.54mm_Horizontal"
@@ -10199,24 +10301,21 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(fields_autoplaced yes)
 		(uuid "6f8e3bc8-2d03-4a9d-8a4e-f79a244e46b5")
 		(property "Reference" "J22"
-			(at 31.75 129.5399 0)
+			(at 27.178 128.778 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
-		(property "Value" "K-Bottle PT"
-			(at 31.75 132.0799 0)
+		(property "Value" "N2O_1 PT"
+			(at 27.178 131.318 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" "TerminalBlock:TerminalBlock_Xinya_XY308-2.54-3P_1x03_P2.54mm_Horizontal"
@@ -10510,7 +10609,16 @@
 				)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL10B104KB8NNNC/3886658"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/kemet/C0603C104M5RACTU/2199782"
+			(at 267.97 190.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.10"
 			(at 267.97 190.5 0)
 			(effects
 				(font
@@ -10795,6 +10903,24 @@
 					(size 1.27 1.27)
 				)
 				(justify bottom)
+				(hide yes)
+			)
+		)
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/stmicroelectronics/NUCLEO-F446RE/5347712"
+			(at 185.42 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$18.82"
+			(at 185.42 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
 				(hide yes)
 			)
 		)
@@ -11910,8 +12036,17 @@
 				(hide yes)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/diodes-incorporated/BC847CW-7-F/1099140"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/mcc-micro-commercial-components/BC847CW-TP/819626"
 			(at 287.528 75.438 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.24"
+			(at 275.59 73.66 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -11988,7 +12123,16 @@
 				)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL10B104KB8NNNC/3886658"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/kemet/C0603C104M5RACTU/2199782"
+			(at 265.43 106.68 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.10"
 			(at 265.43 106.68 0)
 			(effects
 				(font
@@ -12095,7 +12239,7 @@
 				)
 			)
 		)
-		(property "Value" "K-Bottle TC"
+		(property "Value" "N2O_1 TC"
 			(at 26.67 108.204 0)
 			(effects
 				(font
@@ -12541,7 +12685,16 @@
 				)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/vishay-dale/TNPW060310K0BEEA/1606881"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/te-connectivity-passive-product/CRG0603F10K-10/2390661"
+			(at 257.81 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.10"
 			(at 257.81 78.74 0)
 			(effects
 				(font
@@ -12715,7 +12868,7 @@
 				(hide yes)
 			)
 		)
-		(property "Value" "+9V"
+		(property "Value" "+12V"
 			(at 43.942 127.254 0)
 			(effects
 				(font
@@ -12816,6 +12969,24 @@
 				(hide yes)
 			)
 		)
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/umw/2N65G/17635281?gclsrc=aw.ds&gad_source=1&gad_campaignid=24316524447&gclid=CjwKCAiAquDXBhApEiwAoyNqBFV8QtiFWO3MXJMBoNeF-bf8QeEUiAqmMDrGwd5tbE4jzRhkB1o6ChoCj5QQAvD_BwE"
+			(at 265.43 83.82 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.99"
+			(at 265.43 83.82 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 		(pin "3"
 			(uuid "1ee92067-63cd-4f4e-a773-892ca6c2bc8e")
 		)
@@ -12885,7 +13056,16 @@
 				)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL10B104KB8NNNC/3886658"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/kemet/C0603C104M5RACTU/2199782"
+			(at 375.92 142.24 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.10"
 			(at 375.92 142.24 0)
 			(effects
 				(font
@@ -13091,7 +13271,16 @@
 				)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/samsung-electro-mechanics/CL10B104KB8NNNC/3886658"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/kemet/C0603C104M5RACTU/2199782"
+			(at 381 190.5 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.10"
 			(at 381 190.5 0)
 			(effects
 				(font
@@ -13232,8 +13421,17 @@
 				)
 			)
 		)
-		(property "DigiKey" "https://www.digikey.com/en/products/detail/vishay-dale/TNPW060310K0BEEA/1606881"
+		(property "DigiKey" "https://www.digikey.com/en/products/detail/te-connectivity-passive-product/CRG0603F10K-10/2390661"
 			(at 270.51 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "PRICE" "$0.10"
+			(at 270.51 67.31 90)
 			(effects
 				(font
 					(size 1.27 1.27)
